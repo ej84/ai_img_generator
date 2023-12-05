@@ -1,12 +1,17 @@
+"use client";
 import Image from "next/image";
 import React from "react";
-import AuthButton from "./components/AuthButton";
+import Nav from "./components/Nav";
+import Sidebar from "./components/Sidebar";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Hello World</h1>
-      <AuthButton />
-    </main>
+    <>
+      <Nav />
+      <main className="md:pt-24 min-h-screen">
+        <Sidebar />
+        {/*flex-col items-center justify-between p-24">*/}
+      </main>
+    </>
   );
 }
