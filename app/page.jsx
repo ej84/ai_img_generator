@@ -1,6 +1,5 @@
 "use client";
-import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import Sidebar from "./components/Sidebar";
 

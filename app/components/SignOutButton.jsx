@@ -16,12 +16,9 @@ const SignOutButton = () => {
   };
 
   return (
-    <FontAwesomeIcon icon={faCircleUser}>
-      <button
-        onClick={handleSignOut}
-        className="text-white text-5xl p-10 w-full"
-      />
-    </FontAwesomeIcon>
+    <button onClick={handleSignOut} className="p-5">
+      <FontAwesomeIcon icon={faCircleUser} size="3x" />
+    </button>
   );
 };
 

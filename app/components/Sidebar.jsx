@@ -1,17 +1,31 @@
 import React from "react";
+import { faCirclePlus, faFaceSmile } from "@fortawesome/free-solid-svg-icons";
+import { faWpexplorer } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
   return (
-    <div className="fixed inset-y-24 left-0 bg-white border-r">
-      <button className="block p-3 mt-4 text-center text-sm w-full hover:bg-gray-100">
-        Create
-      </button>
-      <button className="block p-3 mt-4 text-center text-sm w-full hover:bg-gray-100">
-        Explore
-      </button>
-      <button className="block p-3 mt-4 text-center text-sm w-full hover:bg-gray-100">
-        My Illustrations
-      </button>
+    <div className="fixed max-[639px]:inset-x-0 max-[639px]:bottom-0 md:inset-y-20 md:left-0 md:border-r bg-white">
+      <div className="max-[639px]:flex">
+        <div className="p-3 mt-4 text-center text-sm w-full text-gray-500 hover:text-blue-500">
+          <button>
+            <FontAwesomeIcon icon={faCirclePlus} size="2x" />
+            <p>Create</p>
+          </button>
+        </div>
+        <div className="p-3 mt-4 text-center text-sm w-full text-gray-500 hover:text-blue-500">
+          <button>
+            <FontAwesomeIcon icon={faWpexplorer} size="2x" />
+            <p>Explore</p>
+          </button>
+        </div>
+        <div className="p-3 mt-4 text-center text-sm w-full text-gray-500 hover:text-blue-500">
+          <button>
+            <FontAwesomeIcon icon={faFaceSmile} size="2x" />
+            <p>My Illustrations</p>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

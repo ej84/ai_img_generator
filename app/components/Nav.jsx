@@ -10,8 +10,7 @@ const Nav = () => {
         <a className="fixed left-14 font-bold text-3xl text-gray-800" href="/">
           LOGO
         </a>
-        <div className="relative w-full max-w-xs mx-auto md:max-w-md">
-          {/*"fixed left-1/3 items-center w-full max-w-xl">*/}
+        <div className="relative w-full max-w-sm mx-auto md:max-w-xl">
           <input
             type="search"
             className="w-full h-14 pl-8 pr-10 border border-gray-300 rounded-full text-sm focus:outline-none"
