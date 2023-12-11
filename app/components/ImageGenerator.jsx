@@ -1,14 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { generateImage } from "../utils/illustroke";
 
 const ImageGenerator = () => {
-  const promptRef = useRef();
-
-  const appendPrompt = (word) => {
-    promptRef.current.value = promptRef.current.value.concat(", ", word);
-  };
-
-  const [inputText, setInputText] = useState("");
-  const [renderedImage, setRenderedImage] = useState([]);
+  const [prompt, setPrompt] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -16,32 +10,13 @@ const ImageGenerator = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch("/api/openai", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: inputText }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error generating an image");
-      }
-      console.log(response);
-      const data = await response.json();
-      setRenderedImage(data.data);
-      setImageUrl(data.imageUrl);
-      console.log(data);
+      const data = await generateImage(prompt);
+      setImageUrl(data.data[0].url); // Retrieve the first image data
     } catch (error) {
-      console.log(error.message);
+      console.error("Error generating image:", error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleCopyUrl = () => {
-    navigator.clipboard.writeText(imageUrl);
-    alert("Image URL copied to clipboard!");
   };
 
   return (
@@ -49,30 +24,27 @@ const ImageGenerator = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Enter a prompt"
           className="border border-indigo-700"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          placeholder="Enter a description..."
         />
         <button type="submit">Generate Image</button>
       </form>
 
       {loading && <p>Loading...</p>}
 
-      {renderedImage.length === 0 && (
-        <div className="bg-gray-600 aspect-square flex items-center justify-center">
-          Image will show up here
-        </div>
-      )}
-
-      {renderedImage.map((image) => {
-        return <img key={image.url} src={image.url} />;
-      })}
-
       {imageUrl && (
         <div>
-          <img src={imageUrl} alt="Generated" />
-          <button onClick={handleCopyUrl}>Copy Image URL</button>
+          <img
+            src={imageUrl}
+            alt="Generated"
+            width="230"
+            className="fixed inset-x-1/3 bottom-10"
+          />
+          <p>
+            Image URL: <a href={imageUrl}>{imageUrl}</a>
+          </p>
         </div>
       )}
     </div>
