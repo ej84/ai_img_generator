@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import firebase from "../firebase/initFirebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AuthButton = () => {
+  const [showLoginWindow, setShowLoginWindow] = useState(false);
+
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     try {
       await signInWithPopup(auth, provider);
       // Login Successful
-      console.log("Success");
-      console.log(firebase);
+      setShowLoginWindow(false);
+      window.location.reload();
     } catch (error) {
       // Login Failed
       console.log(error);
