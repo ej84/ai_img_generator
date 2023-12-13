@@ -6,11 +6,14 @@ const Nav = () => {
   const { user } = useAuth();
   return (
     <nav className="fixed top-0 left-0 w-full z-10 bg-white shadow">
-      <div className="container mx-auto flex justify-between items-center px-9 py-4">
-        <a className="fixed left-14 font-bold text-3xl text-gray-800" href="/">
+      <div className="container md:mx-auto flex justify-between items-center px-9 py-4">
+        <a
+          className="fixed md:left-14 font-bold text-md md:text-3xl text-gray-800"
+          href="/"
+        >
           LOGO
         </a>
-        <div className="relative w-full max-w-sm mx-auto md:max-w-xl">
+        <div className="absolute w-full max-w-sm mx-auto md:max-w-xl">
           <input
             type="search"
             className="w-full h-14 pl-8 pr-10 border border-gray-300 rounded-full text-sm focus:outline-none"
@@ -24,7 +27,7 @@ const Nav = () => {
           </button>
         </div>
         <div className="fixed right-6">
-          {user ? <SignOutButton /> : <AuthButton />}
+          {user ? <SignOutButton /> : <AuthButton title="Log in for more" />}
         </div>
       </div>
     </nav>

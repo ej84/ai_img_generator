@@ -4,7 +4,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const AuthButton = () => {
+const AuthButton = ({ title }) => {
   const [showLoginWindow, setShowLoginWindow] = useState(false);
 
   const handleLogin = async () => {
@@ -26,7 +26,7 @@ const AuthButton = () => {
       className="px-6 py-2 rounded-full bg-sky-100 text-blue-500"
       onClick={handleLogin}
     >
-      <p className="inline">Log in for more</p>
+      <p className="inline">{title}</p>
       <FontAwesomeIcon icon={faArrowRight} className="ml-3" />
     </button>
   );
