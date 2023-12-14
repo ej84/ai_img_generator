@@ -1,34 +1,43 @@
+import React from "react";
 import useAuth from "../hooks/useAuth";
 import AuthButton from "./AuthButton";
-import SignOutButton from "./SignoutButton";
+import SignOutButton from "./SignOutButton";
 
 const Nav = () => {
   const { user } = useAuth();
+  const loginStyle = "md:hidden";
+  const loginStyle2 = "hidden md:block";
   return (
-    <nav className="fixed top-0 left-0 w-full z-10 bg-white shadow">
-      <div className="container md:mx-auto flex justify-between items-center px-9 py-4">
-        <a
-          className="fixed md:left-14 font-bold text-md md:text-3xl text-gray-800"
-          href="/"
-        >
-          LOGO
-        </a>
-        <div className="absolute w-full max-w-sm mx-auto md:max-w-xl">
+    <nav className="bg-white px-4 py-2 border border-x-transparent border-b-gray-200">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        {/* Logo */}
+        <div className="flex justify-between md:justify-start md:w-auto">
+          <h1 className="text-2xl mt-1 font-bold">LOGO</h1>
+          {user ? (
+            <SignOutButton style={loginStyle} />
+          ) : (
+            <AuthButton title="Log in for more" style={loginStyle} />
+          )}
+        </div>
+
+        {/* Search Bar */}
+        <div className="flex mt-2 md:mt-0 md:w-1/2 lg:w-1/3">
           <input
+            className="flex-grow p-2 pl-5 border border-gray-300 rounded-full md:mx-4"
             type="search"
-            className="w-full h-14 pl-8 pr-10 border border-gray-300 rounded-full text-sm focus:outline-none"
             placeholder="Search for an illustration..."
           />
-          <button
-            type="submit"
-            className="absolute right-0 top-2 px-4 mt-1 mr-3 h-8 rounded-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white focus:outline-none"
-          >
+          <button className="hidden lg:block relative right-28 px-4 my-1 border border-blue-500 bg-white text-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
             Search
           </button>
         </div>
-        <div className="fixed right-6">
-          {user ? <SignOutButton /> : <AuthButton title="Log in for more" />}
-        </div>
+
+        {/* Login Button - hidden on small screens, shown on medium screens and above */}
+        {user ? (
+          <SignOutButton style={loginStyle2} />
+        ) : (
+          <AuthButton title="Log in for more" style={loginStyle2} />
+        )}
       </div>
     </nav>
   );

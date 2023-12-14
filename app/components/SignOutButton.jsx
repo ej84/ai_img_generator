@@ -3,7 +3,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SignOutButton = () => {
+const SignOutButton = ({ style }) => {
   const handleSignOut = () => {
     const auth = getAuth();
     signOut(auth)
@@ -16,7 +16,7 @@ const SignOutButton = () => {
   };
 
   return (
-    <button onClick={handleSignOut} className="p-5">
+    <button onClick={handleSignOut} className={style}>
       <FontAwesomeIcon icon={faCircleUser} size="3x" />
     </button>
   );

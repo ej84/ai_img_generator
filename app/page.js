@@ -24,7 +24,7 @@ export default function Home() {
       <Nav />
       <Sidebar />
       <main className="md:pt-24 min-h-screen">
-        <div className="flex">
+        {/*<div className="flex">
           <div className="relative top-5 left-52 w-full h-20 space-x-20">
             <select className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer">
               <option value="">Illustration style</option>
@@ -74,7 +74,7 @@ export default function Home() {
               <h3>Image</h3>
             </button>
           </div>
-        </div>
+  </div>*/}
       </main>
     </>
   );
