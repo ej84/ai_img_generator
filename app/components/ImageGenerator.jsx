@@ -20,7 +20,7 @@ const ImageGenerator = () => {
   };
 
   return (
-    <div className="fixed inset-y-1/2 right-96">
+    <div className="text-center">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
