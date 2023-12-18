@@ -5,6 +5,8 @@ import Sidebar from "./components/Sidebar";
 import ImageGenerator from "./components/ImageGenerator";
 import useAuth from "./hooks/useAuth";
 import LoginWindow from "./components/LoginWindow";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Home() {
   const [showLoginWindow, setShowLoginWindow] = useState(false);
@@ -44,6 +46,11 @@ export default function Home() {
 
           {showLoginWindow && <LoginWindow />}
         </div>
+        <FontAwesomeIcon
+          icon={faFilter}
+          size="1x"
+          className="flex inset-x-1/2 inset-y-1/2 p-3 md:hidden"
+        />
         {/*
         <div className="flex w-full justify-center mt-14">
           <div className="grid grid-cols-4">
