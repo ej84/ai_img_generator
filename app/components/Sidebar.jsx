@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Sidebar = () => {
   return (
-    <div className="fixed md:absolute md:h-full max-[639px]:inset-x-0 max-[639px]:bottom-0 max-[639px]:border max-[639px]:border-t-gray-300 md:top-20 md:left-0 md:border-r bg-white">
+    <div className="fixed md:flex md:absolute md:h-full max-[639px]:inset-x-0 max-[639px]:bottom-0 max-[639px]:border max-[639px]:border-t-gray-300 md:top-16 md:left-0 md:border-r bg-white">
       <div className="max-[639px]:flex">
         <div className="p-3 mt-4 text-center text-sm w-full text-gray-500 hover:text-blue-500">
           <Link href="/create">

@@ -109,6 +109,7 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
                 </span>
               )}
             </button>
+
             <p style={{ fontSize: "10px" }} className="text-center">
               {style}
             </p>

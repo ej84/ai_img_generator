@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 import IlluStyles from "./components/IlluStyles";
+import ColorModeSelector from "./components/ColorModeSelector";
+import ColorPicker from "./components/ColorPicker";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -41,7 +43,7 @@ const Page = () => {
   return (
     <>
       <Nav />
-      <div className="md:pt-16 min-h-screen">
+      <div className="min-h-screen">
         <Sidebar />
         {step === 1 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
@@ -63,42 +65,86 @@ const Page = () => {
             >
               Create illustration
             </button>
+            <ColorPicker />
           </div>
         )}
 
         {step === 2 && (
+          <>
+            <div className="flex justify-center w-full h-20 bg-gray-400"></div>
+            <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+              <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
+                Choose the illustration style
+              </h1>
+              <div className="max-[639px]:justify-center md:flex md:relative md:-left-10">
+                <IlluStyles
+                  selectedStyle={userInput.imageStyle}
+                  setSelectedStyle={handleSelectedStyleChange}
+                />
+              </div>
+              <button
+                onClick={handleBack}
+                className="text-blue-500 absolute left-10 bottom-72 md:left-0 md:-bottom-20"
+              >
+                Back
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-blue-500 px-5 py-3 rounded-full text-white absolute right-16"
+              >
+                Continue
+              </button>
+            </div>
+          </>
+        )}
+
+        {step === 3 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
-              Choose the illustration style
+              Choose the color mode
             </h1>
-            <div className="max-[639px]:justify-center md:flex md:relative md:-left-10">
-              <IlluStyles
-                selectedStyle={userInput.imageStyle}
-                setSelectedStyle={handleSelectedStyleChange}
-              />
+            <div className="max-[639px]:justify-center md:flex md:relative">
+              <ColorModeSelector />
             </div>
-            <button onClick={handleBack} className="text-blue-500 mx-14">
-            Back
+            <button
+              onClick={handleBack}
+              className="text-blue-500 absolute left-10 bottom-72 md:left-0 md:-bottom-20"
+            >
+              Back
             </button>
-            <button onClick={handleNext} className="bg-blue-500 px-5 py-3 rounded-full text-white">Continue</button>
+            <button
+              onClick={handleNext}
+              className="bg-blue-500 px-5 py-3 rounded-full text-white absolute right-16"
+            >
+              Continue
+            </button>
           </div>
         )}
 
-        {/* 여기에 다른 단계의 UI 구성 요소를 추가 */}
-
-        {step === 3 && (
-          <div className="max-[639px]:text-center md:absolute md:top-48 md:right-1/4 space-y-10">
-            <h1>test</h1>
-            <p>Confirm your input:</p>
-            <p>Prompt: {userInput.promptText}</p>
-            <p>Style: {userInput.imageStyle}</p>
-            {/* 다른 입력 확인 */}
-            <button onClick={handleBack}>Back</button>
-            <button onClick={handleNext}>Next</button>
-         </div>
+        {step === 4 && (
+          <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+            <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
+              Choose the illustration type
+            </h1>
+            <div className="max-[639px]:justify-center md:flex md:relative">
+              types
+            </div>
+            <button
+              onClick={handleBack}
+              className="text-blue-500 absolute left-10 bottom-72 md:left-0 md:-bottom-20"
+            >
+              Back
+            </button>
+            <button
+              onClick={handleNext}
+              className="bg-blue-500 px-5 py-3 rounded-full text-white absolute right-16"
+            >
+              Continue
+            </button>
+          </div>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:right-1/4 space-y-10">
             <h1>test</h1>
             <p>Confirm your input:</p>
@@ -113,7 +159,7 @@ const Page = () => {
             >
               Generate Image
             </button>
-         </div>
+          </div>
         )}
       </div>
     </>
