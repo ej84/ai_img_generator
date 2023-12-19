@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
+import ImageGenerator from "../components/ImageGenerator";
 import IlluStyles from "./components/IlluStyles";
 
 const Page = () => {
@@ -67,7 +68,7 @@ const Page = () => {
         )}
 
         {step === 2 && (
-          <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+          <div className="max-[639px]:text-center md:absolute md:top-48 md:right-1/4 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
               Choose the illustration style
             </h1>
@@ -77,10 +78,10 @@ const Page = () => {
                 setSelectedStyle={handleSelectedStyleChange}
               />
             </div>
-            <button onClick={handleBack} className="text-blue-500 mx-14">
-            Back
+            <button onClick={handleBack} className="relative -left-5">
+              Back
             </button>
-            <button onClick={handleNext} className="bg-blue-500 px-5 py-3 rounded-full text-white">Continue</button>
+            <button onClick={handleNext}>Next</button>
           </div>
         )}
 

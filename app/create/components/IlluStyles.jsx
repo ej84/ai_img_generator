@@ -81,7 +81,7 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
 
   return (
     <div>
-      <div className="flex justify-center gap-3 md:relative md:left-5 md:gap-4">
+      <div className="flex justify-center gap-3 md:gap-4">
         {Object.keys(categories).map((category) => (
           <button
             key={category}
