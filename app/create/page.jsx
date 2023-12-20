@@ -12,7 +12,9 @@ const Page = () => {
   const [userInput, setUserInput] = useState({
     promptText: "",
     imageStyle: [],
-    // 다른 단계에서 필요한 데이터를 추가로 저장
+    colorMode: "",
+    objectMode: "",
+    n: 1,
   });
 
   const handleNext = () => {
@@ -82,10 +84,7 @@ const Page = () => {
                 />
               </div>
               <div className="col-span-2 max-[640px]:space-x-14">
-                <button
-                  onClick={handleBack}
-                  className="text-blue-500"
-                >
+                <button onClick={handleBack} className="text-blue-500">
                   Back
                 </button>
                 <button
@@ -108,19 +107,16 @@ const Page = () => {
               <ColorModeSelector />
             </div>
             <div className="col-span-2 max-[640px]:space-x-14">
-                <button
-                  onClick={handleBack}
-                  className="text-blue-500"
-                >
-                  Back
-                </button>
-                <button
-                  onClick={handleNext}
-                  className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
-                >
-                  Continue
-                </button>
-              </div>
+              <button onClick={handleBack} className="text-blue-500">
+                Back
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+              >
+                Continue
+              </button>
+            </div>
           </div>
         )}
 
@@ -133,35 +129,36 @@ const Page = () => {
               types
             </div>
             <div className="col-span-2 max-[640px]:space-x-14">
-                <button
-                  onClick={handleBack}
-                  className="text-blue-500"
-                >
-                  Back
-                </button>
-                <button
-                  onClick={handleNext}
-                  className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
-                >
-                  Continue
-                </button>
+              <button onClick={handleBack} className="text-blue-500">
+                Back
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+              >
+                Continue
+              </button>
             </div>
           </div>
         )}
 
         {step === 5 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
-            <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">Final Review</h1>
+            <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
+              Final Review
+            </h1>
             <div className="max-[639px]:justify-center md:flex md:relative">
-              <div className="flex flex-col space-y-10"><p>Confirm your input:</p>
-              <p>Prompt: {userInput.promptText}</p>
-              <p>Style: {userInput.imageStyle}</p></div>
+              <div className="flex flex-col space-y-10">
+                <p>Confirm your input below:</p>
+                <p>Prompt: {userInput.promptText}</p>
+                <p>Style: {userInput.imageStyle}</p>
+                <p>Color Mode: {userInput.colorMode}</p>
+                <p>Object Mode: {userInput.objectMode}</p>
+                <p>Number of Color Variants: {userInput.n}</p>
+              </div>
             </div>
             <div className="col-span-2 max-[640px]:space-x-14">
-              <button
-                onClick={handleBack}
-                className="text-blue-500"
-              >
+              <button onClick={handleBack} className="text-blue-500">
                 Back
               </button>
               <button

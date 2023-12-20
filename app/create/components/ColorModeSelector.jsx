@@ -4,6 +4,7 @@ import ColorPicker from "./ColorPicker";
 const ColorModeSelector = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [colorLimit, setColorLimit] = useState(2);
+  const [modeSelected, setModeSelected] = useState("");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -13,11 +14,23 @@ const ColorModeSelector = () => {
     setColorLimit(newLimit);
   };
 
+  const handleModeSelected = (colorMode) => {
+    setModeSelected(colorMode);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center space-y-10">
       <div className="grid grid-cols-2 space-x-3 md:mr-56">
         <div className="max-[639px]:text-sm text-center">
-          <button className="h-20 w-20 md:h-28 md:w-28 rounded-2xl">
+          <button
+            key="fullColor"
+            onClick={() => handleModeSelected("fullColor")}
+            className={`h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
+              modeSelected === "fullColor"
+                ? "border border-blue-500 border-solid"
+                : ""
+            }`}
+          >
             <img
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAFeCAYAAADNK3caAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATHSURBVHgB7dRRFUBQFADBSyoldFCD8ijx9mvmbIbd3pk/lniGVc5hkeu4h7X2ASBlvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYh8irAaSol7uvAAAAABJRU5ErkJggg=="
               className="rounded-2xl"
@@ -26,7 +39,15 @@ const ColorModeSelector = () => {
           <p>Full Colored</p>
         </div>
         <div className="max-[639px]:text-sm text-center">
-          <button className="h-20 w-20 md:h-28 md:w-28 rounded-2xl">
+          <button
+            key="bw"
+            onClick={() => handleModeSelected("bw")}
+            className={`h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
+              modeSelected === "bw"
+                ? "border border-blue-500 border-solid border-x-8 border-y-8"
+                : ""
+            }`}
+          >
             <img
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAFeCAYAAADNK3caAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAS9SURBVHgB7dQBCQAwDMCw/f497y4Kh0RD6ZmZHfjMrmz51x0AUsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyD2ADUABriZDAYyAAAAAElFTkSuQmCC"
               className="rounded-2xl shadow-2xl"
@@ -52,30 +73,34 @@ const ColorModeSelector = () => {
             Choose one of the options
           </h1>
           <div className="flex flex-col space-y-3 mt-10">
-            <button className="block border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full text-left rounded-full">
-              No settings applied
-            </button>
-            <button className="block border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full text-left rounded-full">
-              Color limit
-              <span className="relative md:left-16 space-x-2">
+            <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
+              <p>No settings applied</p>
+            </div>
+            <div className="flex md:flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
+              <div>Color limit</div>
+              <span className="flex absolute right-2 space-x-2">
                 {/* Color Limit Buttons */}
                 {Array.from({ length: 8 }, (_, i) => i + 2).map((limit) => (
                   <button
                     key={limit}
                     onClick={() => handleColorLimitChange(limit)}
-                    className={`py-1 px-3 rounded-full ${
-                      colorLimit === limit ? "bg-blue-500 text-white" : "bg-gray-200"
+                    className={`py-1 px-3 -mt-1 rounded-full ${
+                      colorLimit === limit
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200"
                     }`}
                   >
                     {limit}
                   </button>
                 ))}
               </span>
-            </button>
-            <button className="block border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full text-left rounded-full">
-              Color palette
-            <span className="absolute bottom-4 right-0"><ColorPicker/></span>
-            </button>
+            </div>
+            <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-auto text-left rounded-full">
+              <div className="block">Color palette</div>
+              <span className="flex">
+                <ColorPicker />
+              </span>
+            </div>
           </div>
         </div>
       )}

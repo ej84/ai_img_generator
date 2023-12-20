@@ -7,8 +7,8 @@ const ColorPicker = () => {
   const [showPicker, setShowPicker] = useState(false);
 
   const handleAddColor = (color) => {
-      setColorPalette([...colorPalette, color.hex]);
-      setShowPicker(false); // Close the Color Picker
+    setColorPalette([...colorPalette, color.hex]);
+    setShowPicker(false); // Close the Color Picker
   };
 
   const handleRemoveColor = (color) => {
@@ -16,35 +16,36 @@ const ColorPicker = () => {
   };
 
   return (
-      <div className="flex space-x-2 items-center">
-        {colorPalette.map((color, index) => (
-          <div key={index} className="relative group">
-            <div
-              className="w-10 h-10 rounded-full"
-              style={{ backgroundColor: color }}
-            />
-            <button
-              onClick={() => handleRemoveColor(color)}
-              className="absolute top-0 right-0 hidden group-hover:block"
-            >
-              🗑️
-            </button>
-          </div>
-        ))}
-          <button
-            onClick={() => setShowPicker(true)}
-            className="add-color-button"
-          >
-            +
-          </button>
-        {/* Color Picker */}
-        {showPicker && (
-          <SketchPicker
-            color={colorPalette[colorPalette.length - 1] || "#000"}
-            onChangeComplete={handleAddColor}
+    <div className="flex space-x-2 ">
+      {colorPalette.map((color, index) => (
+        <div key={index} className="relative group">
+          <div
+            className="w-6 h-6 rounded-full"
+            style={{ backgroundColor: color }}
           />
-        )}
-      </div>
+          <button
+            onClick={() => handleRemoveColor(color)}
+            className="absolute top-0 right-0 hidden group-hover:block"
+          >
+            🗑️
+          </button>
+        </div>
+      ))}
+      <button
+        onClick={() => setShowPicker(true)}
+        className="add-color-button w-3 h-3 self-center"
+      >
+        +
+      </button>
+      {/* Color Picker */}
+      {showPicker && (
+        <SketchPicker
+          color={colorPalette[colorPalette.length - 1] || "#000"}
+          onChangeComplete={handleAddColor}
+          className="absolute md:bottom-1/4 md:left-1/2"
+        />
+      )}
+    </div>
   );
 };
 
