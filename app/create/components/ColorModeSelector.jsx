@@ -3,9 +3,14 @@ import ColorPicker from "./ColorPicker";
 
 const ColorModeSelector = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [colorLimit, setColorLimit] = useState(2);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleColorLimitChange = (newLimit) => {
+    setColorLimit(newLimit);
   };
 
   return (
@@ -52,9 +57,24 @@ const ColorModeSelector = () => {
             </button>
             <button className="block border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full text-left rounded-full">
               Color limit
+              <span className="relative md:left-16 space-x-2">
+                {/* Color Limit Buttons */}
+                {Array.from({ length: 8 }, (_, i) => i + 2).map((limit) => (
+                  <button
+                    key={limit}
+                    onClick={() => handleColorLimitChange(limit)}
+                    className={`py-1 px-3 rounded-full ${
+                      colorLimit === limit ? "bg-blue-500 text-white" : "bg-gray-200"
+                    }`}
+                  >
+                    {limit}
+                  </button>
+                ))}
+              </span>
             </button>
             <button className="block border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full text-left rounded-full">
               Color palette
+            <span className="absolute bottom-4 right-0"><ColorPicker/></span>
             </button>
           </div>
         </div>

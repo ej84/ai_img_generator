@@ -65,7 +65,6 @@ const Page = () => {
             >
               Create illustration
             </button>
-            <ColorPicker />
           </div>
         )}
 
@@ -82,18 +81,20 @@ const Page = () => {
                   setSelectedStyle={handleSelectedStyleChange}
                 />
               </div>
-              <button
-                onClick={handleBack}
-                className="text-blue-500 absolute left-10 bottom-72 md:left-0 md:-bottom-20"
-              >
-                Back
-              </button>
-              <button
-                onClick={handleNext}
-                className="bg-blue-500 px-5 py-3 rounded-full text-white absolute right-16"
-              >
-                Continue
-              </button>
+              <div className="col-span-2 max-[640px]:space-x-14">
+                <button
+                  onClick={handleBack}
+                  className="text-blue-500"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                >
+                  Continue
+                </button>
+              </div>
             </div>
           </>
         )}
@@ -106,18 +107,20 @@ const Page = () => {
             <div className="max-[639px]:justify-center md:flex md:relative">
               <ColorModeSelector />
             </div>
-            <button
-              onClick={handleBack}
-              className="text-blue-500 absolute left-10 bottom-72 md:left-0 md:-bottom-20"
-            >
-              Back
-            </button>
-            <button
-              onClick={handleNext}
-              className="bg-blue-500 px-5 py-3 rounded-full text-white absolute right-16"
-            >
-              Continue
-            </button>
+            <div className="col-span-2 max-[640px]:space-x-14">
+                <button
+                  onClick={handleBack}
+                  className="text-blue-500"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                >
+                  Continue
+                </button>
+              </div>
           </div>
         )}
 
@@ -129,36 +132,47 @@ const Page = () => {
             <div className="max-[639px]:justify-center md:flex md:relative">
               types
             </div>
-            <button
-              onClick={handleBack}
-              className="text-blue-500 absolute left-10 bottom-72 md:left-0 md:-bottom-20"
-            >
-              Back
-            </button>
-            <button
-              onClick={handleNext}
-              className="bg-blue-500 px-5 py-3 rounded-full text-white absolute right-16"
-            >
-              Continue
-            </button>
+            <div className="col-span-2 max-[640px]:space-x-14">
+                <button
+                  onClick={handleBack}
+                  className="text-blue-500"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                >
+                  Continue
+                </button>
+            </div>
           </div>
         )}
 
         {step === 5 && (
-          <div className="max-[639px]:text-center md:absolute md:top-48 md:right-1/4 space-y-10">
-            <h1>test</h1>
-            <p>Confirm your input:</p>
-            <p>Prompt: {userInput.promptText}</p>
-            <p>Style: {userInput.imageStyle}</p>
-            {/* 다른 입력 확인 */}
-            <button onClick={handleBack}>Back</button>
-            <button
-              onClick={() => {
-                /* 이미지 생성 요청 로직 */
-              }}
-            >
-              Generate Image
-            </button>
+          <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+            <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">Final Review</h1>
+            <div className="max-[639px]:justify-center md:flex md:relative">
+              <div className="flex flex-col space-y-10"><p>Confirm your input:</p>
+              <p>Prompt: {userInput.promptText}</p>
+              <p>Style: {userInput.imageStyle}</p></div>
+            </div>
+            <div className="col-span-2 max-[640px]:space-x-14">
+              <button
+                onClick={handleBack}
+                className="text-blue-500"
+              >
+                Back
+              </button>
+              <button
+                onClick={() => {
+                  /* 이미지 생성 요청 로직 */
+                }}
+                className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:-right-full md:-mt-3"
+              >
+                Yes, Create
+              </button>
+            </div>
           </div>
         )}
       </div>
