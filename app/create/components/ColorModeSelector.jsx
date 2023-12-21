@@ -4,7 +4,7 @@ import ColorPicker from "./ColorPicker";
 const ColorModeSelector = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [colorLimit, setColorLimit] = useState(2);
-  const [modeSelected, setModeSelected] = useState("");
+  const [selectedButton, setSelectedButton] = useState("fullColor");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -13,17 +13,22 @@ const ColorModeSelector = () => {
   const handleColorLimitChange = (newLimit) => {
     setColorLimit(newLimit);
   };
-/*
-  const handleModeSelected = (colorMode) => {
-    setModeSelected(colorMode);
-  };*/
+
+  const handleSelectedButton = (color) => {
+    setSelectedButton(color);
+  };
 
   return (
     <div className="flex flex-col justify-center items-center space-y-10">
       <div className="grid grid-cols-2 space-x-3 md:mr-56">
         <div className="max-[639px]:text-sm text-center">
           <button
-            className="h-20 w-20 md:h-28 md:w-28 rounded-2xl focus:outline outline-blue-500 focus:outline-4"
+            className={`h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
+              selectedButton === "fullColor"
+                ? "outline outline-blue-500 outline-4"
+                : ""
+            }`}
+            onClick={() => handleSelectedButton("fullColor")}
           >
             <img
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAFeCAYAAADNK3caAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATHSURBVHgB7dRRFUBQFADBSyoldFCD8ijx9mvmbIbd3pk/lniGVc5hkeu4h7X2ASBlvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYh8irAaSol7uvAAAAABJRU5ErkJggg=="
@@ -34,7 +39,12 @@ const ColorModeSelector = () => {
         </div>
         <div className="max-[639px]:text-sm text-center">
           <button
-            className="h-20 w-20 md:h-28 md:w-28 rounded-2xl focus:outline outline-blue-500 focus:outline-4"
+            className={`h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
+              selectedButton === "bw"
+                ? "outline outline-blue-500 outline-4"
+                : ""
+            }`}
+            onClick={() => handleSelectedButton("bw")}
           >
             <img
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAFeCAYAAADNK3caAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAS9SURBVHgB7dQBCQAwDMCw/f497y4Kh0RD6ZmZHfjMrmz51x0AUsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyBmvAAx4wWIGS9AzHgBYsYLEDNegJjxAsSMFyD2ADUABriZDAYyAAAAAElFTkSuQmCC"

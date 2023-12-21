@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import IlluStyles from "./components/IlluStyles";
 import ColorModeSelector from "./components/ColorModeSelector";
 import ColorPicker from "./components/ColorPicker";
+import IlluTypeSelector from "./components/IlluTypeSelector";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -122,11 +123,11 @@ const Page = () => {
 
         {step === 4 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
-            <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
+            <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl md:-ml-2">
               Choose the illustration type
             </h1>
             <div className="max-[639px]:justify-center md:flex md:relative">
-              types
+              <IlluTypeSelector />
             </div>
             <div className="col-span-2 max-[640px]:space-x-14">
               <button onClick={handleBack} className="text-blue-500">
