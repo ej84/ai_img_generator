@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const categories = {
   common: [
@@ -99,13 +101,17 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
             <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`relative bg-blue-500 rounded-xl p-7 m-2 md:p-10 ${
+              className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-10 ${
                 selectedStyle.includes(style) ? "selected" : ""
               }`}
             >
               {selectedStyle.includes(style) && (
-                <span className="check-icon absolute top-0 right-0 text-white text-sm">
-                  ✔️
+                <span className="check-icon absolute top-1 right-1 text-white text-sm">
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    size="2x"
+                    color="blue"
+                  />
                 </span>
               )}
             </button>

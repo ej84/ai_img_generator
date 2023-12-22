@@ -1,4 +1,11 @@
 import React, { useState, useRef } from "react";
+import {
+  faCircleCheck,
+  faEarth,
+  faLock,
+  fa,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const IlluTypeSelector = () => {
   const [selectedButton, setSelectedButton] = useState("full");
@@ -21,31 +28,51 @@ const IlluTypeSelector = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-10">
+    <div className="flex flex-col justify-center items-center space-y-10">
       <div className="grid grid-rows-1">
         <div className="grid grid-cols-4 space-x-2 max-[640px]:ml-2">
           <div className="max-[639px]:text-sm text-center">
             <button
               ref={fullModeBtn}
-              className={`h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-red-600 ${
+              className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-red-600 ${
                 selectedButton === "full"
                   ? "outline outline-blue-500 outline-4"
                   : ""
               }`}
               onClick={() => handleSelectedMode("full")}
-            ></button>
+            >
+              {selectedButton === "full" && (
+                <span className="check-icon absolute top-2 right-2 text-white text-sm">
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    size="2x"
+                    color="blue"
+                  />
+                </span>
+              )}
+            </button>
             <p>Full Illustration</p>
           </div>
           <div className="max-[639px]:text-sm text-center">
             <button
               ref={isolModeBtn}
-              className={`h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-white shadow-2xl ${
+              className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-white shadow-2xl ${
                 selectedButton === "isolated"
                   ? "outline outline-blue-500 outline-4"
                   : ""
               }`}
               onClick={() => handleSelectedMode("isolated")}
-            ></button>
+            >
+              {selectedButton === "isolated" && (
+                <span className="check-icon absolute top-2 right-2 text-white text-sm">
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    size="2x"
+                    color="blue"
+                  />
+                </span>
+              )}
+            </button>
             <p>Isolated Objects</p>
           </div>
         </div>
@@ -61,12 +88,21 @@ const IlluTypeSelector = () => {
                 <button
                   key={variant}
                   onClick={() => handleSelectedVar(variant)}
-                  className={`h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-gray-200 ${
+                  className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-gray-200 ${
                     selectedVar === variant
                       ? "outline outline-blue-500 outline-4"
                       : ""
                   }`}
                 >
+                  {selectedVar === variant && (
+                    <span className="check-icon absolute top-1 right-1 text-white text-sm">
+                      <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        size="2x"
+                        color="blue"
+                      />
+                    </span>
+                  )}
                   <h1 className="text-5xl text-center">{variant}</h1>
                 </button>
                 <p className="text-center mt-2">{variantTexts[variant]}</p>
@@ -83,25 +119,53 @@ const IlluTypeSelector = () => {
               <div className="max-[639px]:text-sm text-center">
                 <button
                   onClick={() => handleSelectedVisibility("public")}
-                  className={`h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
+                  className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
                     selectedVisibility === "public"
                       ? "outline outline-blue-500 outline-4"
                       : ""
                   }`}
                 >
-                  Public
+                  {selectedVisibility === "public" && (
+                    <span className="check-icon absolute top-2 right-2 text-white text-sm">
+                      <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        size="2x"
+                        color="blue"
+                      />
+                    </span>
+                  )}
+                  <FontAwesomeIcon
+                    icon={faEarth}
+                    size="3x"
+                    className="justify-center"
+                  />
                 </button>
-                <p className="text-center mt-2">Public</p>
+                <p className="text-center">Public</p>
               </div>
               <div className="max-[639px]:text-sm text-center">
                 <button
                   onClick={() => handleSelectedVisibility("private")}
-                  className={`h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
+                  className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
                     selectedVisibility === "private"
                       ? "outline outline-blue-500 outline-4"
                       : ""
                   }`}
-                ></button>
+                >
+                  {selectedVisibility === "private" && (
+                    <span className="check-icon absolute top-2 right-2 text-white text-sm">
+                      <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        size="2x"
+                        color="blue"
+                      />
+                    </span>
+                  )}
+                  <FontAwesomeIcon
+                    icon={faLock}
+                    size="3x"
+                    className="justify-center"
+                  />
+                </button>
                 <p className="text-center">Private</p>
               </div>
             </div>
