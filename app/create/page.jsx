@@ -163,9 +163,7 @@ const Page = () => {
                 Back
               </button>
               <button
-                onClick={() => {
-                  /* 이미지 생성 요청 로직 */
-                }}
+                onClick={() => {}}
                 className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:-right-full md:-mt-3"
               >
                 Yes, Create
