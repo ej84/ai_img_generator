@@ -66,6 +66,9 @@ const categoryDisplayNames = {
 
 const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
   const [selectedCategory, setSelectedCategory] = useState("common");
+  const [showExampleBtn, setShowExampleBtn] = useState(false);
+  const [showExample, setShowExample] = useState(false);
+  const [selectedExample, setSelectedExample] = useState(null);
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -79,6 +82,17 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
     } else {
       setSelectedStyle([...selectedStyle, style]);
     }
+  };
+
+  const showExamples = (style) => {
+    // Shows style example images on pop up
+    setSelectedExample(style);
+    setShowExample(true);
+  };
+
+  const closePopup = () => {
+    // Close the popup
+    setShowExample(false);
   };
 
   return (
@@ -97,11 +111,14 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
 
       <div className="grid grid-cols-5 mt-3">
         {categories[selectedCategory].map((style) => (
-          <div className="flex flex-col items-center justify-center h-20 w-20 md:h-32 md:w-32">
+          <div
+            className="group flex flex-col items-center justify-center h-20 w-20 md:h-32 md:w-32"
+            onMouseEnter={() => setShowExampleBtn(true)}
+          >
             <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-10 ${
+              className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-12 ${
                 selectedStyle.includes(style) ? "selected" : ""
               }`}
             >
@@ -114,6 +131,16 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
                   />
                 </span>
               )}
+              {showExampleBtn && (
+                <button
+                  className="absolute left-1 bottom-2 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 bg-blue-500 rounded-full"
+                  onClick={showExamples}
+                >
+                  <p className="text-white text-xs text-center font-semibold">
+                    See Examples
+                  </p>
+                </button>
+              )}
             </button>
 
             <p style={{ fontSize: "10px" }} className="text-center">
@@ -122,7 +149,25 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
           </div>
         ))}
       </div>
-      {selectedStyle && <p>{selectedStyle}</p>}
+      {/* Style Examples Popup */}
+      {showExample && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+          onClick={closePopup}
+        >
+          {/* Popup Content */}
+          <div
+            className="bg-white md:w-1/2 md:h-1/2 rounded"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Image and Navigation */}
+            <div>
+              Example
+              {/*<img src={getImageForStyle(selectedExample)} alt="Example" />*/}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
