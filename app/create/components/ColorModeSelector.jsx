@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import ColorPicker from "./ColorPicker";
-
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 
 const ColorModeSelector = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [colorLimit, setColorLimit] = useState(2);
-  const [selectedButton, setSelectedButton] = useState("fullColor");
+  const [selectedButton, setSelectedButton] = useState("color");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -27,13 +28,13 @@ const ColorModeSelector = () => {
         <div className="max-[639px]:text-sm text-center">
           <button
             className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
-              selectedButton === "fullColor"
+              selectedButton === "color"
                 ? "outline outline-blue-500 outline-4"
                 : ""
             }`}
-            onClick={() => handleSelectedButton("fullColor")}
+            onClick={() => handleSelectedButton("color")}
           >
-            {selectedButton === "fullColor" && (
+            {selectedButton === "color" && (
               <span className="check-icon absolute top-3 right-3 text-white text-sm">
                 <FontAwesomeIcon icon={faCircleCheck} size="2x" color="blue" />
               </span>
@@ -84,33 +85,42 @@ const ColorModeSelector = () => {
             Choose one of the options
           </h1>
           <div className="flex flex-col space-y-3 mt-10">
-            <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
-              <p>No settings applied</p>
+            <div className="flex space-x-2">
+              <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-blue-500" />
+              <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
+                <p>No settings applied</p>
+              </div>
             </div>
-            <div className="flex md:flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
-              <div>Color limit</div>
-              <span className="flex absolute right-2 space-x-2">
-                {/* Color Limit Buttons */}
-                {Array.from({ length: 8 }, (_, i) => i + 2).map((limit) => (
-                  <button
-                    key={limit}
-                    onClick={() => handleColorLimitChange(limit)}
-                    className={`py-1 px-3 -mt-1 rounded-full ${
-                      colorLimit === limit
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    {limit}
-                  </button>
-                ))}
-              </span>
+            <div className="flex space-x-2">
+              <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-blue-500" />
+              <div className="flex md:flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
+                <div>Color limit</div>
+                <span className="flex absolute right-2 space-x-2">
+                  {/* Color Limit Buttons */}
+                  {Array.from({ length: 8 }, (_, i) => i + 2).map((limit) => (
+                    <button
+                      key={limit}
+                      onClick={() => handleColorLimitChange(limit)}
+                      className={`py-1 px-3 -mt-1 rounded-full ${
+                        colorLimit === limit
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      {limit}
+                    </button>
+                  ))}
+                </span>
+              </div>
             </div>
-            <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-auto text-left rounded-full">
-              <div className="block">Color palette</div>
-              <span className="flex">
-                <ColorPicker />
-              </span>
+            <div className="flex space-x-2">
+              <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-blue-500" />
+              <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-auto text-left rounded-full">
+                <div className="block">Color palette</div>
+                <span className="flex">
+                  <ColorPicker />
+                </span>
+              </div>
             </div>
           </div>
         </div>

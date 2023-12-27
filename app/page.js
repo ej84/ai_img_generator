@@ -89,7 +89,7 @@ export default function Home() {
           size="1x"
           className="flex inset-x-1/2 inset-y-1/2 p-3 md:hidden"
         />
-        <input
+        {/*<input
           className="border border-black p-10 absolute right-1/2"
           type="text"
           placeholder="enter something"
@@ -102,12 +102,16 @@ export default function Home() {
         >
           +
         </button>
+        
         <div className="border border-black absolute right-1/2 top-1/2">
           {data.map((d) => (
             <div className="mt-5" key={d.id}>
               <p>{d.name}</p>
             </div>
           ))}
+          </div>*/}
+        <div className="fixed right-1/2 top-1/2">
+          <ImageGenerator />
         </div>
         {/*
         <div className="flex w-full justify-center mt-14">

@@ -33,7 +33,7 @@ const ColorPicker = () => {
       ))}
       <button
         onClick={() => setShowPicker(true)}
-        className="add-color-button w-3 h-3 self-center"
+        className="relative right-0 add-color-button w-3 h-3 self-start"
       >
         +
       </button>
@@ -42,7 +42,7 @@ const ColorPicker = () => {
         <SketchPicker
           color={colorPalette[colorPalette.length - 1] || "#000"}
           onChangeComplete={handleAddColor}
-          className="absolute md:bottom-1/4 md:left-1/2"
+          className="absolute md:bottom-1/4 md:left-1/3"
         />
       )}
     </div>
