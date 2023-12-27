@@ -84,8 +84,9 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
     }
   };
 
-  const showExamples = (style) => {
+  const showExamples = (e, style) => {
     // Shows style example images on pop up
+    e.stopPropagation();
     setSelectedExample(style);
     setShowExample(true);
   };
@@ -97,7 +98,7 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
 
   return (
     <div>
-      <div className="flex justify-center gap-3 md:gap-4">
+      <div className="flex justify-center gap-3">
         {Object.keys(categories).map((category) => (
           <button
             key={category}
@@ -132,14 +133,14 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
                 </span>
               )}
               {showExampleBtn && (
-                <button
+                <div
                   className="absolute left-1 bottom-2 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 bg-blue-500 rounded-full"
                   onClick={showExamples}
                 >
                   <p className="text-white text-xs text-center font-semibold">
                     See Examples
                   </p>
-                </button>
+                </div>
               )}
             </button>
 
@@ -162,8 +163,7 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
           >
             {/* Image and Navigation */}
             <div>
-              Example
-              {/*<img src={getImageForStyle(selectedExample)} alt="Example" />*/}
+              <img src="https://media.istockphoto.com/id/1462024468/photo/artificial-chat-chat-with-ai-or-artificial-intelligence-digital-chatbot-robot-application.jpg?s=2048x2048&w=is&k=20&c=Zq89dSrKYcy4hSawVQLcdlFHMVfEj2-G8KWmSDMfyTg=" alt="Example" className="text-center" />
             </div>
           </div>
         </div>
