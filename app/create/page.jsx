@@ -14,6 +14,8 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebase/initFirebase";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -60,6 +62,11 @@ const Page = () => {
     }));
   };
 
+  const handleEditPrompt = () => {
+    // Redirect to first step for prompt
+    setStep(1);
+  };
+
   const add = async (e) => {
     e.preventDefault();
     if (userInput.promptText !== "" && userInput.illuStyle.length >= 1) {
@@ -75,6 +82,16 @@ const Page = () => {
       <Nav />
       <div className="min-h-screen">
         <Sidebar />
+        {step > 1 && (
+        <div className="flex justify-center items-center w-full h-14 bg-gray-400 px-4">
+          <p className="text-end text-white text-base ">{userInput.promptText}</p>
+          <span className="absolute right-5">
+            <button onClick={handleEditPrompt}>
+              <FontAwesomeIcon icon={faPencil} size="1x" />
+            </button>
+          </span>
+        </div>
+        )}
         {step === 1 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
@@ -88,15 +105,6 @@ const Page = () => {
               className="max-[639px]:mx-auto border border-solid w-full pl-5 max-w-xs md:max-w-2xl p-3 rounded-full"
               formNoValidate
             />
-            {/*<div className="max-[639px]:mx-auto border border-solid max-w-xs md:max-w-2xl p-3 rounded-full">
-              <input
-                name="promptText"
-                value={userInput.promptText}
-                onChange={handleChange}
-                placeholder="Ex: A smiling face of a old woman"
-                className="w-full pl-4 border border-none"
-              />
-        </div>*/}
             <button
               className="p-3 bg-blue-500 text-white rounded-full"
               onClick={handleNext}
@@ -107,9 +115,7 @@ const Page = () => {
         )}
 
         {step === 2 && (
-          <>
-            <div className="flex justify-center w-full h-20 bg-gray-400"></div>
-            <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+          <><div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
               <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
                 Choose the illustration style
               </h1>
@@ -135,7 +141,7 @@ const Page = () => {
         )}
 
         {step === 3 && (
-          <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+          <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
               Choose the color mode
             </h1>
@@ -157,7 +163,7 @@ const Page = () => {
         )}
 
         {step === 4 && (
-          <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+          <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl md:-ml-2">
               Choose the illustration type
             </h1>
@@ -179,7 +185,7 @@ const Page = () => {
         )}
 
         {step === 5 && (
-          <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
+          <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
               Final Review
             </h1>
