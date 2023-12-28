@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 
-const ColorModeSelector = () => {
+const ColorModeSelector = ({ colorMode, setColorMode }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [colorLimit, setColorLimit] = useState(2);
-  const [selectedButton, setSelectedButton] = useState("color");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -19,7 +16,7 @@ const ColorModeSelector = () => {
   };
 
   const handleSelectedButton = (color) => {
-    setSelectedButton(color);
+    setColorMode(color);
   };
 
   return (
@@ -27,14 +24,13 @@ const ColorModeSelector = () => {
       <div className="grid grid-cols-2 space-x-3 md:mr-56">
         <div className="max-[639px]:text-sm text-center">
           <button
+            key="color"
             className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
-              selectedButton === "color"
-                ? "outline outline-blue-500 outline-4"
-                : ""
+              colorMode === "color" ? "outline outline-blue-500 outline-4" : ""
             }`}
             onClick={() => handleSelectedButton("color")}
           >
-            {selectedButton === "color" && (
+            {colorMode === "color" && (
               <span className="check-icon absolute top-3 right-3 text-white text-sm">
                 <FontAwesomeIcon icon={faCircleCheck} size="2x" color="blue" />
               </span>
@@ -48,14 +44,13 @@ const ColorModeSelector = () => {
         </div>
         <div className="max-[639px]:text-sm text-center">
           <button
+            key="bw"
             className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
-              selectedButton === "bw"
-                ? "outline outline-blue-500 outline-4"
-                : ""
+              colorMode === "bw" ? "outline outline-blue-500 outline-4" : ""
             }`}
             onClick={() => handleSelectedButton("bw")}
           >
-            {selectedButton === "bw" && (
+            {colorMode === "bw" && (
               <span className="check-icon absolute top-3 right-3 text-white text-sm">
                 <FontAwesomeIcon icon={faCircleCheck} size="2x" color="blue" />
               </span>

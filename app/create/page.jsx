@@ -19,14 +19,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Page = () => {
   const [step, setStep] = useState(1);
-  const [selectedStyle, setSelectedStyle] = useState([]);
+  // const [selectedStyle, setSelectedStyle] = useState([]);
   const [userInput, setUserInput] = useState({
     promptText: "",
+    category: "common",
     illuStyle: [],
-    colorMode: "",
-    objectMode: "",
+    colorMode: "color",
+    objectMode: "full",
     n: 1,
+    visibility: "public",
   });
+
+  const editMode = false;
 
   const handleNext = () => {
     // Check if prompt is empty
@@ -54,11 +58,51 @@ const Page = () => {
     }));
   };
 
-  // Change Illustration style
+  // Change user's style category
+  const handleSelectedCategory = (selectedCategory) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      category: selectedCategory,
+    }));
+  };
+
+  // Change user's illustration style
   const handleSelectedStyleChange = (selectedStyle) => {
     setUserInput((prevInput) => ({
       ...prevInput,
       illuStyle: selectedStyle,
+    }));
+  };
+
+  // Change user's color Mode
+  const handleColorModeChange = (selectedColorMode) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      colorMode: selectedColorMode,
+    }));
+  };
+
+  // Change user's object mode
+  const handleObjectModeChange = (selectedObjectMode) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      objectMode: selectedObjectMode,
+    }));
+  };
+
+  // Change user's color variant
+  const handleVariantChange = (selectedNum) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      n: selectedNum,
+    }));
+  };
+
+  // Change user's visibility mode
+  const handleVisibilityChange = (visibleRange) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      visibility: visibleRange,
     }));
   };
 
@@ -73,6 +117,10 @@ const Page = () => {
       await addDoc(collection(db, "testData"), {
         name: userInput.promptText,
         style: userInput.illuStyle[0],
+        color: userInput.colorMode,
+        object: userInput.objectMode,
+        n: userInput.n,
+        visibility: userInput.visibility,
       });
     }
   };
@@ -83,14 +131,19 @@ const Page = () => {
       <div className="min-h-screen">
         <Sidebar />
         {step > 1 && (
-        <div className="flex justify-center items-center w-full h-14 bg-gray-400 px-4">
-          <p className="text-end text-white text-base ">{userInput.promptText}</p>
-          <span className="absolute right-5">
-            <button onClick={handleEditPrompt}>
-              <FontAwesomeIcon icon={faPencil} size="1x" />
-            </button>
-          </span>
-        </div>
+          <div className="flex justify-center items-center w-full h-14 bg-gray-400 px-4">
+            <input
+              name="promptText"
+              onChange={handleChange}
+              className="bg-gray-400 w-1/2 text-center text-white text-base"
+              value={userInput.promptText}
+            />
+            <span className="absolute right-5">
+              <button>
+                <FontAwesomeIcon icon={faPencil} size="1x" />
+              </button>
+            </span>
+          </div>
         )}
         {step === 1 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
@@ -115,12 +168,15 @@ const Page = () => {
         )}
 
         {step === 2 && (
-          <><div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
+          <>
+            <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
               <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
                 Choose the illustration style
               </h1>
               <div className="max-[639px]:justify-center md:flex md:relative md:-left-10">
                 <IlluStyles
+                  selectedCategory={userInput.category}
+                  setSelectedCategory={handleSelectedCategory}
                   selectedStyle={userInput.illuStyle}
                   setSelectedStyle={handleSelectedStyleChange}
                 />
@@ -146,7 +202,10 @@ const Page = () => {
               Choose the color mode
             </h1>
             <div className="max-[639px]:justify-center md:flex md:relative">
-              <ColorModeSelector />
+              <ColorModeSelector
+                colorMode={userInput.colorMode}
+                setColorMode={handleColorModeChange}
+              />
             </div>
             <div className="col-span-2 max-[640px]:space-x-14">
               <button onClick={handleBack} className="text-blue-500">
@@ -168,7 +227,14 @@ const Page = () => {
               Choose the illustration type
             </h1>
             <div className="max-[639px]:justify-center md:flex md:relative">
-              <IlluTypeSelector />
+              <IlluTypeSelector
+                objectMode={userInput.objectMode}
+                setObjectMode={handleObjectModeChange}
+                variant={userInput.n}
+                setVariant={handleVariantChange}
+                visible={userInput.visibility}
+                setVisible={handleVisibilityChange}
+              />
             </div>
             <div className="col-span-2 max-[640px]:space-x-14">
               <button onClick={handleBack} className="text-blue-500">
@@ -197,6 +263,7 @@ const Page = () => {
                 <p>Color Mode: {userInput.colorMode}</p>
                 <p>Object Mode: {userInput.objectMode}</p>
                 <p>Number of Color Variants: {userInput.n}</p>
+                <p>Illustration Visibility: {userInput.visibility}</p>
               </div>
             </div>
             <div className="col-span-2 max-[640px]:space-x-14">

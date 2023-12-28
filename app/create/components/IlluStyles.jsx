@@ -64,18 +64,24 @@ const categoryDisplayNames = {
   tattoo: "Tattoo",
 };
 
-const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
-  const [selectedCategory, setSelectedCategory] = useState("common");
+const IlluStyles = ({
+  selectedCategory = "common",
+  setSelectedCategory,
+  selectedStyle,
+  setSelectedStyle,
+}) => {
   const [showExampleBtn, setShowExampleBtn] = useState(false);
   const [showExample, setShowExample] = useState(false);
   const [selectedExample, setSelectedExample] = useState(null);
 
+  // update category selected by user
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     // Reset previously selected style when category is changed.
     setSelectedStyle("");
   };
 
+  // update style selected by user
   const handleStyleChange = (style) => {
     if (selectedStyle.includes(style)) {
       setSelectedStyle(selectedStyle.filter((s) => s !== style));
@@ -84,6 +90,7 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
     }
   };
 
+  // Display image example popup window
   const showExamples = (e, style) => {
     // Shows style example images on pop up
     e.stopPropagation();
@@ -91,6 +98,7 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
     setShowExample(true);
   };
 
+  // Close popup
   const closePopup = () => {
     // Close the popup
     setShowExample(false);
@@ -163,7 +171,11 @@ const IlluStyles = ({ selectedStyle, setSelectedStyle }) => {
           >
             {/* Image and Navigation */}
             <div>
-              <img src="https://media.istockphoto.com/id/1462024468/photo/artificial-chat-chat-with-ai-or-artificial-intelligence-digital-chatbot-robot-application.jpg?s=2048x2048&w=is&k=20&c=Zq89dSrKYcy4hSawVQLcdlFHMVfEj2-G8KWmSDMfyTg=" alt="Example" className="text-center" />
+              <img
+                src="https://media.istockphoto.com/id/1462024468/photo/artificial-chat-chat-with-ai-or-artificial-intelligence-digital-chatbot-robot-application.jpg?s=2048x2048&w=is&k=20&c=Zq89dSrKYcy4hSawVQLcdlFHMVfEj2-G8KWmSDMfyTg="
+                alt="Example"
+                className="text-center"
+              />
             </div>
           </div>
         </div>

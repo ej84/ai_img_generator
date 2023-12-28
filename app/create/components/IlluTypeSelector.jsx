@@ -7,24 +7,28 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const IlluTypeSelector = () => {
-  const [selectedButton, setSelectedButton] = useState("full");
-  const [selectedVar, setSelectedVar] = useState(1);
-  const [selectedVisibility, setSelectedVisibility] = useState("public");
+const IlluTypeSelector = ({
+  objectMode,
+  setObjectMode,
+  variant,
+  setVariant,
+  visible,
+  setVisible,
+}) => {
   const fullModeBtn = useRef(null);
   const isolModeBtn = useRef(null);
   const variantTexts = { 1: "One", 2: "Two", 3: "Three", 4: "Four" };
 
   const handleSelectedMode = (mode) => {
-    setSelectedButton(mode);
+    setObjectMode(mode);
   };
 
-  const handleSelectedVar = (variant) => {
-    setSelectedVar(variant);
+  const handleVariantChange = (selectedVariant) => {
+    setVariant(selectedVariant);
   };
 
-  const handleSelectedVisibility = (visibleTo) => {
-    setSelectedVisibility(visibleTo);
+  const handleVisible = (visibleTo) => {
+    setVisible(visibleTo);
   };
 
   return (
@@ -33,15 +37,16 @@ const IlluTypeSelector = () => {
         <div className="grid grid-cols-4 space-x-2 max-[640px]:ml-2">
           <div className="max-[639px]:text-sm text-center">
             <button
+              key="full"
               ref={fullModeBtn}
               className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-red-600 ${
-                selectedButton === "full"
+                objectMode === "full"
                   ? "outline outline-blue-500 outline-4"
                   : ""
               }`}
               onClick={() => handleSelectedMode("full")}
             >
-              {selectedButton === "full" && (
+              {objectMode === "full" && (
                 <span className="check-icon absolute top-2 right-2 text-white text-sm">
                   <FontAwesomeIcon
                     icon={faCircleCheck}
@@ -55,15 +60,16 @@ const IlluTypeSelector = () => {
           </div>
           <div className="max-[639px]:text-sm text-center">
             <button
+              key="isolated"
               ref={isolModeBtn}
               className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-white shadow-2xl ${
-                selectedButton === "isolated"
+                objectMode === "isolated"
                   ? "outline outline-blue-500 outline-4"
                   : ""
               }`}
               onClick={() => handleSelectedMode("isolated")}
             >
-              {selectedButton === "isolated" && (
+              {objectMode === "isolated" && (
                 <span className="check-icon absolute top-2 right-2 text-white text-sm">
                   <FontAwesomeIcon
                     icon={faCircleCheck}
@@ -83,18 +89,16 @@ const IlluTypeSelector = () => {
         </h1>
         <div className="grid grid-rows-1 mt-5">
           <div className="grid grid-cols-4 ml-4 md:ml-2">
-            {Array.from({ length: 4 }, (_, i) => i + 1).map((variant) => (
+            {Array.from({ length: 4 }, (_, i) => i + 1).map((v) => (
               <div className="grid grid-rows-1">
                 <button
                   key={variant}
-                  onClick={() => handleSelectedVar(variant)}
+                  onClick={() => handleVariantChange(v)}
                   className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-gray-200 ${
-                    selectedVar === variant
-                      ? "outline outline-blue-500 outline-4"
-                      : ""
+                    variant === v ? "outline outline-blue-500 outline-4" : ""
                   }`}
                 >
-                  {selectedVar === variant && (
+                  {variant === v && (
                     <span className="check-icon absolute top-1 right-1 text-white text-sm">
                       <FontAwesomeIcon
                         icon={faCircleCheck}
@@ -103,9 +107,9 @@ const IlluTypeSelector = () => {
                       />
                     </span>
                   )}
-                  <h1 className="text-5xl text-center">{variant}</h1>
+                  <h1 className="text-5xl text-center">{v}</h1>
                 </button>
-                <p className="text-center mt-2">{variantTexts[variant]}</p>
+                <p className="text-center mt-2">{variantTexts[v]}</p>
               </div>
             ))}
           </div>
@@ -118,14 +122,15 @@ const IlluTypeSelector = () => {
             <div className="grid grid-cols-4 mt-5">
               <div className="max-[639px]:text-sm text-center">
                 <button
-                  onClick={() => handleSelectedVisibility("public")}
+                  key="public"
+                  onClick={() => handleVisible("public")}
                   className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
-                    selectedVisibility === "public"
+                    visible === "public"
                       ? "outline outline-blue-500 outline-4"
                       : ""
                   }`}
                 >
-                  {selectedVisibility === "public" && (
+                  {visible === "public" && (
                     <span className="check-icon absolute top-2 right-2 text-white text-sm">
                       <FontAwesomeIcon
                         icon={faCircleCheck}
@@ -144,14 +149,15 @@ const IlluTypeSelector = () => {
               </div>
               <div className="max-[639px]:text-sm text-center">
                 <button
-                  onClick={() => handleSelectedVisibility("private")}
+                  key="private"
+                  onClick={() => handleVisible("private")}
                   className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
-                    selectedVisibility === "private"
+                    visible === "private"
                       ? "outline outline-blue-500 outline-4"
                       : ""
                   }`}
                 >
-                  {selectedVisibility === "private" && (
+                  {visible === "private" && (
                     <span className="check-icon absolute top-2 right-2 text-white text-sm">
                       <FontAwesomeIcon
                         icon={faCircleCheck}
