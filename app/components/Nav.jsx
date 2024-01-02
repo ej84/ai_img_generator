@@ -1,10 +1,11 @@
 import React from "react";
-//import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import AuthButton from "./AuthButton";
 import SignOutButton from "./SignOutButton";
+import Link from "next/link";
 
 const Nav = () => {
-  //const { user } = useAuth();
+  const { user } = useAuth();
   const loginStyle = "md:hidden";
   const loginStyle2 = "hidden md:block";
   return (
@@ -12,12 +13,14 @@ const Nav = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         {/* Logo */}
         <div className="flex justify-between md:justify-start md:w-auto">
-          <h1 className="text-2xl mt-1 font-bold">LOGO</h1>
-          {/*{user ? (
+          <Link href="/">
+            <h1 className="text-2xl mt-1 font-bold">LOGO</h1>
+          </Link>
+          {user ? (
             <SignOutButton style={loginStyle} />
           ) : (
             <AuthButton title="Log in for more" style={loginStyle} />
-          )}*/}
+          )}
         </div>
 
         {/* Search Bar */}
@@ -33,11 +36,11 @@ const Nav = () => {
         </div>
 
         {/* Login Button - hidden on small screens, shown on medium screens and above */}
-        {/*{user ? (
+        {user ? (
           <SignOutButton style={loginStyle2} />
         ) : (
           <AuthButton title="Log in for more" style={loginStyle2} />
-        )}*/}
+        )}
       </div>
     </nav>
   );

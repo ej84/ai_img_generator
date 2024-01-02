@@ -1,6 +1,12 @@
 import axios from "axios";
 
-export const generateImage = async () => {
+export const generateImage = async (
+  userStyle,
+  userPrompt,
+  userObject,
+  userColor,
+  userNum
+) => {
   try {
     const response = await fetch(
       "https://us-central1-illustroke-c1d67.cloudfunctions.net/extApp/generate",
@@ -13,11 +19,11 @@ export const generateImage = async () => {
           Authorization: "Bearer " + process.env.NEXT_PUBLIC_ILLUSTROKE_API_KEY,
         },
         body: JSON.stringify({
-          style: "flat",
-          prompt: "an obese cat",
-          objectmode: "full",
-          colormode: "color",
-          n: 1,
+          style: userStyle,
+          prompt: userPrompt,
+          objectmode: userObject,
+          colormode: userColor,
+          n: userNum,
         }),
       }
     );

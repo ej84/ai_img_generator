@@ -110,9 +110,6 @@ export default function Home() {
             </div>
           ))}
           </div>*/}
-        <div className="fixed right-1/2 top-1/2">
-          <ImageGenerator />
-        </div>
         {/*
         <div className="flex w-full justify-center mt-14">
           <div className="grid grid-cols-4">

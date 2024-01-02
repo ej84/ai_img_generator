@@ -5,21 +5,20 @@ import Sidebar from "../components/Sidebar";
 import IlluStyles from "./components/IlluStyles";
 import ColorModeSelector from "./components/ColorModeSelector";
 import IlluTypeSelector from "./components/IlluTypeSelector";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  QuerySnapshot,
-  query,
-  onSnapshot,
-} from "firebase/firestore";
+import StepIndicator from "./components/StepIndicator";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { storage } from "../firebase/initFirebase";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { db } from "../firebase/initFirebase";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { generateImage } from "../utils/illustroke";
 
 const Page = () => {
   const [step, setStep] = useState(1);
-  // const [selectedStyle, setSelectedStyle] = useState([]);
+  const [currentStep, setCurrentStep] = useState(2);
+  const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
     promptText: "",
     category: "common",
@@ -43,10 +42,21 @@ const Page = () => {
       return;
     }
     setStep((prevStep) => prevStep + 1);
+    if (step > 1 && step < 5) {
+      setCurrentStep((step) => step + 1);
+    }
+  };
+
+  const handleStepChange = (newCurrStep) => {
+    setCurrentStep(newCurrStep);
+    setStep(newCurrStep);
   };
 
   const handleBack = () => {
     setStep((prevStep) => prevStep - 1);
+    if (step > 1 && step <= 5) {
+      setCurrentStep((step) => step - 1);
+    }
   };
 
   // Change user's prompt input
@@ -111,17 +121,43 @@ const Page = () => {
     setStep(1);
   };
 
-  const add = async (e) => {
+  const createImage = async (e) => {
     e.preventDefault();
-    if (userInput.promptText !== "" && userInput.illuStyle.length >= 1) {
+    setLoading(true);
+    try {
+      const resp = await generateImage(
+        userInput.illuStyle[0],
+        userInput.promptText,
+        userInput.objectMode,
+        userInput.colorMode,
+        userInput.n
+      );
+
+      const respText = await resp.text();
+
+      const svgString = respText.match(/<svg.*<\/svg>/);
+
+      const cleanedSvgStr = svgString[0].replace(/\\/g, "");
+
+      const svgData = cleanedSvgStr;
+
+      const blob = new Blob([svgData], { type: "image/svg+xml" });
+
+      const url = URL.createObjectURL(blob);
+
+      setImageUrl(url);
+
+      console.log(url);
+
       await addDoc(collection(db, "testData"), {
-        name: userInput.promptText,
-        style: userInput.illuStyle[0],
-        color: userInput.colorMode,
-        object: userInput.objectMode,
-        n: userInput.n,
-        visibility: userInput.visibility,
+        img_url: url,
       });
+
+      return () => URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating image:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -131,19 +167,27 @@ const Page = () => {
       <div className="min-h-screen">
         <Sidebar />
         {step > 1 && (
-          <div className="flex justify-center items-center w-full h-14 bg-gray-400 px-4">
-            <input
-              name="promptText"
-              onChange={handleChange}
-              className="bg-gray-400 w-1/2 text-center text-white text-base"
-              value={userInput.promptText}
-            />
-            <span className="absolute right-5">
-              <button>
-                <FontAwesomeIcon icon={faPencil} size="1x" />
-              </button>
-            </span>
-          </div>
+          <>
+            <div className="flex justify-center items-center w-full h-14 bg-gray-400 px-4">
+              <input
+                name="promptText"
+                onChange={handleChange}
+                className="bg-gray-400 w-1/2 text-center text-white text-base"
+                value={userInput.promptText}
+              />
+              <span className="absolute right-5">
+                <button>
+                  <FontAwesomeIcon icon={faPencil} size="1x" />
+                </button>
+              </span>
+            </div>
+            <div className="mt-10">
+              <StepIndicator
+                currStep={currentStep}
+                onStepChange={handleStepChange}
+              />
+            </div>
+          </>
         )}
         {step === 1 && (
           <div className="max-[639px]:text-center md:absolute md:top-48 md:left-1/3 space-y-10">
@@ -169,7 +213,7 @@ const Page = () => {
 
         {step === 2 && (
           <>
-            <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
+            <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/3 space-y-10">
               <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
                 Choose the illustration style
               </h1>
@@ -197,7 +241,7 @@ const Page = () => {
         )}
 
         {step === 3 && (
-          <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
+          <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
               Choose the color mode
             </h1>
@@ -222,7 +266,7 @@ const Page = () => {
         )}
 
         {step === 4 && (
-          <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
+          <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl md:-ml-2">
               Choose the illustration type
             </h1>
@@ -251,7 +295,7 @@ const Page = () => {
         )}
 
         {step === 5 && (
-          <div className="max-[639px]:text-center md:absolute md:top-40 md:left-1/3 space-y-10">
+          <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/3 space-y-10">
             <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
               Final Review
             </h1>
@@ -271,12 +315,32 @@ const Page = () => {
                 Back
               </button>
               <button
-                onClick={add}
+                onClick={createImage}
                 className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:-right-full md:-mt-3"
               >
                 Yes, Create
               </button>
             </div>
+            {loading && (
+              <div className="flex justify-end items-end">
+                <p className="text-base">Creating now....</p>
+              </div>
+            )}
+
+            {imageUrl && (
+              <div>
+                <img
+                  src={imageUrl}
+                  alt="SVG Image"
+                  width="200"
+                  height="200"
+                  className="fixed inset-x-1/3 bottom-10"
+                />
+                <p className="mt-3">
+                  Image URL: <a href={imageUrl}>{imageUrl}</a>
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>
