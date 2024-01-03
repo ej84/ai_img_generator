@@ -106,12 +106,13 @@ const IlluStyles = ({
 
   return (
     <div>
-      <div className="flex justify-center gap-3">
+      <div className="flex justify-center gap-1 md:gap-3">
         {Object.keys(categories).map((category) => (
           <button
             key={category}
             onClick={() => handleCategoryChange(category)}
-            className="flex border border-solid p-2 text-xs md:px-5 md:text-base rounded-full"
+            className={`flex max-[640px]:items-center border border-solid text-xs px-3 py-1 md:p-5 md:py-2 md:text-base rounded-full ${selectedCategory.includes(category) ?
+              "outline outline-blue-500 outline-3" : ""}`}
           >
             {categoryDisplayNames[category] || category}
           </button>
@@ -127,9 +128,8 @@ const IlluStyles = ({
             <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-12 ${
-                selectedStyle.includes(style) ? "selected" : ""
-              }`}
+              className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-12 ${selectedStyle.includes(style) ? "selected outline outline-blue-500 outline-4" : ""
+                }`}
             >
               {selectedStyle.includes(style) && (
                 <span className="check-icon absolute top-1 right-1 text-white text-sm">
