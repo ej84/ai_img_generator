@@ -6,13 +6,19 @@ import IlluStyles from "./components/IlluStyles";
 import ColorModeSelector from "./components/ColorModeSelector";
 import IlluTypeSelector from "./components/IlluTypeSelector";
 import StepIndicator from "./components/StepIndicator";
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import { storage } from "../firebase/initFirebase";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
-import { db } from "../firebase/initFirebase";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateImage } from "../utils/illustroke";
+import { auth, db, firebase } from "../firebase/initFirebase";
+import {
+  collection,
+  doc,
+  addDoc,
+  setDoc,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -123,7 +129,7 @@ const Page = () => {
 
   const createImage = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    /*setLoading(true);
     try {
       const resp = await generateImage(
         userInput.illuStyle[0],
@@ -149,7 +155,7 @@ const Page = () => {
 
       console.log(url);
 
-      await addDoc(collection(db, "testData"), {
+      await addDoc(collection(db, "testData", "users"), {
         img_url: url,
       });
 
@@ -158,7 +164,13 @@ const Page = () => {
       console.error("Error generating image:", error);
     } finally {
       setLoading(false);
-    }
+    }*/
+    await setDoc(doc(collection(db, "testData"), "users"), {
+      uid: userInput.n,
+      imagePrompt: userInput.promptText,
+      color: userInput.colorMode,
+      visible: userInput.visibility,
+    });
   };
 
   return (

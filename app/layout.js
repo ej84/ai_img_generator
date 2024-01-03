@@ -2,6 +2,7 @@ import React from "react";
 import { Inter } from "next/font/google";
 import "./firebase/initFirebase";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 

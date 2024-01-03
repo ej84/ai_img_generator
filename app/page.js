@@ -7,19 +7,13 @@ import ImageGenerator from "./components/ImageGenerator";
 import LoginWindow from "./components/LoginWindow";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  QuerySnapshot,
-  query,
-  onSnapshot,
-} from "firebase/firestore";
+import useAuth from "./hooks/useAuth";
+import { collection, addDoc, getDocs, query } from "firebase/firestore";
 import { db } from "./firebase/initFirebase";
 
 export default function Home() {
   const [showLoginWindow, setShowLoginWindow] = useState(false);
-  //const { user } = useAuth();
+  const { user } = useAuth();
   /*
   const checkUser = () => {
     if (!user) {

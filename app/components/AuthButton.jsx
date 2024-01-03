@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import firebase from "../firebase/initFirebase";
+import { collection, doc, addDoc, setDoc, getDoc } from "firebase/firestore";
+import { auth, db, firebase } from "../firebase/initFirebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,9 +11,21 @@ const AuthButton = ({ title, style }) => {
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
+
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider); //(auth, provider);
+      const user = result.user;
+      const docRef = doc(db, "testData", "users");
+      const snap = await getDoc(docRef);
       // Login Successful
+      if (snap.exists()) {
+        console.log("Document data:", snap.data());
+      } else {
+        // Add to database if new user
+        await setDoc(doc(collection(db, "testData"), "users"), {
+          uid: user.uid,
+        });
+      }
       setShowLoginWindow(false);
       window.location.reload();
     } catch (error) {
