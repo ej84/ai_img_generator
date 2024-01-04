@@ -6,11 +6,10 @@ import IlluStyles from "./components/IlluStyles";
 import ColorModeSelector from "./components/ColorModeSelector";
 import IlluTypeSelector from "./components/IlluTypeSelector";
 import StepIndicator from "./components/StepIndicator";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateImage } from "../utils/illustroke";
-import { auth, db, firebase } from "../firebase/initFirebase";
+import { db } from "../firebase/initFirebase";
 import {
   collection,
   doc,
@@ -19,6 +18,7 @@ import {
   getDoc,
   getDocs,
 } from "firebase/firestore";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -129,9 +129,9 @@ const Page = () => {
 
   const createImage = async (e) => {
     e.preventDefault();
-    /*setLoading(true);
+    setLoading(true);
     try {
-      const resp = await generateImage(
+      const svgString = await generateImage(
         userInput.illuStyle[0],
         userInput.promptText,
         userInput.objectMode,
@@ -139,8 +139,27 @@ const Page = () => {
         userInput.n
       );
 
-      const respText = await resp.text();
+      const imageRef = ref(db, `illustrations/user1/${Date.now()}.svg`);
 
+      await uploadString(imageRef, svgString, "data_url");
+
+      const imageURL = await getDownloadURL(imageRef);
+
+      //const imageURL = await saveIllustration("user1", svgString);
+
+      setImageUrl(imageURL);
+
+      await setDoc(doc(collection(db, "testData"), "users"), {
+        uid: userInput.n,
+        imagePrompt: userInput.promptText,
+        color: userInput.colorMode,
+        visible: userInput.visibility,
+        img_url: imageURL,
+      });
+
+      /*
+      const svgString = await resp.text();
+      
       const svgString = respText.match(/<svg.*<\/svg>/);
 
       const cleanedSvgStr = svgString[0].replace(/\\/g, "");
@@ -159,18 +178,19 @@ const Page = () => {
         img_url: url,
       });
 
-      return () => URL.revokeObjectURL(url);
+      return () => URL.revokeObjectURL(url);*/
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
       setLoading(false);
-    }*/
+    } /*
     await setDoc(doc(collection(db, "testData"), "users"), {
       uid: userInput.n,
       imagePrompt: userInput.promptText,
       color: userInput.colorMode,
       visible: userInput.visibility,
-    });
+      img_url:imageUrl,
+    });*/
   };
 
   return (

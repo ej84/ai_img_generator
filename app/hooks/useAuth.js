@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../firebase/initFirebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { db } from "../firebase/initFirebase";
-import { firebase } from "../firebase/initFirebase";
+
+const authContext = createContext();
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
