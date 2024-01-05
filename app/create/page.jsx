@@ -9,7 +9,7 @@ import StepIndicator from "./components/StepIndicator";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateImage } from "../utils/illustroke";
-import { db } from "../firebase/initFirebase";
+import { db, storage } from "../firebase/initFirebase";
 import {
   collection,
   doc,
@@ -18,7 +18,7 @@ import {
   getDoc,
   getDocs,
 } from "firebase/firestore";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { ref, uploadString, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -131,7 +131,7 @@ const Page = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const svgString = await generateImage(
+      const result = await generateImage(
         userInput.illuStyle[0],
         userInput.promptText,
         userInput.objectMode,
@@ -139,9 +139,15 @@ const Page = () => {
         userInput.n
       );
 
-      const imageRef = ref(db, `illustrations/user1/${Date.now()}.svg`);
+      const svgString = await result.text();
+      const svgMatchArray = svgString.match(/<svg.*<\/svg>/);
+      const cleanedSvgStr = svgMatchArray[0].replace(/\\/g, "");
 
-      await uploadString(imageRef, svgString, "data_url");
+      const blob = new Blob([cleanedSvgStr], { type: "image/svg+xml" });
+
+      const imageRef = ref(storage, "gs://meechelangelo-a76e3.appspot.com/illust.svg");
+
+      await uploadBytes(imageRef, blob);
 
       const imageURL = await getDownloadURL(imageRef);
 
@@ -157,12 +163,13 @@ const Page = () => {
         img_url: imageURL,
       });
 
-      /*
-      const svgString = await resp.text();
-      
-      const svgString = respText.match(/<svg.*<\/svg>/);
 
-      const cleanedSvgStr = svgString[0].replace(/\\/g, "");
+      /*
+      const svgString2 = await result.text();
+      
+      const svgString3 = svgString2.match(/<svg.*<\/svg>/);
+
+      const cleanedSvgStr = svgString3[0].replace(/\\/g, "");
 
       const svgData = cleanedSvgStr;
 
