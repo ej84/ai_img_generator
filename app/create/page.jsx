@@ -18,7 +18,7 @@ import {
   getDoc,
   getDocs,
 } from "firebase/firestore";
-import { ref, uploadString, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -145,7 +145,10 @@ const Page = () => {
 
       const blob = new Blob([cleanedSvgStr], { type: "image/svg+xml" });
 
-      const imageRef = ref(storage, "gs://meechelangelo-a76e3.appspot.com/illust.svg");
+      const imageRef = ref(
+        storage,
+        "gs://meechelangelo-a76e3.appspot.com/illust.svg"
+      );
 
       await uploadBytes(imageRef, blob);
 
@@ -162,7 +165,6 @@ const Page = () => {
         visible: userInput.visibility,
         img_url: imageURL,
       });
-
 
       /*
       const svgString2 = await result.text();

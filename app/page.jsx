@@ -9,21 +9,20 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAuth from "./hooks/useAuth";
 import { collection, addDoc, getDocs, query } from "firebase/firestore";
-import { db } from "./firebase/initFirebase";
+import { db, storage, auth } from "./firebase/initFirebase";
 
 export default function Home() {
   const [showLoginWindow, setShowLoginWindow] = useState(false);
   const { user } = useAuth();
-  /*
+
   const checkUser = () => {
     if (!user) {
-      console.log("You must log in first!");
       setShowLoginWindow(true);
     } else {
       setShowLoginWindow(false);
     }
   };
-*/
+
   // Test to add to db
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState({ name: "" });
@@ -56,7 +55,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <Sidebar />
+      <Sidebar setShowLoginWindow={checkUser} />
       <main className="md:pt-16 min-h-screen">
         <div className="hidden md:block md:mb-10 text-center w-full space-x-14">
           <select className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer">
@@ -75,14 +74,17 @@ export default function Home() {
           <button className="border border-solid px-2 py-3 text-white bg-blue-500 rounded-full">
             Apply filter
           </button>
-
-          {showLoginWindow && <LoginWindow />}
         </div>
         <FontAwesomeIcon
           icon={faFilter}
           size="1x"
           className="flex inset-x-1/2 inset-y-1/2 p-3 md:hidden"
         />
+        {showLoginWindow && (
+          <div onClick={() => setShowLoginWindow(false)}>
+            <LoginWindow />
+          </div>
+        )}
         {/*<input
           className="border border-black p-10 absolute right-1/2"
           type="text"

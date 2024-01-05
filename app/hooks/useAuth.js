@@ -8,14 +8,14 @@ const useAuth = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const userRef = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
       } else {
         setUser(null);
       }
     });
-    return () => userRef();
+    return () => unsubscribe();
   }, []);
 
   return { user };

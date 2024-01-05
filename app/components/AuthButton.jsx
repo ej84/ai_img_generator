@@ -28,6 +28,7 @@ const AuthButton = ({ title, style }) => {
       }
       setShowLoginWindow(false);
       window.location.reload();
+      return user;
     } catch (error) {
       // Login Failed
       console.log(error);

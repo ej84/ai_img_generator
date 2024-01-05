@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import AuthButton from "./AuthButton";
 import SignOutButton from "./SignOutButton";
@@ -8,6 +8,7 @@ const Nav = () => {
   const { user } = useAuth();
   const loginStyle = "md:hidden";
   const loginStyle2 = "hidden md:block";
+
   return (
     <nav className="bg-white px-4 py-2 border border-x-transparent border-b-gray-200">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -19,7 +20,11 @@ const Nav = () => {
           {user ? (
             <SignOutButton style={loginStyle} />
           ) : (
-            <AuthButton title="Log in for more" style={loginStyle} />
+            <AuthButton
+              title="Log in for more"
+              style={loginStyle}
+              user={user}
+            />
           )}
         </div>
 
