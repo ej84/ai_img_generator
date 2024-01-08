@@ -22,13 +22,14 @@ const Sidebar = ({ setShowLoginWindow }) => {
           </Link>
         </div>
         <div className="p-3 mt-4 text-center text-sm w-full text-gray-500 hover:text-blue-500">
-          <button>
+          <Link href="/">
             <FontAwesomeIcon icon={faWpexplorer} size="2x" />
             <p>Explore</p>
-          </button>
+          </Link>
         </div>
         <div className="p-3 mt-4 text-center text-sm w-full text-gray-500 hover:text-blue-500">
           <button onClick={() => handleLoginWindow(user)}>
+            <Link href="/userIllustrations" />
             <FontAwesomeIcon icon={faFaceSmile} size="2x" />
             <p>My Illustrations</p>
           </button>
