@@ -69,15 +69,16 @@ export default function Home() {
       <Sidebar setShowLoginWindow={checkUser} />
       <main className="md:pt-16 min-h-screen">
         <IllustFilter />
-        {userStorageData && <div>
-          <img src={userStorageData} className="absolute right-1/2 top-1/2" />
-        </div>}
+        {userStorageData && (
+          <div>
+            <img src={userStorageData} className="absolute right-1/2 top-1/2" />
+          </div>
+        )}
         {showLoginWindow && (
           <div onClick={() => setShowLoginWindow(false)}>
             <LoginWindow />
           </div>
         )}
-
       </main>
     </>
   );

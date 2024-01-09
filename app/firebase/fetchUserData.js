@@ -1,14 +1,13 @@
 import { db } from "./initFirebase";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 const fetchUserData = async (userId) => {
-  const userDocRef = doc(db, "testData", userId);
-  const docSnap = await getDoc(userDocRef);
+  if (userId !== null && userId !== "") {
+    const userDocRef = collection(db, "users", userId, "illustrations");
 
-  if (docSnap.exists()) {
-    return docSnap.data();
-  } else {
-    console.log("No such document!");
+    const docSnap = await getDocs(userDocRef);
+
+    return docSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 };
 

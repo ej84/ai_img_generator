@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 import IlluStyles from "./components/IlluStyles";
@@ -9,7 +9,7 @@ import StepIndicator from "./components/StepIndicator";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateImage } from "../utils/illustroke";
-import { db, storage } from "../firebase/initFirebase";
+import { db, auth, storage, provider } from "../firebase/initFirebase";
 import {
   collection,
   doc,
@@ -17,8 +17,12 @@ import {
   setDoc,
   getDoc,
   getDocs,
+  Timestamp,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import fetchUserData from "../firebase/fetchUserData";
+import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -34,6 +38,27 @@ const Page = () => {
     n: 1,
     visibility: "public",
   });
+  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    // Checks if user is logged in with auth state change detection
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchUserData(user.uid).then((data) => setUser(data));
+        setUserId(user.uid);
+      }
+
+      // If not logged in, redirect the user to main page
+      else {
+        router.push("/");
+      }
+    });
+
+    // Removes event listner when component gets unmounted
+    return () => unsubscribe();
+  }, [router]);
 
   const editMode = false;
 
@@ -147,7 +172,9 @@ const Page = () => {
 
       const imageRef = ref(
         storage,
-        "gs://meechelangelo-a76e3.appspot.com/illust.svg"
+        "gs://meechelangelo-a76e3.appspot.com/" +
+          userInput.promptText.replace(" ", "_") +
+          ".svg"
       );
 
       await uploadBytes(imageRef, blob);
@@ -158,12 +185,13 @@ const Page = () => {
 
       setImageUrl(imageURL);
 
-      await setDoc(doc(collection(db, "testData"), "users"), {
-        uid: userInput.n,
+      await setDoc(doc(collection(db, "users", userId, "illustrations")), {
         imagePrompt: userInput.promptText,
+        style: userInput.illuStyle,
         color: userInput.colorMode,
         visible: userInput.visibility,
         img_url: imageURL,
+        created_at: Timestamp.now(),
       });
 
       /*
@@ -365,21 +393,6 @@ const Page = () => {
             {loading && (
               <div className="flex justify-end items-end">
                 <p className="text-base">Creating now....</p>
-              </div>
-            )}
-
-            {imageUrl && (
-              <div>
-                <img
-                  src={imageUrl}
-                  alt="SVG Image"
-                  width="200"
-                  height="200"
-                  className="fixed inset-x-1/3 bottom-10"
-                />
-                <p className="mt-3">
-                  Image URL: <a href={imageUrl}>{imageUrl}</a>
-                </p>
               </div>
             )}
           </div>

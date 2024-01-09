@@ -12,7 +12,7 @@ const AuthButton = ({ title, style }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const docRef = doc(db, "testData", user.uid);
+      const docRef = doc(db, "users", user.uid);
       const snap = await getDoc(docRef);
       // Login Successful
       if (snap.exists()) {
