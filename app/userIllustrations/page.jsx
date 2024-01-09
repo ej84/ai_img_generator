@@ -1,13 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-//import { useRouter } from "next/router";
 import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
-import { db, storage, auth } from "../firebase/initFirebase";
+import { auth } from "../firebase/initFirebase";
 import fetchUserData from "../firebase/fetchUserData";
-import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import useAuth from "../hooks/useAuth";
 import { useRouter } from "next/navigation";
 import IllustFilter from "../components/IllustFilter";
 
@@ -15,7 +12,7 @@ const Page = () => {
   //const { user } = useAuth();
   //const router = useRouter();
   const [userData, setUserData] = useState(null);
-  //const [userStorageData, setUserStorageData] = useState(null);
+
 
   //console.log(user);
   /*useEffect(() => {
@@ -30,7 +27,6 @@ const Page = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         fetchUserData("users").then((data) => setUserData(data));
-        //fetchUserStorageData(user.uid).then(url => setUserStorageData(url));
       }
     });
 
@@ -38,29 +34,14 @@ const Page = () => {
     return () => unsubscribe();
     //fetchUserStorageData(user.uid).then(url => setUserStorageData(url));
   }, []);
-  //console.log(docSnap.data());
-  /*
+
   useEffect(() => {
     //if (user) {
     //fetchUserData(user.uid).then((data) => setUserData(data));
     //fetchUserStorageData(user.uid).then(url => setUserStorageData(url));
     //}
   }, []);
-  
-  useEffect(() => {
-    const getData = async () => {
-      const q = query(collection(db, "testData"));
-      const querySnapshot = await getDocs(q);
-      const tData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setData(tData);
-    };
 
-    getData();
-  }, []);
-*/
   return (
     <>
       <Nav />
@@ -74,15 +55,20 @@ const Page = () => {
                   {userData.uid}
                 </h1>
                 <IllustFilter />
-                <div className="absolute left-44">
-                  <img src={userData.img_url} width="250" height="250" />
-                  <div className="mt-5 text-center">
-                    <h3 className="text-lg font-bold">
-                      Color Mode: {userData.color}
-                    </h3>
-                    <h3 className="text-lg font-bold">
-                      Title: {userData.imagePrompt}
-                    </h3>
+                <div className="grid grid-cols-4 gap-4 justify-center items-center">
+                  {/*{images.map((url, index) => (
+                    <img key={index} src={url} alt={`Image ${index}`} className="w-full h-auto" />
+                  ))}*/}
+                  <div className="relative left-2/3">
+                    <img src={userData.img_url} width="250" height="250" />
+                    <div className="mt-5 text-start">
+                      <h3 className="text-lg font-bold">
+                        Title: {userData.imagePrompt}
+                      </h3>
+                      <h3 className="text-lg font-bold">
+                        Color Mode: {userData.color}
+                      </h3>
+                    </div>
                   </div>
                 </div>
               </div>

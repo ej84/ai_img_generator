@@ -8,11 +8,22 @@ import LoginWindow from "./components/LoginWindow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAuth from "./hooks/useAuth";
 import { collection, addDoc, getDocs, query } from "firebase/firestore";
-import { db, storage, auth } from "./firebase/initFirebase";
+import { db, auth } from "./firebase/initFirebase";
 import IllustFilter from "./components/IllustFilter";
+import fetchIllustURLs from "./firebase/fetchIllustURLs";
 
 export default function Home() {
   const [showLoginWindow, setShowLoginWindow] = useState(false);
+  const [userStorageData, setUserStorageData] = useState(null);
+  const [illustrations, setIllustrations] = useState([]);
+  /*
+    useEffect(() => {
+      const loadIllusts = async () => {
+        const urls = await fetchIllustURLs();
+        setIllustrations(urls);
+      }
+    }, []);
+  */
   const { user } = useAuth();
 
   const checkUser = () => {
@@ -58,61 +69,15 @@ export default function Home() {
       <Sidebar setShowLoginWindow={checkUser} />
       <main className="md:pt-16 min-h-screen">
         <IllustFilter />
+        {userStorageData && <div>
+          <img src={userStorageData} className="absolute right-1/2 top-1/2" />
+        </div>}
         {showLoginWindow && (
           <div onClick={() => setShowLoginWindow(false)}>
             <LoginWindow />
           </div>
         )}
-        {/*<input
-          className="border border-black p-10 absolute right-1/2"
-          type="text"
-          placeholder="enter something"
-          value={newData.name}
-          onChange={(e) => setNewData({ ...newData, name: e.target.value })}
-        />
-        <button
-          onClick={add}
-          className="text-black border border-black p-5 absolute right-2/3"
-        >
-          +
-        </button>
-        
-        <div className="border border-black absolute right-1/2 top-1/2">
-          {data.map((d) => (
-            <div className="mt-5" key={d.id}>
-              <p>{d.name}</p>
-            </div>
-          ))}
-          </div>*/}
-        {/*
-        <div className="flex w-full justify-center mt-14">
-          <div className="grid grid-cols-4">
-            <button
-              onClick={checkUser}
-              className="p-24 mx-7 border border-black"
-            >
-              <h3>Image</h3>
-            </button>
-            <button
-              onClick={checkUser}
-              className="p-24 mx-7 border border-black"
-            >
-              <h3>Image</h3>
-            </button>
-            <button
-              onClick={checkUser}
-              className="p-24 mx-7 border border-black"
-            >
-              <h3>Image</h3>
-            </button>
-            <button
-              onClick={checkUser}
-              className="p-24 mx-7 border border-black"
-            >
-              <h3>Image</h3>
-            </button>
-          </div>
-  </div>*/}
+
       </main>
     </>
   );

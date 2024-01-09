@@ -21,18 +21,3 @@ const storage = getStorage(app);
 const provider = new GoogleAuthProvider();
 
 export { auth, db, storage, provider };
-
-/*
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(firebase);
-//const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
-
-export { auth, app, db, storage };*/
-/*
-// Initialize Firebase
-const firebase = initializeApp(firebaseConfig);
-const auth = getAuth(firebase);
-export { auth };
-*/
