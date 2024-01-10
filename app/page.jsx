@@ -68,7 +68,9 @@ export default function Home() {
       <Nav />
       <Sidebar setShowLoginWindow={checkUser} />
       <main className="md:pt-16 min-h-screen">
-        <IllustFilter />
+        <div className="md:absolute md:left-64 lg:left-80">
+          <IllustFilter />
+        </div>
         {userStorageData && (
           <div>
             <img src={userStorageData} className="absolute right-1/2 top-1/2" />

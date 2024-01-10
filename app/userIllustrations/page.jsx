@@ -37,36 +37,37 @@ const Page = () => {
     return () => unsubscribe();
   }, [router]);
 
-  console.log(illustData);
+  useEffect(() => {
+    console.log(illustData);
+  }, [illustData]);
 
   return (
     <>
       <Nav />
-      <Sidebar />
-      <div className="md:pt-16 min-h-screen">
+      <div className="min-h-screen">
+        <Sidebar />
         <>
-          <div className="text-center ">
-            {illustData[0] && (
+          <div className="max-[639px]:text-center md:absolute md:top-24 md:left-1/4 space-y-10">
+            {userId && (
               <div>
-                <h1 className="mb-10 font-bold text-xl md:mt-0 md:text-3xl">
+                <h1 className="md:relative md:-left-20 mb-10 font-bold text-xl md:mt-0 md:text-3xl">
                   {userName}
                 </h1>
                 <IllustFilter />
-                <div className="grid grid-cols-4 gap-4 justify-center items-center">
-                  {/*{images.map((url, index) => (
-                    <img key={index} src={url} alt={`Image ${index}`} className="w-full h-auto" />
-                  ))}*/}
-                  <div className="relative left-2/3">
-                    <img src={illustData.img_url} width="250" height="250" />
-                    <div className="mt-5 text-start">
-                      <h3 className="text-lg font-bold">
-                        Title: {illustData.imagePrompt}
-                      </h3>
-                      <h3 className="text-lg font-bold">
-                        Color Mode: {illustData.color}
-                      </h3>
+                <div className="grid grid-cols-4 gap-3 md:gap-5">
+                  {illustData.map((illust, index) => (
+                    <div key={index} className="md:relative md:-left-20 md:top-7">
+                      <img src={illust.img_url} width="250" height="250" alt={`Image ${index}`} />
+                      <div className="mt-5 text-start">
+                        <h3 className="text-base font-bold">
+                          Title: {illust.imagePrompt}
+                        </h3>
+                        <h3 className="text-base">
+                          Style: {illust.style[0]}
+                        </h3>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}

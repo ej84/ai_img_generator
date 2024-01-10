@@ -23,7 +23,6 @@ const AuthButton = ({ title, style }) => {
           docRef,
           {
             uid: user.uid,
-            email: user.email,
             name: user.displayName,
           },
           { merge: true }
