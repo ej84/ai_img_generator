@@ -9,16 +9,8 @@ import StepIndicator from "./components/StepIndicator";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateImage } from "../utils/illustroke";
-import { db, auth, storage, provider } from "../firebase/initFirebase";
-import {
-  collection,
-  doc,
-  addDoc,
-  setDoc,
-  getDoc,
-  getDocs,
-  Timestamp,
-} from "firebase/firestore";
+import { db, auth, storage } from "../firebase/initFirebase";
+import { collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import fetchUserData from "../firebase/fetchUserData";
 import { onAuthStateChanged } from "firebase/auth";
@@ -181,53 +173,23 @@ const Page = () => {
 
       const imageURL = await getDownloadURL(imageRef);
 
-      //const imageURL = await saveIllustration("user1", svgString);
-
       setImageUrl(imageURL);
 
       await setDoc(doc(collection(db, "users", userId, "illustrations")), {
         imagePrompt: userInput.promptText,
         style: userInput.illuStyle,
         color: userInput.colorMode,
+        mode: userInput.objectMode,
+        count: userInput.n,
         visible: userInput.visibility,
         img_url: imageURL,
         created_at: Timestamp.now(),
       });
-
-      /*
-      const svgString2 = await result.text();
-      
-      const svgString3 = svgString2.match(/<svg.*<\/svg>/);
-
-      const cleanedSvgStr = svgString3[0].replace(/\\/g, "");
-
-      const svgData = cleanedSvgStr;
-
-      const blob = new Blob([svgData], { type: "image/svg+xml" });
-
-      const url = URL.createObjectURL(blob);
-
-      setImageUrl(url);
-
-      console.log(url);
-
-      await addDoc(collection(db, "testData", "users"), {
-        img_url: url,
-      });
-
-      return () => URL.revokeObjectURL(url);*/
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
       setLoading(false);
-    } /*
-    await setDoc(doc(collection(db, "testData"), "users"), {
-      uid: userInput.n,
-      imagePrompt: userInput.promptText,
-      color: userInput.colorMode,
-      visible: userInput.visibility,
-      img_url:imageUrl,
-    });*/
+    }
   };
 
   return (

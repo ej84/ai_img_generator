@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 import { auth } from "../firebase/initFirebase";
@@ -7,7 +7,7 @@ import fetchUserData from "../firebase/fetchUserData";
 import IllustFilter from "../components/IllustFilter";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import IllustCard from "./components/IllustCard";
 
 const Page = () => {
   const [userData, setUserData] = useState(null);
@@ -37,10 +37,6 @@ const Page = () => {
     return () => unsubscribe();
   }, [router]);
 
-  useEffect(() => {
-    console.log(illustData);
-  }, [illustData]);
-
   return (
     <>
       <Nav />
@@ -56,19 +52,32 @@ const Page = () => {
                 <IllustFilter />
                 <div className="grid grid-cols-4 gap-3 md:gap-5">
                   {illustData.map((illust, index) => (
-                    <div key={index} className="md:relative md:-left-20 md:top-7">
-                      <img src={illust.img_url} width="250" height="250" alt={`Image ${index}`} />
+                    <div key={index}>
+                      <IllustCard illustration={illust} />
+                    </div>
+                  ))}
+                </div>
+                {/*
+                  {illustData.map((illust, index) => (
+                    <div
+                      key={index}
+                      className="md:relative md:-left-20 md:top-7"
+                    >
+                      <img
+                        src={illust.img_url}
+                        width="250"
+                        height="250"
+                        alt={`Image ${index}`}
+                      />
                       <div className="mt-5 text-start">
                         <h3 className="text-base font-bold">
                           Title: {illust.imagePrompt}
                         </h3>
-                        <h3 className="text-base">
-                          Style: {illust.style[0]}
-                        </h3>
+                        <h3 className="text-base">Style: {illust.style[0]}</h3>
                       </div>
                     </div>
                   ))}
-                </div>
+                  </div>*/}
               </div>
             )}
           </div>
