@@ -50,34 +50,14 @@ const Page = () => {
                   {userName}
                 </h1>
                 <IllustFilter />
-                <div className="grid grid-cols-4 gap-3 md:gap-5">
+                <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
+                  {/*"grid grid-cols-4 gap-3 md:gap-5">*/}
                   {illustData.map((illust, index) => (
                     <div key={index}>
                       <IllustCard illustration={illust} />
                     </div>
                   ))}
                 </div>
-                {/*
-                  {illustData.map((illust, index) => (
-                    <div
-                      key={index}
-                      className="md:relative md:-left-20 md:top-7"
-                    >
-                      <img
-                        src={illust.img_url}
-                        width="250"
-                        height="250"
-                        alt={`Image ${index}`}
-                      />
-                      <div className="mt-5 text-start">
-                        <h3 className="text-base font-bold">
-                          Title: {illust.imagePrompt}
-                        </h3>
-                        <h3 className="text-base">Style: {illust.style[0]}</h3>
-                      </div>
-                    </div>
-                  ))}
-                  </div>*/}
               </div>
             )}
           </div>

@@ -20,3 +20,16 @@ body {
   color: rgb(var(--foreground-rgb));
   background: white;
 }
+/*
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.popup {
+  position: absolute;
+  width: 100%;
+  background: blue;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}*/

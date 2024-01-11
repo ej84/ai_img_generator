@@ -2,11 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./components/Nav";
 import Sidebar from "./components/Sidebar";
-import ImageGenerator from "./components/ImageGenerator";
-//import useAuth from "./hooks/useAuth";
-import LoginWindow from "./components/LoginWindow";
+import userAuth from "./firebase/userAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useAuth from "./hooks/useAuth";
 import { collection, addDoc, getDocs, query } from "firebase/firestore";
 import { db, auth } from "./firebase/initFirebase";
 import IllustFilter from "./components/IllustFilter";
@@ -24,7 +21,6 @@ export default function Home() {
       }
     }, []);
   */
-  const { user } = useAuth();
 
   const checkUser = () => {
     if (!user) {
@@ -68,17 +64,12 @@ export default function Home() {
       <Nav />
       <Sidebar setShowLoginWindow={checkUser} />
       <main className="md:pt-16 min-h-screen">
-        <div className="md:absolute md:left-64 lg:left-80">
+        <div className="md:absolute md:left-64 lg:left-1/4">
           <IllustFilter />
         </div>
         {userStorageData && (
           <div>
             <img src={userStorageData} className="absolute right-1/2 top-1/2" />
-          </div>
-        )}
-        {showLoginWindow && (
-          <div onClick={() => setShowLoginWindow(false)}>
-            <LoginWindow />
           </div>
         )}
       </main>

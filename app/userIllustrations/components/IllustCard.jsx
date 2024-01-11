@@ -1,4 +1,13 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faDownload,
+  faPencil,
+  faShare,
+  faCopy,
+  faSearchPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const IllustCard = ({ illustration }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -25,19 +34,55 @@ const IllustCard = ({ illustration }) => {
     <div
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      className="relative"
     >
       <img
         src={illustration.img_url}
-        width="240"
-        height="240"
+        width="300"
+        height="300"
         alt={illustration.imagePrompt}
       />
       {isHovering && (
-        <div className="popup">
-          <button onClick={copyToClipboard}>Copy Link</button>
-          <button onClick={() => downloadImage("svg")}>Download SVG</button>
-          <button onClick={() => downloadImage("png")}>Download PNG</button>
-          {/* Share link 버튼은 별도의 로직이 필요할 수 있습니다. */}
+        <div className="absolute top-8 right-5 w-3/5">
+          <div className="flex flex-col bg-white rounded-md outline outline-gray-300">
+            {/*<button className="text-left" onClick={copyToClipboard}>
+              Copy Link
+            </button>*/}
+            <Link href="/" className="px-3 my-3 text-sm font-semibold">
+              <FontAwesomeIcon icon={faSearchPlus} />
+              <p className="inline text-sm font-semibold pl-2">
+                Open illustration
+              </p>
+            </Link>
+            <div className="mx-2 border border-gray-300"></div>
+            <button
+              onClick={() => downloadImage("svg")}
+              className="px-3 my-2 text-left"
+            >
+              <FontAwesomeIcon icon={faDownload} />
+              <p className="inline text-sm font-sans font-semibold pl-2">
+                Download
+              </p>
+            </button>
+            <button className="px-3 my-2 text-left">
+              <FontAwesomeIcon icon={faPencil} />
+              <p className="inline text-sm font-sans font-semibold pl-2">
+                Edit
+              </p>
+            </button>
+            <button className="px-3 my-2 text-left">
+              <FontAwesomeIcon icon={faShare} />
+              <p className="inline text-sm font-sans font-semibold pl-2">
+                Share
+              </p>
+            </button>
+            <button className="px-3 my-2 text-left">
+              <FontAwesomeIcon icon={faCopy} />
+              <p className="inline text-sm font-sans font-semibold pl-2">
+                Copycat
+              </p>
+            </button>
+          </div>
         </div>
       )}
     </div>
