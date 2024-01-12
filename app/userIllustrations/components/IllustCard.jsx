@@ -30,6 +30,25 @@ const IllustCard = ({ illustration }) => {
     window.URL.revokeObjectURL(url);
   };
 
+  // ImageCard.jsx 또는 관련 컴포넌트
+  const handleShareClick = async (imageUrl) => {
+    const email = prompt("Enter the email address to share with:");
+
+    // 간단한 이메일 유효성 검사
+    if (email && /\S+@\S+\.\S+/.test(email)) {
+      await fetch("/api/sendShareLink/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, imageUrl }),
+      });
+      alert("Share link sent!");
+    } else {
+      alert("Please enter a valid email address.");
+    }
+  };
+
   return (
     <div
       onMouseEnter={() => setIsHovering(true)}
@@ -48,40 +67,53 @@ const IllustCard = ({ illustration }) => {
             {/*<button className="text-left" onClick={copyToClipboard}>
               Copy Link
             </button>*/}
-            <Link href="/" className="px-3 my-3 text-sm font-semibold">
-              <FontAwesomeIcon icon={faSearchPlus} />
-              <p className="inline text-sm font-semibold pl-2">
-                Open illustration
-              </p>
-            </Link>
+            <div className="my-2 hover:bg-gray-300">
+              <Link href="/" className="px-3 my-2 text-sm font-semibold">
+                <FontAwesomeIcon icon={faSearchPlus} />
+                <p className="inline text-sm font-semibold pl-2">
+                  Open illustration
+                </p>
+              </Link>
+            </div>
             <div className="mx-2 border border-gray-300"></div>
-            <button
-              onClick={() => downloadImage("svg")}
-              className="px-3 my-2 text-left"
-            >
-              <FontAwesomeIcon icon={faDownload} />
-              <p className="inline text-sm font-sans font-semibold pl-2">
-                Download
-              </p>
-            </button>
-            <button className="px-3 my-2 text-left">
-              <FontAwesomeIcon icon={faPencil} />
-              <p className="inline text-sm font-sans font-semibold pl-2">
-                Edit
-              </p>
-            </button>
-            <button className="px-3 my-2 text-left">
-              <FontAwesomeIcon icon={faShare} />
-              <p className="inline text-sm font-sans font-semibold pl-2">
-                Share
-              </p>
-            </button>
-            <button className="px-3 my-2 text-left">
-              <FontAwesomeIcon icon={faCopy} />
-              <p className="inline text-sm font-sans font-semibold pl-2">
-                Copycat
-              </p>
-            </button>
+            <div className="my-1 hover:bg-gray-300">
+              <button
+                onClick={() => downloadImage("svg")}
+                className="px-3 my-1 text-left"
+              >
+                <FontAwesomeIcon icon={faDownload} />
+                <p className="inline text-sm font-sans font-semibold pl-2">
+                  Download
+                </p>
+              </button>
+            </div>
+            <div className="my-1 hover:bg-gray-300">
+              <button className="px-3 my-1 text-left">
+                <FontAwesomeIcon icon={faPencil} />
+                <p className="inline text-sm font-sans font-semibold pl-2">
+                  Edit
+                </p>
+              </button>
+            </div>
+            <div className="my-1 hover:bg-gray-300">
+              <button
+                className="px-3 my-1 text-left"
+                onClick={() => handleShareClick(illustration.img_url)}
+              >
+                <FontAwesomeIcon icon={faShare} />
+                <p className="inline text-sm font-sans font-semibold pl-2">
+                  Share
+                </p>
+              </button>
+            </div>
+            <div className="my-1 hover:bg-gray-300">
+              <button className="px-3 my-1 text-left">
+                <FontAwesomeIcon icon={faCopy} />
+                <p className="inline text-sm font-sans font-semibold pl-2">
+                  Copycat
+                </p>
+              </button>
+            </div>
           </div>
         </div>
       )}

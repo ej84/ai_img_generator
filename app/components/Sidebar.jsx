@@ -27,7 +27,11 @@ const Sidebar = () => {
           onClick={handleLoginWindow}
         >
           <a href="/create">
-            <FontAwesomeIcon icon={faCirclePlus} size="2x" />
+            <FontAwesomeIcon
+              icon={faCirclePlus}
+              size="2x"
+              style={{ width: "30px", height: "30px" }}
+            />
             <p>Create</p>
           </a>
         </div>
@@ -42,7 +46,11 @@ const Sidebar = () => {
           onClick={handleLoginWindow}
         >
           <a href="/userIllustrations">
-            <FontAwesomeIcon icon={faFaceSmile} size="2x" />
+            <FontAwesomeIcon
+              icon={faFaceSmile}
+              size="2x"
+              style={{ width: "30px", height: "30px" }}
+            />
             <p>My Illustrations</p>
           </a>
         </div>

@@ -20,7 +20,9 @@ const IllustFilter = () => {
         <select className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer">
           <option value="">Colors amount</option>
           {Array.from({ length: 9 }, (_, i) => i + 1).map((count) => (
-            <option key={count} value={count}>{count}</option>
+            <option key={count} value={count}>
+              {count}
+            </option>
           ))}
         </select>
         <div className="inline md:relative md:-right-56 space-x-5">
@@ -30,11 +32,13 @@ const IllustFilter = () => {
           </button>
         </div>
       </div>
-      <FontAwesomeIcon
-        icon={faFilter}
-        size="1x"
-        className="flex inset-x-1/2 inset-y-1/2 p-3 md:hidden"
-      />
+      <div className="md:hidden">
+        <FontAwesomeIcon
+          icon={faFilter}
+          size="1x"
+          className="flex inset-x-1/2 inset-y-1/2 p-3 md:hidden"
+        />
+      </div>
     </>
   );
 };
