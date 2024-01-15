@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 import IlluStyles from "./components/IlluStyles";
 import ColorModeSelector from "./components/ColorModeSelector";
-import IlluTypeSelector from "./components/IlluTypeSelector";
+import IlluTypeSelector, { variantTexts } from "./components/IlluTypeSelector";
 import StepIndicator from "./components/StepIndicator";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -329,18 +329,61 @@ const Page = () => {
 
             {step === 5 && (
               <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/3 space-y-10">
-                <h1 className="mt-5 font-bold text-xl md:mt-0 md:text-3xl">
-                  Final Review
-                </h1>
                 <div className="max-[639px]:justify-center md:flex md:relative">
                   <div className="flex flex-col space-y-10">
-                    <p>Confirm your input below:</p>
+                    <p className="text-xl font-bold">
+                      Confirm your input below:
+                    </p>
                     <p>Prompt: {userInput.promptText}</p>
-                    <p>Style: {userInput.illuStyle}</p>
-                    <p>Color Mode: {userInput.colorMode}</p>
-                    <p>Object Mode: {userInput.objectMode}</p>
-                    <p>Number of Color Variants: {userInput.n}</p>
-                    <p>Illustration Visibility: {userInput.visibility}</p>
+                    <div className="grid grid-cols-5 text-center">
+                      <div>
+                        <button className="bg-gray-300 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
+                          <p className="relative right-7 bottom-3 font-semibold">
+                            {userInput.illuStyle[0]}
+                          </p>
+                        </button>
+                        <p style={{ fontSize: "14px" }}>
+                          {userInput.illuStyle}
+                        </p>
+                      </div>
+                      <div>
+                        <button className="bg-gray-300 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
+                          <p className="relative right-5 bottom-3">
+                            {userInput.colorMode}
+                          </p>
+                        </button>
+                        <p className="text-center">{userInput.colorMode}</p>
+                      </div>
+                      <div>
+                        <button className="bg-gray-300 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
+                          <p className="text-center">{userInput.objectMode}</p>
+                        </button>
+
+                        <p className="text-center">{userInput.objectMode}</p>
+                      </div>
+                      <div>
+                        <button className="bg-gray-200 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
+                          <div className="relative right-3 bottom-4">
+                            <p className="font-semibold text-4xl">
+                              {userInput.n}
+                            </p>
+                          </div>
+                        </button>
+                        <p style={{ fontSize: "12px" }}>
+                          {variantTexts[userInput.n]}
+                        </p>
+                      </div>
+                      <div>
+                        <button className="bg-gray-200 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
+                          <p className="relative right-5 bottom-3">
+                            {userInput.visibility}
+                          </p>
+                        </button>
+                        <p style={{ fontSize: "12px" }}>
+                          {userInput.visibility}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
@@ -349,7 +392,7 @@ const Page = () => {
                   </button>
                   <button
                     onClick={createImage}
-                    className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:-right-full md:-mt-3"
+                    className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-0 md:-mt-3"
                   >
                     Yes, Create
                   </button>

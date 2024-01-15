@@ -7,6 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+export const variantTexts = { 1: "One", 2: "Two", 3: "Three", 4: "Four" };
+
 const IlluTypeSelector = ({
   objectMode,
   setObjectMode,
@@ -17,7 +19,6 @@ const IlluTypeSelector = ({
 }) => {
   const fullModeBtn = useRef(null);
   const isolModeBtn = useRef(null);
-  const variantTexts = { 1: "One", 2: "Two", 3: "Three", 4: "Four" };
 
   const handleSelectedMode = (mode) => {
     setObjectMode(mode);

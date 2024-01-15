@@ -49,7 +49,7 @@ const Page = () => {
                 <h1 className="md:relative md:-left-20 mb-10 font-bold text-xl md:mt-0 md:text-3xl">
                   {userName}
                 </h1>
-                <IllustFilter />
+                <IllustFilter illusts={illustData} />
                 <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
                   {/*"grid grid-cols-4 gap-3 md:gap-5">*/}
                   {illustData.map((illust, index) => (

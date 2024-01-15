@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const categories = {
+export const categories = {
   common: [
     "flat",
     "alegria",
