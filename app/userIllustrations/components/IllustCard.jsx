@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -33,17 +34,23 @@ const IllustCard = ({ illustration }) => {
   // ImageCard.jsx 또는 관련 컴포넌트
   const handleShareClick = async (imageUrl) => {
     const email = prompt("Enter the email address to share with:");
+    console.log(email);
 
     // 간단한 이메일 유효성 검사
     if (email && /\S+@\S+\.\S+/.test(email)) {
-      await fetch("/api/sendShareLink/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, imageUrl }),
-      });
-      alert("Share link sent!");
+      try {
+        await fetch("api/sendShareLink/route", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, imageUrl }),
+        });
+        console.log('POST request successful');
+      } catch (error) {
+        // 오류 시 로그
+        console.error('Error sending POST request:', error.message);
+      }
     } else {
       alert("Please enter a valid email address.");
     }
