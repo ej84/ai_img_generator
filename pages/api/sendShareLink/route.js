@@ -1,10 +1,33 @@
 // pages/api/sendShareLink.js
-import nodemailer from "nodemailer";
+
+import FormData from "form-data";
+import Mailgun from "mailgun.js";
+
+const mailgun = new Mailgun(FormData);
+
+const mg = mailgun.client({
+  username: "api",
+  key: process.env.MAILGUN_API_KEY || "key-yourkeyhere",
+});
+
+mg.messages
+  .create("sandbox-123.mailgun.org", {
+    from: "Excited User <mailgun@sandbox-123.mailgun.org>",
+    to: ["test@example.com"],
+    subject: "Hello",
+    text: "Testing some Mailgun awesomeness!",
+    html: "<h1>Testing some Mailgun awesomeness!</h1>",
+  })
+  .then((msg) => console.log(msg)) // logs response data
+  .catch((err) => console.log(err)); // logs any error
+
 /*
+import nodemailer from "nodemailer";
+
 export const config = {
   runtime: 'edge',
 };
-*/
+
 
 export default async function handler(req, res) {
   const { email, imageUrl } = req.body;
@@ -32,7 +55,7 @@ export default async function handler(req, res) {
     res.status(500).json({ error: "Error sending share link email" });
   }
 };
-
+*/
 /*
 export default async function handler(req, res) {
 
@@ -64,22 +87,4 @@ export default async function handler(req, res) {
   }
 
 }
-*/
-
-/*import FormData from 'form-data';
-import Mailgun from 'mailgun.js';
-
-const mailgun = new Mailgun(FormData);
-
-const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY || 'key-yourkeyhere' });
-
-mg.messages.create('sandbox-123.mailgun.org', {
-  from: "Excited User <mailgun@sandbox-123.mailgun.org>",
-  to: ["test@example.com"],
-  subject: "Hello",
-  text: "Testing some Mailgun awesomeness!",
-  html: "<h1>Testing some Mailgun awesomeness!</h1>"
-})
-  .then(msg => console.log(msg)) // logs response data
-  .catch(err => console.log(err)); // logs any error
 */

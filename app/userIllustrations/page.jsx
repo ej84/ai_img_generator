@@ -14,8 +14,9 @@ const Page = () => {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [illustData, setIllustData] = useState([]);
-  const router = useRouter();
+  const [filteredIllust, setFilteredIllust] = useState([]);
 
+  const router = useRouter();
   useEffect(() => {
     // Checks if user is logged in with auth state change detection
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -24,6 +25,7 @@ const Page = () => {
         setUserName(user.displayName);
         fetchUserData(user.uid).then((data) => {
           setIllustData(data);
+          setFilteredIllust(data);
         });
       }
 
@@ -37,6 +39,15 @@ const Page = () => {
     return () => unsubscribe();
   }, [router]);
 
+  const applyFilter = (filters) => {
+    const tempData = illustData.filter((illust) => illust.style[0] === filters);
+    setFilteredIllust(tempData);
+  };
+
+  const reset = () => {
+    setIllustData(illustData);
+  };
+
   return (
     <>
       <Nav />
@@ -49,10 +60,10 @@ const Page = () => {
                 <h1 className="md:relative md:-left-20 mb-10 font-bold text-xl md:mt-0 md:text-3xl">
                   {userName}
                 </h1>
-                <IllustFilter illusts={illustData} />
+                <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
                 <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
                   {/*"grid grid-cols-4 gap-3 md:gap-5">*/}
-                  {illustData.map((illust, index) => (
+                  {filteredIllust.map((illust, index) => (
                     <div key={index}>
                       <IllustCard illustration={illust} />
                     </div>
