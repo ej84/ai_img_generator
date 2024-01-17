@@ -1,26 +1,50 @@
 // pages/api/sendShareLink.js
 
 import FormData from "form-data";
-import Mailgun from "mailgun.js";
+import mailgun from "mailgun-js";
 
+const mailgunClient = mailgun({
+  apiKey: process.env.MAILGUN_API_KEY,
+  domain: process.env.MAILGUN_DOMAIN,
+});
+
+export async function sendEmail({ to, from, subject, message }) {
+  const emailData = {
+    from,
+    to,
+    subject,
+    text: message,
+  };
+
+  try {
+    const result = await mailgunClient.messages().send(emailData);
+    console.log("Email sent successfully!");
+    return result;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
+  }
+}
+
+/*
 const mailgun = new Mailgun(FormData);
 
 const mg = mailgun.client({
   username: "api",
-  key: process.env.MAILGUN_API_KEY || "key-yourkeyhere",
+  key: process.env.MAILGUN_API_KEY,
 });
 
 mg.messages
   .create("sandbox-123.mailgun.org", {
     from: "Excited User <mailgun@sandbox-123.mailgun.org>",
-    to: ["test@example.com"],
+    to: ["ej84@njit.edu"],
     subject: "Hello",
     text: "Testing some Mailgun awesomeness!",
     html: "<h1>Testing some Mailgun awesomeness!</h1>",
   })
   .then((msg) => console.log(msg)) // logs response data
   .catch((err) => console.log(err)); // logs any error
-
+*/
 /*
 import nodemailer from "nodemailer";
 

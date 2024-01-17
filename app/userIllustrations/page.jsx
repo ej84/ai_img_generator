@@ -17,6 +17,7 @@ const Page = () => {
   const [filteredIllust, setFilteredIllust] = useState([]);
 
   const router = useRouter();
+
   useEffect(() => {
     // Checks if user is logged in with auth state change detection
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -62,7 +63,6 @@ const Page = () => {
                 </h1>
                 <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
                 <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
-                  {/*"grid grid-cols-4 gap-3 md:gap-5">*/}
                   {filteredIllust.map((illust, index) => (
                     <div key={index}>
                       <IllustCard illustration={illust} />

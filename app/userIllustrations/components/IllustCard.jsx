@@ -9,6 +9,7 @@ import {
   faSearchPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import sendEmail from "@/app/utils/email";
 
 const IllustCard = ({ illustration }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -30,7 +31,7 @@ const IllustCard = ({ illustration }) => {
     a.click();
     window.URL.revokeObjectURL(url);
   };
-
+  /*
   // ImageCard.jsx 또는 관련 컴포넌트
   const handleShareClick = async (imageUrl) => {
     const email = prompt("Enter the email address to share with:");
@@ -54,6 +55,10 @@ const IllustCard = ({ illustration }) => {
     } else {
       alert("Please enter a valid email address.");
     }
+  };*/
+
+  const handleShareClick = async () => {
+    sendEmail();
   };
 
   return (
@@ -105,7 +110,7 @@ const IllustCard = ({ illustration }) => {
             <div className="my-1 hover:bg-gray-300">
               <button
                 className="px-3 my-1 text-left"
-                onClick={() => handleShareClick(illustration.img_url)}
+                onClick={() => handleShareClick()}
               >
                 <FontAwesomeIcon icon={faShare} />
                 <p className="inline text-sm font-sans font-semibold pl-2">
