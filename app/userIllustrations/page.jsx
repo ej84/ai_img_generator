@@ -8,6 +8,7 @@ import IllustFilter from "../components/IllustFilter";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import IllustCard from "./components/IllustCard";
+import Link from "next/link";
 
 const Page = () => {
   const [userData, setUserData] = useState(null);
@@ -41,12 +42,16 @@ const Page = () => {
   }, [router]);
 
   const applyFilter = (filters) => {
-    const tempData = illustData.filter((illust) => illust.style[0] === filters);
-    setFilteredIllust(tempData);
+    if (filters !== "" && filters !== null) {
+      const tempData = illustData.filter(
+        (illust) => illust.style[0] === filters
+      );
+      setFilteredIllust(tempData);
+    }
   };
 
   const reset = () => {
-    setIllustData(illustData);
+    setFilteredIllust(illustData);
   };
 
   return (
@@ -66,6 +71,12 @@ const Page = () => {
                   {filteredIllust.map((illust, index) => (
                     <div key={index}>
                       <IllustCard illustration={illust} />
+                      <Link
+                        href="/userIllustrations"
+                        className="hover:text-blue-500 font-sans"
+                      >
+                        {illust.imagePrompt}
+                      </Link>
                     </div>
                   ))}
                 </div>

@@ -3,7 +3,7 @@ import Mailgun from "mailgun.js";
 
 const API_KEY = process.env.NEXT_PUBLIC_MAILGUN_API_KEY;
 const DOMAIN = process.env.NEXT_PUBLIC_MAILGUN_DOMAIN;
-// 2ca0ad7ba547499f1befbcc491d65ea6-
+
 export default async function sendEmail() {
   const mailgun = new Mailgun(FormData);
 

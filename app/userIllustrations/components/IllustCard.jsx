@@ -7,6 +7,8 @@ import {
   faShare,
   faCopy,
   faSearchPlus,
+  faPaperclip,
+  faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import sendEmail from "@/app/utils/email";
@@ -16,7 +18,6 @@ const IllustCard = ({ illustration }) => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(illustration.img_url);
-    console.log("Link copied to clipboard!");
   };
 
   const downloadImage = async (format) => {
@@ -31,31 +32,6 @@ const IllustCard = ({ illustration }) => {
     a.click();
     window.URL.revokeObjectURL(url);
   };
-  /*
-  // ImageCard.jsx 또는 관련 컴포넌트
-  const handleShareClick = async (imageUrl) => {
-    const email = prompt("Enter the email address to share with:");
-    console.log(email);
-
-    // 간단한 이메일 유효성 검사
-    if (email && /\S+@\S+\.\S+/.test(email)) {
-      try {
-        await fetch("api/sendShareLink/route", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, imageUrl }),
-        });
-        console.log('POST request successful');
-      } catch (error) {
-        // 오류 시 로그
-        console.error('Error sending POST request:', error.message);
-      }
-    } else {
-      alert("Please enter a valid email address.");
-    }
-  };*/
 
   const handleShareClick = async () => {
     sendEmail();
@@ -65,7 +41,7 @@ const IllustCard = ({ illustration }) => {
     <div
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className="relative"
+      className="relative outline outline-gray-200"
     >
       <img
         src={illustration.img_url}
@@ -74,60 +50,69 @@ const IllustCard = ({ illustration }) => {
         alt={illustration.imagePrompt}
       />
       {isHovering && (
-        <div className="absolute top-8 right-5 w-3/5">
-          <div className="flex flex-col bg-white rounded-md outline outline-gray-300">
-            {/*<button className="text-left" onClick={copyToClipboard}>
-              Copy Link
-            </button>*/}
-            <div className="my-2 hover:bg-gray-300">
-              <Link href="/" className="px-3 my-2 text-sm font-semibold">
-                <FontAwesomeIcon icon={faSearchPlus} />
-                <p className="inline text-sm font-semibold pl-2">
-                  Open illustration
-                </p>
-              </Link>
-            </div>
-            <div className="mx-2 border border-gray-300"></div>
-            <div className="my-1 hover:bg-gray-300">
-              <button
-                onClick={() => downloadImage("svg")}
-                className="px-3 my-1 text-left"
-              >
-                <FontAwesomeIcon icon={faDownload} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Download
-                </p>
+        <>
+          <div className="absolute top-2 right-3 bg-gray-200 px-4 py-2 rounded-full">
+            <div className="space-x-2">
+              <button className="pr-2" onClick={copyToClipboard}>
+                <FontAwesomeIcon icon={faPaperclip} />
               </button>
-            </div>
-            <div className="my-1 hover:bg-gray-300">
-              <button className="px-3 my-1 text-left">
-                <FontAwesomeIcon icon={faPencil} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Edit
-                </p>
-              </button>
-            </div>
-            <div className="my-1 hover:bg-gray-300">
-              <button
-                className="px-3 my-1 text-left"
-                onClick={() => handleShareClick()}
-              >
-                <FontAwesomeIcon icon={faShare} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Share
-                </p>
-              </button>
-            </div>
-            <div className="my-1 hover:bg-gray-300">
-              <button className="px-3 my-1 text-left">
-                <FontAwesomeIcon icon={faCopy} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Copycat
-                </p>
+              <button className="pl-2" onClick={copyToClipboard}>
+                <FontAwesomeIcon icon={faEllipsis} />
               </button>
             </div>
           </div>
-        </div>
+          <div className="absolute top-14 right-5 w-3/5 ">
+            <div className="flex flex-col bg-white rounded-md outline outline-gray-300">
+              <div className="my-2 hover:bg-gray-300">
+                <Link href="/" className="px-3 my-2 text-sm font-semibold">
+                  <FontAwesomeIcon icon={faSearchPlus} />
+                  <p className="inline text-sm font-semibold pl-2">
+                    Open illustration
+                  </p>
+                </Link>
+              </div>
+              <div className="mx-2 border border-gray-300"></div>
+              <div className="my-1 hover:bg-gray-300">
+                <button
+                  onClick={() => downloadImage("svg")}
+                  className="px-3 my-1 text-left"
+                >
+                  <FontAwesomeIcon icon={faDownload} />
+                  <p className="inline text-sm font-sans font-semibold pl-2">
+                    Download
+                  </p>
+                </button>
+              </div>
+              <div className="my-1 hover:bg-gray-300">
+                <button className="px-3 my-1 text-left">
+                  <FontAwesomeIcon icon={faPencil} />
+                  <p className="inline text-sm font-sans font-semibold pl-2">
+                    Edit
+                  </p>
+                </button>
+              </div>
+              <div className="my-1 hover:bg-gray-300">
+                <button
+                  className="px-3 my-1 text-left"
+                  onClick={() => handleShareClick()}
+                >
+                  <FontAwesomeIcon icon={faShare} />
+                  <p className="inline text-sm font-sans font-semibold pl-2">
+                    Share
+                  </p>
+                </button>
+              </div>
+              <div className="my-1 hover:bg-gray-300">
+                <button className="px-3 my-1 text-left">
+                  <FontAwesomeIcon icon={faCopy} />
+                  <p className="inline text-sm font-sans font-semibold pl-2">
+                    Copycat
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
