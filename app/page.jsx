@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Nav from "./components/Nav";
 import Sidebar from "./components/Sidebar";
 import { useRouter } from "next/navigation";
@@ -7,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { collection, addDoc, getDocs, query } from "firebase/firestore";
 import { db, auth } from "./firebase/initFirebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { watchUserSubscription } from "./firebase/initFirebase";
 import fetchPublicImages from "./firebase/fetchPublicImages";
 import IllustFilter from "./components/IllustFilter";
 import fetchUserData from "./firebase/fetchUserData";
@@ -14,7 +16,8 @@ import IllustCard from "./userIllustrations/components/IllustCard";
 import Link from "next/link";
 
 export default function Home() {
-  const [showLoginWindow, setShowLoginWindow] = useState(false);
+  //const [session] = useSession();
+  const [subscriptionStatus, setSubscriptionStatus] = useState(null);
   const [userStorageData, setUserStorageData] = useState(null);
   const [illustData, setIllustData] = useState([]);
   const [filteredIllust, setFilteredIllust] = useState([]);
@@ -23,12 +26,29 @@ export default function Home() {
   const [images, setImages] = useState([]);
 
   const router = useRouter();
+  /*const { user } = */
 
   useEffect(() => {
     fetchPublicImages().then((data) => {
       setImages(data);
       setFilteredIllust(data);
     });
+  }, []);
+
+  useEffect(() => {
+    // Checks if user is logged in with auth state change detection
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const unsubscribeUser = watchUserSubscription(user, (userData) => {
+          if (userData) {
+            setSubscriptionStatus(userData.subscriptionStatus);
+          }
+        });
+        // Removes event listner when component gets unmounted
+        return () => unsubscribeUser();
+      }
+    });
+    return () => unsubscribeAuth();
   }, []);
 
   const applyFilter = (filters) => {

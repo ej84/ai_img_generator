@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { loadStripe } from "@stripe/stripe-js";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -19,5 +21,44 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 const provider = new GoogleAuthProvider();
+const functions = getFunctions(app);
 
-export { auth, db, storage, provider };
+//const stripeLoader = loadStripe();
+/*
+async function handleSubscription(user) {
+  const stripe = await stripeLoader;
+  const createCheckoutSession = httpsCallable(
+    functions,
+    "createCheckoutSession"
+  );
+
+  createCheckoutSession({ priceId: "price_id" })
+    .then((result) => {
+      const sessionId = result.data.sessionId;
+      if (sessionId) {
+        stripe.redirectToCheckout({ sessionId });
+      }
+    })
+    .catch((error) => {
+      console.error("Error creating checkout session:", error);
+    });
+}
+*/
+// Firestore to check user's plan
+function watchUserSubscription(user, callback) {
+  const userRef = doc(db, "users", user.uid);
+
+  return onSnapshot(userRef, (doc) => {
+    const userData = doc.data();
+    callback(userData);
+  });
+}
+
+export {
+  auth,
+  db,
+  storage,
+  provider,
+  //handleSubscription,
+  watchUserSubscription,
+};

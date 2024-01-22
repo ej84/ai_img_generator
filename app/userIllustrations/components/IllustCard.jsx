@@ -16,6 +16,7 @@ import sendEmail from "@/app/utils/email";
 const IllustCard = ({ illustration }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const imageUrl = illustration.img_url;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(illustration.img_url);
@@ -35,7 +36,27 @@ const IllustCard = ({ illustration }) => {
   };
 
   const handleShareClick = async () => {
-    sendEmail();
+    const email = prompt("Enter email address to share this illustration");
+
+    if (email && /\S+@\S+\.\S+/.test(email)) {
+      try {
+        await fetch("/api/sendShareLink/route", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, imageUrl }),
+        });
+
+        // 성공 시 로그
+        console.log("POST request successful");
+      } catch (error) {
+        // 오류 시 로그
+        console.error("Error sending POST request:", error.message);
+      }
+    } else {
+      alert("Please enter a valid email address.");
+    }
   };
 
   const handleHovering = () => {
