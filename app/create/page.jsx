@@ -175,6 +175,19 @@ const Page = () => {
 
       setImageUrl(imageURL);
 
+      if (userInput.visibility === "public") {
+        await setDoc(doc(collection(db, "publicImages")), {
+          imagePrompt: userInput.promptText,
+          style: userInput.illuStyle,
+          color: userInput.colorMode,
+          mode: userInput.objectMode,
+          count: userInput.n,
+          visible: userInput.visibility,
+          img_url: imageURL,
+          created_at: Timestamp.now(),
+        });
+      }
+
       await setDoc(doc(collection(db, "users", userId, "illustrations")), {
         imagePrompt: userInput.promptText,
         style: userInput.illuStyle,

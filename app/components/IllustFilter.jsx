@@ -4,17 +4,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { categories } from "../create/components/IlluStyles";
 
 const IllustFilter = ({ onApplyFilter, onReset }) => {
-  /*const [illusts, setIllusts] = useState([]);
-  const [filteredIllusts, setFilteredIllusts] = useState([]);
-  const [filterCategory, setFilterCategory] = useState("");*/
-  const [filterOption, setFilterOption] = useState("");
+  const [filterOptions, setFilterOptions] = useState({
+    style: "",
+    colorMode: "",
+    illustType: "",
+    colorsAmount: "",
+  });
+
+  const handleChange = (e) => {
+    setFilterOptions({
+      ...filterOptions,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleApplyFilter = () => {
-    onApplyFilter(filterOption);
+    onApplyFilter(filterOptions);
   };
 
   const handleReset = () => {
-    setFilterOption("");
+    setFilterOptions({
+      style: "",
+      colorMode: "",
+      illustType: "",
+      colorsAmount: "",
+    });
     onReset();
   };
 
@@ -22,8 +36,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
     <>
       <div className="hidden md:block md:relative md:-left-20 md:mb-10 w-full space-x-4">
         <select
-          value={filterOption}
-          onChange={(e) => setFilterOption(e.target.value)}
+          value={filterOptions}
+          onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
         >
           <option value="">Illustration style</option>
@@ -31,8 +45,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           <option value="filmnoir">filmnoir</option>
         </select>
         <select
-          value={filterOption}
-          onChange={(e) => setFilterOption(e.target.value)}
+          value={filterOptions}
+          onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
         >
           <option value="">Color mode</option>
@@ -40,15 +54,17 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           <option value="bw">Black & White</option>
         </select>
         <select
-          value={filterOption}
-          onChange={(e) => setFilterOption(e.target.value)}
+          value={filterOptions}
+          onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
         >
           <option value="">Illustration type</option>
+          <option value="full">Full</option>
+          <option value="isolated">Isolated</option>
         </select>
         <select
-          value={filterOption}
-          onChange={(e) => setFilterOption(e.target.value)}
+          value={filterOptions}
+          onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
         >
           <option value="">Colors amount</option>

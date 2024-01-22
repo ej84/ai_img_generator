@@ -40,7 +40,7 @@ const Page = () => {
     // Removes event listner when component gets unmounted
     return () => unsubscribe();
   }, [router]);
-
+  /*
   const applyFilter = (filters) => {
     if (filters !== "" && filters !== null) {
       const tempData = illustData.filter(
@@ -48,6 +48,22 @@ const Page = () => {
       );
       setFilteredIllust(tempData);
     }
+  };
+*/
+
+  const applyFilter = (filters) => {
+    const tempData = illustData.filter((illust) => {
+      console.log(filters);
+      return (
+        (filters.style === "" || illust.style.includes(filters.style)) &&
+        (filters.colorMode === "" || illust.color === filters.colorMode) &&
+        (filters.illustType === "" || illust.mode === filters.illustType) &&
+        (filters.colorsAmount === "" || illust.count === filters.colorsAmount)
+      );
+    });
+    console.log(tempData);
+    setFilteredIllust(tempData);
+    console.log(filteredIllust);
   };
 
   const reset = () => {
