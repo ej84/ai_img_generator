@@ -14,6 +14,7 @@ import IllustFilter from "./components/IllustFilter";
 import fetchUserData from "./firebase/fetchUserData";
 import IllustCard from "./userIllustrations/components/IllustCard";
 import Link from "next/link";
+import PaymentForm from "./components/PaymentForm";
 
 export default function Home() {
   //const [session] = useSession();
@@ -93,6 +94,9 @@ export default function Home() {
             <img src={userStorageData} className="absolute right-1/2 top-1/2" />
           </div>
         )}
+        <div>
+          <PaymentForm />
+        </div>
       </main>
     </>
   );
