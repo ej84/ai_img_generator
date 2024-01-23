@@ -94,9 +94,6 @@ export default function Home() {
             <img src={userStorageData} className="absolute right-1/2 top-1/2" />
           </div>
         )}
-        <div>
-          <PaymentForm />
-        </div>
       </main>
     </>
   );
