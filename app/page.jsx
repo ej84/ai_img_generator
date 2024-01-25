@@ -15,6 +15,7 @@ import fetchUserData from "./firebase/fetchUserData";
 import IllustCard from "./userIllustrations/components/IllustCard";
 import Link from "next/link";
 import PaymentForm from "./components/PaymentForm";
+import { checkout } from "@/checkout";
 
 export default function Home() {
   //const [session] = useSession();
@@ -42,6 +43,7 @@ export default function Home() {
       if (user) {
         const unsubscribeUser = watchUserSubscription(user, (userData) => {
           if (userData) {
+            setUserId(userData.uid);
             setSubscriptionStatus(userData.subscriptionStatus);
           }
         });
@@ -70,6 +72,18 @@ export default function Home() {
       setShowLoginWindow(false);
     }
   };
+  /*
+  const handleSubUser = () => {
+    checkout({
+      lineItems: [
+        {
+          price: "price_1OcW66Gosf4jzahcpRczT59b",
+          quantity: 1,
+        },
+      ],
+    });
+    await db.
+  };*/
 
   // Test to delete from db
 
@@ -88,6 +102,21 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <button
+            className="bg-orange-500 p-14"
+            onClick={() => {
+              checkout({
+                lineItems: [
+                  {
+                    price: "price_1OcW66Gosf4jzahcpRczT59b",
+                    quantity: 1,
+                  },
+                ],
+              });
+            }}
+          >
+            Buy
+          </button>
         </div>
         {userStorageData && (
           <div>
