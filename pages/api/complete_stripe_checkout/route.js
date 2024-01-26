@@ -1,9 +1,9 @@
 // pages/api/verify-checkout-session.js
 import Stripe from "stripe";
-import firebase from "firebase-admin";
+import { firebase } from "@/app/firebase/firebaseAdmin";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
+const stripe = new Stripe(process.env.NEXT_PUBLIC_SECRET_KEY);
+/*
 // Firebase 관리자 초기화 (이미 설정되어 있다면 필요 없음)
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -12,22 +12,27 @@ if (!firebase.apps.length) {
     }),
   });
 }
+*/
 
 export default async (req, res) => {
   if (req.method === "POST") {
-    const { sessionId } = req.body;
-
     try {
+      const { sessionId } = req.body;
+
       const session = await stripe.checkout.sessions.retrieve(sessionId);
 
       // session.customer 이나 session.subscription 정보를 사용하여
       // Firebase에서 해당 유저의 구독 상태 업데이트
-      const userId = ""; // 유저 식별 정보
-      const subscriptionType = "paid"; // 구독 유형 (예: standard, premium)
+      //const userId = session.metadata.userId; // 유저 식별 정보
+      const subscriptionType = "premium"; // 구독 유형 (예: standard, premium)
 
-      await firebase.firestore().collection("users").doc(userId).update({
-        subscription: subscriptionType,
-      });
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc("8Tj8NsVZrxPWyczB44xijlBN2iF2")
+        .update({
+          subscription: subscriptionType,
+        });
 
       res.status(200).json({ success: true });
     } catch (error) {
