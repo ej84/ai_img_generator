@@ -134,23 +134,26 @@ export default function Home() {
 
   const uploadFile = 'https://firebasestorage.googleapis.com/v0/b/meechelangelo-a76e3.appspot.com/o/converted-image%20(1).png?alt=media&token=4fcff8ce-9360-4572-aa74-9948cc9ee6b2';
 
-  const downloadSvg = async (file) => {
+  const downloadSvg = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
     try {
-
-
 
       // API 라우트 호출
       const response = await fetch('/api/png2svg', {
         method: 'POST',
-        body: file
+        body: formData
       });
       const svgData = await response.text();
-      const decodedSvgData = decodeURIComponent(svgData);
+      //const decodedSvgData = decodeURIComponent(svgData);
 
-      document.getElementById('svgContainer').innerHTML = decodedSvgData;
+      //document.getElementById('svgContainer').innerHTML = decodedSvgData;
 
       // SVG 데이터를 이용하여 파일 다운로드
-      const blob = new Blob([decodedSvgData], { type: 'image/svg+xml' });
+      const blob = new Blob([svgData], { type: 'image/svg+xml' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -186,8 +189,7 @@ export default function Home() {
           </button>
           <button className="bg-red-300 p-14" onClick={downloadImage}>Convert SVG to PNG</button>
 
-          <button className="bg-blue-500 p-14" onClick={() => downloadSvg(uploadFile)}>Convert PNG to SVG and Download</button>
-          <div id="svgContainer"></div>
+          <input type="file" onChange={downloadSvg} />
         </div>
 
         {userStorageData && (
