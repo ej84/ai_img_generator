@@ -184,12 +184,12 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <button className="bg-orange-500 p-14" onClick={handleSubUser}>
+          {/*<button className="bg-orange-500 p-14" onClick={handleSubUser}>
             Buy
           </button>
-          <button className="bg-red-300 p-14" onClick={downloadImage}>Convert SVG to PNG</button>
-
-          <input type="file" onChange={downloadSvg} />
+            <button className="bg-red-300 p-14" onClick={downloadImage}>Convert SVG to PNG</button>*/}
+          <div className="bg-violet-500">
+            <p>PNG to SVG</p><input type="file" className="inline" onChange={downloadSvg} /></div>
         </div>
 
         {userStorageData && (
