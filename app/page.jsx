@@ -99,6 +99,71 @@ export default function Home() {
     }
   };
 
+  const downloadImage = async () => {
+    try {
+      const response = await fetch('/api/svg2png', { method: 'POST' });
+      const imageBase64 = await response.text();
+
+      // Base64 데이터를 이용하여 이미지 다운로드
+      const link = document.createElement('a');
+      link.href = `data:image/png;base64,${imageBase64}`;
+      link.download = 'converted-image.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error converting image:', error);
+    }
+  }
+
+  const convertImage = async () => {
+    try {
+      const response = await fetch('/api/png2svg', { method: 'POST' });
+      const svgData = await response.text();
+      // 문자열 이스케이프 처리된 데이터를 디코딩 (필요한 경우)
+      const decodedSvgData = decodeURIComponent(svgData);
+
+      // SVG 데이터를 DOM에 삽입
+      document.getElementById('svgContainer').innerHTML = decodedSvgData;
+
+
+    } catch (error) {
+      console.error('Error converting image:', error);
+    }
+  }
+
+  const uploadFile = 'C:/Users/jmw98/OneDrive/Desktop/ai_img_generator/app/converted-image(2).png';
+
+  const downloadSvg = async (file) => {
+    try {
+
+
+
+      // API 라우트 호출
+      const response = await fetch('/api/png2svg', {
+        method: 'POST',
+        body: file
+      });
+      const svgData = await response.text();
+      const decodedSvgData = decodeURIComponent(svgData);
+
+      document.getElementById('svgContainer').innerHTML = decodedSvgData;
+
+      // SVG 데이터를 이용하여 파일 다운로드
+      const blob = new Blob([decodedSvgData], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'converted-image.svg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url); // URL 객체 해제
+    } catch (error) {
+      console.error('Error converting image:', error);
+    }
+  }
+
   // Test to delete from db
 
   return (
@@ -119,7 +184,12 @@ export default function Home() {
           <button className="bg-orange-500 p-14" onClick={handleSubUser}>
             Buy
           </button>
+          <button className="bg-red-300 p-14" onClick={downloadImage}>Convert SVG to PNG</button>
+
+          <button className="bg-blue-500 p-14" onClick={() => downloadSvg(uploadFile)}>Convert PNG to SVG and Download</button>
+          <div id="svgContainer"></div>
         </div>
+
         {userStorageData && (
           <div>
             <img src={userStorageData} className="absolute right-1/2 top-1/2" />

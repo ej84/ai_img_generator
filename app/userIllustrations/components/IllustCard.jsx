@@ -11,7 +11,6 @@ import {
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import sendEmail from "@/app/utils/email";
 
 const IllustCard = ({ illustration }) => {
   const [isHovering, setIsHovering] = useState(false);
