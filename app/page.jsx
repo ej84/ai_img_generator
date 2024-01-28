@@ -23,7 +23,7 @@ import IllustCard from "./userIllustrations/components/IllustCard";
 import Link from "next/link";
 import PaymentForm from "./components/PaymentForm";
 import { checkout } from "@/checkout";
-import { loadStripe } from "@stripe/stripe-js";
+//import { loadStripe } from "@stripe/stripe-js";
 
 export default function Home() {
   //const [session] = useSession();
@@ -80,25 +80,25 @@ export default function Home() {
       setShowLoginWindow(false);
     }
   };
-
-  const handleSubUser = async () => {
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
-    const response = await fetch("/api/create_checkout_session/route", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ priceId: "price_1OcW66Gosf4jzahcpRczT59b" }),
-    });
-    const { sessionId } = await response.json();
-
-    if (sessionId) {
-      stripe.redirectToCheckout({ sessionId });
-    } else {
-      console.error();
-    }
-  };
-
+  /*
+    const handleSubUser = async () => {
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
+      const response = await fetch("/api/create_checkout_session/route", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ priceId: "price_1OcW66Gosf4jzahcpRczT59b" }),
+      });
+      const { sessionId } = await response.json();
+  
+      if (sessionId) {
+        stripe.redirectToCheckout({ sessionId });
+      } else {
+        console.error();
+      }
+    };
+  */
   const downloadImage = async () => {
     try {
       const response = await fetch('/api/svg2png', { method: 'POST' });
