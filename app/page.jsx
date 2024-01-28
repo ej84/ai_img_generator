@@ -132,7 +132,7 @@ export default function Home() {
     }
   }
 
-  const uploadFile = 'C:/Users/jmw98/OneDrive/Desktop/ai_img_generator/app/converted-image(2).png';
+  const uploadFile = 'https://firebasestorage.googleapis.com/v0/b/meechelangelo-a76e3.appspot.com/o/converted-image%20(1).png?alt=media&token=4fcff8ce-9360-4572-aa74-9948cc9ee6b2';
 
   const downloadSvg = async (file) => {
     try {
