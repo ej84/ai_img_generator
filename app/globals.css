@@ -20,16 +20,14 @@ body {
   color: rgb(var(--foreground-rgb));
   background: white;
 }
-/*
-.images-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+
+.mainColor {
+  background-color: blueviolet;
 }
 
-.popup {
-  position: absolute;
-  width: 100%;
-  background: blue;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}*/
+.buttonStyle:hover {
+  outline-style: solid;
+  outline-color: blueviolet;
+  background-color: rgba(150, 61, 233, 0.836);
+  color: white;
+}

@@ -11,10 +11,12 @@ import {
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import DownloadWindow from "./DownloadWindow";
 
 const IllustCard = ({ illustration }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [isDownload, setIsDownload] = useState(false);
   const imageUrl = illustration.img_url;
 
   const copyToClipboard = () => {
@@ -111,7 +113,7 @@ const IllustCard = ({ illustration }) => {
             <div className="mx-2 border border-gray-300"></div>
             <div className="my-1 hover:bg-gray-300">
               <button
-                onClick={() => downloadImage("svg")}
+                onClick={() => setIsDownload(true)}
                 className="px-3 my-1 text-left"
               >
                 <FontAwesomeIcon icon={faDownload} />
@@ -150,6 +152,7 @@ const IllustCard = ({ illustration }) => {
           </div>
         </div>
       )}
+      {isDownload && <DownloadWindow />}
     </div>
   );
 };

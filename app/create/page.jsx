@@ -249,7 +249,7 @@ const Page = () => {
                   formNoValidate
                 />
                 <button
-                  className="p-3 bg-blue-500 text-white rounded-full"
+                  className="p-3 mainColor text-white rounded-full"
                   onClick={handleNext}
                 >
                   Create illustration
@@ -272,12 +272,12 @@ const Page = () => {
                     />
                   </div>
                   <div className="col-span-2 max-[640px]:space-x-14">
-                    <button onClick={handleBack} className="text-blue-500">
+                    <button onClick={handleBack} className="text-violet-500">
                       Back
                     </button>
                     <button
                       onClick={handleNext}
-                      className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                      className="mainColor px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
                     >
                       Continue
                     </button>
