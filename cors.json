@@ -1,7 +1,11 @@
 [
   {
-    "origin": ["http://localhost:3000"],
-    "method": ["GET"],
+    "origin": [
+      "https://ai-img-generator2.vercel.app/"
+    ],
+    "method": [
+      "POST"
+    ],
     "maxAgeSeconds": 3600
   }
 ]
