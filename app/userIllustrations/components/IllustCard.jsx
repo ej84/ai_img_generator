@@ -17,7 +17,18 @@ const IllustCard = ({ illustration }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isDownload, setIsDownload] = useState(false);
+  const [showDownloadWindow, setShowDownloadWindow] = useState(false);
+
   const imageUrl = illustration.img_url;
+
+  const handleDownloadWindow = (e) => {
+    if (!user) {
+      e.preventDefault();
+      setShowDownloadWindow(true);
+    } else {
+      setShowDownloadWindow(false);
+    }
+  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(illustration.img_url);
@@ -113,7 +124,7 @@ const IllustCard = ({ illustration }) => {
             <div className="mx-2 border border-gray-300"></div>
             <div className="my-1 hover:bg-gray-300">
               <button
-                onClick={() => setIsDownload(true)}
+                onClick={() => setShowDownloadWindow(true)}
                 className="px-3 my-1 text-left"
               >
                 <FontAwesomeIcon icon={faDownload} />
@@ -152,7 +163,7 @@ const IllustCard = ({ illustration }) => {
           </div>
         </div>
       )}
-      {isDownload && <DownloadWindow />}
+      {isDownload && <DownloadWindow onClose={setShowDownloadWindow(false)} />}
     </div>
   );
 };
