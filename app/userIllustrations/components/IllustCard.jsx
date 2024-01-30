@@ -16,35 +16,22 @@ import DownloadWindow from "./DownloadWindow";
 const IllustCard = ({ illustration }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [isDownload, setIsDownload] = useState(false);
   const [showDownloadWindow, setShowDownloadWindow] = useState(false);
 
   const imageUrl = illustration.img_url;
 
   const handleDownloadWindow = (e) => {
-    if (!user) {
-      e.preventDefault();
+    e.preventDefault();
+    if (!showDownloadWindow) {
       setShowDownloadWindow(true);
-    } else {
+    }
+    else {
       setShowDownloadWindow(false);
     }
   };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(illustration.img_url);
-  };
-
-  const downloadImage = async (format) => {
-    const response = await fetch(illustration.img_url);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = `illustration.${format}`;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
   };
 
   const handleShareClick = async () => {
@@ -163,7 +150,7 @@ const IllustCard = ({ illustration }) => {
           </div>
         </div>
       )}
-      {isDownload && <DownloadWindow onClose={setShowDownloadWindow(false)} />}
+      {showDownloadWindow && <div onClick={() => setShowDownloadWindow(false)}><DownloadWindow onClose={handleDownloadWindow} illustration={imageUrl} /></div>}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import Nav from "./components/Nav";
 import Sidebar from "./components/Sidebar";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   collection,
@@ -20,9 +20,6 @@ import fetchPublicImages from "./firebase/fetchPublicImages";
 import IllustFilter from "./components/IllustFilter";
 import fetchUserData from "./firebase/fetchUserData";
 import IllustCard from "./userIllustrations/components/IllustCard";
-import Link from "next/link";
-import PaymentForm from "./components/PaymentForm";
-import { checkout } from "@/checkout";
 import { loadStripe } from "@stripe/stripe-js";
 
 export default function Home() {
@@ -130,9 +127,6 @@ export default function Home() {
     }
   };
 
-  const uploadFile =
-    "https://firebasestorage.googleapis.com/v0/b/meechelangelo-a76e3.appspot.com/o/converted-image%20(1).png?alt=media&token=4fcff8ce-9360-4572-aa74-9948cc9ee6b2";
-
   const downloadSvg = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -174,11 +168,24 @@ export default function Home() {
       <main className="md:pt-16 min-h-screen">
         <div className="md:absolute md:left-64 lg:left-1/4">
           <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
-          <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
+          {/*<div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
             {filteredIllust.map((image, index) => (
               <div key={index}>
                 <img src={image.img_url} alt={image.imagePrompt} />
                 <p>{image.imagePrompt}</p>
+              </div>
+            ))}
+            </div>*/}
+          <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
+            {filteredIllust.map((illust, index) => (
+              <div key={index}>
+                <IllustCard illustration={illust} />
+                <Link
+                  href="/userIllustrations"
+                  className="hover:text-blue-500 font-sans"
+                >
+                  {illust.imagePrompt}
+                </Link>
               </div>
             ))}
           </div>

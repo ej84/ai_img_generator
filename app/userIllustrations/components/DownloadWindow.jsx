@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DownloadWindow = ({ onClose, onDownload }) => {
+const DownloadWindow = ({ onClose, illustration }) => {
   const [format, setFormat] = useState("PNG");
   const [resolution, setResolution] = useState("1024px");
 
@@ -12,14 +12,32 @@ const DownloadWindow = ({ onClose, onDownload }) => {
     setResolution(event.target.value);
   };
 
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
   const handleDownload = () => {
     onDownload(format, resolution);
     onClose();
   };
 
+  const downloadSvgFile = async (format) => {
+    console.log(illustration);
+    const response = await fetch(illustration);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = `illustration.${format}`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center z-40">
-      <div className="absolute top-28 bg-white p-10 rounded-md shadow-xl z-50">
+      <div className="absolute top-28 bg-white p-10 rounded-md shadow-xl z-50" onClick={handleModalClick}>
         <div className="relative bottom-3">
           <h2 className="font-bold text-2xl">Download illustration</h2>
         </div>
@@ -60,7 +78,7 @@ const DownloadWindow = ({ onClose, onDownload }) => {
         <div className="text-end mt-7">
           <button
             className="bg-blue-500 rounded-full px-5 py-3 text-white"
-            onClick={handleDownload}
+            onClick={downloadSvgFile}
           >
             Download
           </button>
