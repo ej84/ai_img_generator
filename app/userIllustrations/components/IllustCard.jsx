@@ -21,17 +21,29 @@ const IllustCard = ({ illustration }) => {
   const imageUrl = illustration.img_url;
 
   const handleDownloadWindow = (e) => {
-    e.preventDefault();
     if (!showDownloadWindow) {
+      e.preventDefault();
       setShowDownloadWindow(true);
-    }
-    else {
+    } else {
       setShowDownloadWindow(false);
     }
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(illustration.img_url);
+    navigator.clipboard.writeText(imageUrl);
+  };
+
+  const downloadSvgFile = async (format) => {
+    const response = await fetch(illustration.img_url);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = `illustration.${format}`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
   };
 
   const handleShareClick = async () => {
@@ -109,6 +121,17 @@ const IllustCard = ({ illustration }) => {
               </Link>
             </div>
             <div className="mx-2 border border-gray-300"></div>
+            {/*<div className="my-1 hover:bg-gray-300">
+              <button
+                onClick={() => setShowDownloadWindow(true)}
+                className="px-3 my-1 text-left"
+              >
+                <FontAwesomeIcon icon={faDownload} />
+                <p className="inline text-sm font-sans font-semibold pl-2">
+                  Download
+                </p>
+              </button>
+      </div>*/}
             <div className="my-1 hover:bg-gray-300">
               <button
                 onClick={() => setShowDownloadWindow(true)}
@@ -150,7 +173,11 @@ const IllustCard = ({ illustration }) => {
           </div>
         </div>
       )}
-      {showDownloadWindow && <div onClick={() => setShowDownloadWindow(false)}><DownloadWindow onClose={handleDownloadWindow} illustration={imageUrl} /></div>}
+      {showDownloadWindow && (
+        <div onClick={() => setShowDownloadWindow(false)}>
+          <DownloadWindow illustration={illustration} />
+        </div>
+      )}
     </div>
   );
 };

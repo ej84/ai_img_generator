@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { db, storage } from "@/app/firebase/initFirebase";
+import { collection, doc, updateDoc, increment } from "firebase/firestore";
 
-const DownloadWindow = ({ onClose, illustration }) => {
-  const [format, setFormat] = useState("PNG");
+const DownloadWindow = ({ illustration }) => {
+  const [format, setFormat] = useState("SVG");
   const [resolution, setResolution] = useState("1024px");
 
   const handleFormatChange = (event) => {
@@ -17,13 +19,19 @@ const DownloadWindow = ({ onClose, illustration }) => {
   };
 
   const handleDownload = () => {
-    onDownload(format, resolution);
-    onClose();
+    onDownload(format);
   };
 
-  const downloadSvgFile = async (format) => {
-    console.log(illustration);
-    const response = await fetch(illustration);
+  const incrementDownloadCount = async (illustrationId) => {
+    const illustrationRef = doc(db, "publicImages", illustrationId);
+
+    await updateDoc(illustrationRef, {
+      downloadCount: increment(1),
+    });
+  };
+
+  const downloadSvgFile = async () => {
+    const response = await fetch(illustration.img_url);
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -33,11 +41,15 @@ const DownloadWindow = ({ onClose, illustration }) => {
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
+    incrementDownloadCount(illustration.id);
   };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center z-40">
-      <div className="absolute top-28 bg-white p-10 rounded-md shadow-xl z-50" onClick={handleModalClick}>
+      <div
+        className="absolute top-28 bg-white p-10 rounded-md shadow-xl z-50"
+        onClick={handleModalClick}
+      >
         <div className="relative bottom-3">
           <h2 className="font-bold text-2xl">Download illustration</h2>
         </div>

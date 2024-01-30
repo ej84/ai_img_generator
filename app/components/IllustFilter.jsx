@@ -36,6 +36,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
     <>
       <div className="hidden md:block md:relative md:-left-20 md:mb-10 w-full space-x-4">
         <select
+          name="style"
           value={filterOptions}
           onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
@@ -45,6 +46,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           <option value="filmnoir">filmnoir</option>
         </select>
         <select
+          name="colorMode"
           value={filterOptions}
           onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
@@ -54,6 +56,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           <option value="bw">Black & White</option>
         </select>
         <select
+          name="illustType"
           value={filterOptions}
           onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
@@ -63,6 +66,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           <option value="isolated">Isolated</option>
         </select>
         <select
+          name="colorsAmount"
           value={filterOptions}
           onChange={handleChange}
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"

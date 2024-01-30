@@ -54,6 +54,7 @@ const Page = () => {
   const applyFilter = (filters) => {
     const tempData = illustData.filter((illust) => {
       console.log(filters);
+      console.log(illust.style + " " + filters.style);
       return (
         (filters.style === "" || illust.style.includes(filters.style)) &&
         (filters.colorMode === "" || illust.color === filters.colorMode) &&
