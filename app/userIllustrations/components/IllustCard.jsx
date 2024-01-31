@@ -97,6 +97,10 @@ const IllustCard = ({ illustration }) => {
         height="300"
         alt={illustration.imagePrompt}
       />
+      <div className="absolute bottom-2 left-2 space-x-1">
+        <FontAwesomeIcon icon={faDownload} />
+        <p className="inline text-sm">{illustration.downloadCount}</p>
+      </div>
       {isHovering && (
         <div className="absolute top-2 right-3 bg-gray-200 px-4 py-2 rounded-full">
           <div className="space-x-2">
