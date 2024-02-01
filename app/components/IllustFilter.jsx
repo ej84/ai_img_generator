@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { categories } from "../create/components/IlluStyles";
 
@@ -11,7 +11,22 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
     colorsAmount: "",
   });
 
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  const addFilter = (category, value) => {
+    setSelectedFilters((prev) => ({ ...prev, [category]: value }));
+  };
+
+  const removeFilter = (category) => {
+    setSelectedFilters((prev) => {
+      const newFilters = { ...prev };
+      delete newFilters[category];
+      return newFilters;
+    });
+  };
+
   const handleChange = (e) => {
+    addFilter(e.target.name, e.target.value);
     setFilterOptions({
       ...filterOptions,
       [e.target.name]: e.target.value,
@@ -42,8 +57,14 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
         >
           <option value="">Illustration style</option>
-          <option value="comic">comic</option>
-          <option value="filmnoir">filmnoir</option>
+          {categories &&
+            Object.values(categories).map((categoryArray) =>
+              categoryArray.map((style) => (
+                <option key={style} value={style}>
+                  {style}
+                </option>
+              ))
+            )}
         </select>
         <select
           name="colorMode"
@@ -88,6 +109,27 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           >
             Apply filter
           </button>
+        </div>
+        <div>
+          <div className="relative top-5 space-x-3">
+            {Object.keys(selectedFilters).map((filterKey) => (
+              <div
+                key={filterKey}
+                className="inline-block bg-gray-300 rounded-full px-10 py-3"
+              >
+                {selectedFilters[filterKey]}
+                <button
+                  className="relative w-3 left-4 bg-none border-none cursor-pointer"
+                  onClick={() => removeFilter(filterKey)}
+                >
+                  <FontAwesomeIcon
+                    icon={faClose}
+                    className="text-2xl relative top-1"
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <div className="md:hidden">

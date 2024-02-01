@@ -9,11 +9,12 @@ import {
   faSearchPlus,
   faPaperclip,
   faEllipsis,
+  faPalette,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import DownloadWindow from "./DownloadWindow";
 
-const IllustCard = ({ illustration }) => {
+const IllustCard = ({ illustration, docRef, userId }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [showDownloadWindow, setShowDownloadWindow] = useState(false);
@@ -97,9 +98,11 @@ const IllustCard = ({ illustration }) => {
         height="300"
         alt={illustration.imagePrompt}
       />
-      <div className="absolute bottom-2 left-2 space-x-1">
+      <div className="absolute bg-white bottom-2 left-2 px-2 rounded-lg space-x-1">
         <FontAwesomeIcon icon={faDownload} />
         <p className="inline text-sm">{illustration.downloadCount}</p>
+        <FontAwesomeIcon icon={faPalette} />
+        <p className="inline text-sm">{illustration.count}</p>
       </div>
       {isHovering && (
         <div className="absolute top-2 right-3 bg-gray-200 px-4 py-2 rounded-full">
@@ -179,7 +182,11 @@ const IllustCard = ({ illustration }) => {
       )}
       {showDownloadWindow && (
         <div onClick={() => setShowDownloadWindow(false)}>
-          <DownloadWindow illustration={illustration} />
+          <DownloadWindow
+            illustration={illustration}
+            docRef={docRef}
+            userId={userId}
+          />
         </div>
       )}
     </div>

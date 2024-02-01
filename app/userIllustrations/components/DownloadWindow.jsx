@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { db, storage } from "@/app/firebase/initFirebase";
-import { collection, doc, updateDoc, increment } from "firebase/firestore";
+import { db } from "@/app/firebase/initFirebase";
+import {
+  collection,
+  doc,
+  updateDoc,
+  setDoc,
+  increment,
+} from "firebase/firestore";
 
-const DownloadWindow = ({ illustration }) => {
+const DownloadWindow = ({ illustration, docRef, userId }) => {
   const [format, setFormat] = useState("SVG");
   const [resolution, setResolution] = useState("1024px");
 
@@ -23,11 +29,20 @@ const DownloadWindow = ({ illustration }) => {
   };
 
   const incrementDownloadCount = async (illustrationId) => {
-    const illustrationRef = doc(db, "publicImages", illustrationId);
-
-    await updateDoc(illustrationRef, {
-      downloadCount: increment(1),
-    });
+    console.log(userId);
+    if (docRef === "explore") {
+      await updateDoc(doc(db, "publicImages", illustrationId), {
+        downloadCount: increment(1),
+      });
+    } else if (docRef === "user") {
+      await setDoc(
+        doc(db, "users", userId, "illustrations", illustrationId),
+        {
+          downloadCount: increment(1),
+        },
+        { merge: true }
+      );
+    }
   };
 
   const downloadSvgFile = async () => {

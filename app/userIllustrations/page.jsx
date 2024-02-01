@@ -53,13 +53,11 @@ const Page = () => {
 
   const applyFilter = (filters) => {
     const tempData = illustData.filter((illust) => {
-      console.log(filters);
-      console.log(illust.style + " " + filters.style);
       return (
         (filters.style === "" || illust.style.includes(filters.style)) &&
         (filters.colorMode === "" || illust.color === filters.colorMode) &&
         (filters.illustType === "" || illust.mode === filters.illustType) &&
-        (filters.colorsAmount === "" || illust.count === filters.colorsAmount)
+        (filters.colorsAmount === "" || illust.count == filters.colorsAmount)
       );
     });
     console.log(tempData);
@@ -84,10 +82,14 @@ const Page = () => {
                   {userName}
                 </h1>
                 <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
-                <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
+                <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 md:top-10 lg:-left-24">
                   {filteredIllust.map((illust, index) => (
                     <div key={index}>
-                      <IllustCard illustration={illust} />
+                      <IllustCard
+                        illustration={illust}
+                        docRef="user"
+                        userId={userId}
+                      />
                       <Link
                         href="/userIllustrations"
                         className="hover:text-blue-500 font-sans"

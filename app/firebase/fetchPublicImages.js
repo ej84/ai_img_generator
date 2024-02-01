@@ -1,4 +1,4 @@
-import { storage, db } from "./initFirebase";
+import { db } from "./initFirebase";
 import { collection, getDocs } from "firebase/firestore";
 
 const fetchPublicImages = async () => {

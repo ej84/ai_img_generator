@@ -12,6 +12,7 @@ import {
   setDoc,
   getDocs,
   query,
+  orderBy,
 } from "firebase/firestore";
 import { db, auth } from "./firebase/initFirebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -64,6 +65,14 @@ export default function Home() {
       const tempData = images.filter((illust) => illust.style[0] === filters);
       setFilteredIllust(tempData);
     }
+  };
+
+  const sortByDownloadCounts = () => {
+    // 이미지 배열을 다운로드 횟수에 따라 내림차순으로 정렬합니다.
+    const sortedImages = [...images].sort(
+      (a, b) => b.downloadCount - a.downloadCount
+    );
+    setFilteredIllust(sortedImages); // 상태를 업데이트합니다.
   };
 
   const reset = () => {
@@ -168,18 +177,18 @@ export default function Home() {
       <main className="md:pt-16 min-h-screen">
         <div className="md:absolute md:left-64 lg:left-1/4">
           <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
-          {/*<div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
-            {filteredIllust.map((image, index) => (
-              <div key={index}>
-                <img src={image.img_url} alt={image.imagePrompt} />
-                <p>{image.imagePrompt}</p>
-              </div>
-            ))}
-            </div>*/}
-          <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
+          <div>
+            <button
+              onClick={sortByDownloadCounts}
+              className="hidden relative md:block md:top-10 md:inset-x-2/3"
+            >
+              Sort by downloads
+            </button>
+          </div>
+          <div className="mt-20 grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
             {filteredIllust.map((illust, index) => (
               <div key={index}>
-                <IllustCard illustration={illust} />
+                <IllustCard illustration={illust} docRef="explore" />
                 <Link
                   href="/userIllustrations"
                   className="hover:text-blue-500 font-sans"
