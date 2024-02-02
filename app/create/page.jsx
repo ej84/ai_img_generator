@@ -324,6 +324,7 @@ const Page = () => {
                     setVariant={handleVariantChange}
                     visible={userInput.visibility}
                     setVisible={handleVisibilityChange}
+                    step={step}
                   />
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
@@ -368,11 +369,7 @@ const Page = () => {
                         <p className="text-center">{userInput.colorMode}</p>
                       </div>
                       <div>
-                        <button className="bg-gray-300 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
-                          <p className="text-center">{userInput.objectMode}</p>
-                        </button>
-
-                        <p className="text-center">{userInput.objectMode}</p>
+                        <IlluTypeSelector step={step} />
                       </div>
                       <div>
                         <button className="bg-gray-200 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
