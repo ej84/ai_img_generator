@@ -16,6 +16,8 @@ const IlluTypeSelector = ({
   setVariant,
   visible,
   setVisible,
+  selectedMode,
+  step,
 }) => {
   const fullModeBtn = useRef(null);
   const isolModeBtn = useRef(null);
@@ -30,6 +32,22 @@ const IlluTypeSelector = ({
 
   const handleVisible = (visibleTo) => {
     setVisible(visibleTo);
+  };
+
+  const finalOption = () => {
+    if (selectedMode === "full") {
+      return (
+        <button className="h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-red-600">
+          <p>Full Illustration</p>
+        </button>
+      );
+    } else {
+      return (
+        <button className="h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-white">
+          <p>Isolated Objects</p>
+        </button>
+      );
+    }
   };
 
   return (
