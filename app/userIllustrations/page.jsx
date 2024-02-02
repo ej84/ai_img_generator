@@ -8,6 +8,7 @@ import IllustFilter from "../components/IllustFilter";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import IllustCard from "./components/IllustCard";
+import { SortByDropdown } from "../components/SortByDropdown";
 import Link from "next/link";
 
 const Page = () => {
@@ -82,6 +83,10 @@ const Page = () => {
                   {userName}
                 </h1>
                 <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
+                <SortByDropdown
+                  filteredIllust={filteredIllust}
+                  setFilteredIllust={setFilteredIllust}
+                />
                 <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 md:top-10 lg:-left-24">
                   {filteredIllust.map((illust, index) => (
                     <div key={index}>
