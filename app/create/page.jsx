@@ -165,8 +165,8 @@ const Page = () => {
       const imageRef = ref(
         storage,
         "gs://meechelangelo-a76e3.appspot.com/" +
-          userInput.promptText.replace(" ", "_") +
-          ".svg"
+        userInput.promptText.replace(" ", "_") +
+        ".svg"
       );
 
       await uploadBytes(imageRef, blob);
@@ -269,6 +269,7 @@ const Page = () => {
                       setSelectedCategory={handleSelectedCategory}
                       selectedStyle={userInput.illuStyle}
                       setSelectedStyle={handleSelectedStyleChange}
+                      step={step}
                     />
                   </div>
                   <div className="col-span-2 max-[640px]:space-x-14">
@@ -295,6 +296,7 @@ const Page = () => {
                   <ColorModeSelector
                     colorMode={userInput.colorMode}
                     setColorMode={handleColorModeChange}
+                    step={step}
                   />
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
@@ -342,7 +344,7 @@ const Page = () => {
             )}
 
             {step === 5 && (
-              <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/3 space-y-10">
+              <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/4 space-y-10">
                 <div className="max-[639px]:justify-center md:flex md:relative">
                   <div className="flex flex-col space-y-10">
                     <p className="text-xl font-bold">
@@ -350,48 +352,14 @@ const Page = () => {
                     </p>
                     <p>Prompt: {userInput.promptText}</p>
                     <div className="grid grid-cols-5 text-center">
-                      <div>
-                        <button className="bg-gray-300 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
-                          <p className="relative right-7 bottom-3 font-semibold">
-                            {userInput.illuStyle[0]}
-                          </p>
-                        </button>
-                        <p style={{ fontSize: "14px" }}>
-                          {userInput.illuStyle}
-                        </p>
+                      <div className="md:relative md:right-14">
+                        <IlluStyles step={step} finalStyle={userInput.illuStyle[0]} />
                       </div>
-                      <div>
-                        <button className="bg-gray-300 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
-                          <p className="relative right-5 bottom-3">
-                            {userInput.colorMode}
-                          </p>
-                        </button>
-                        <p className="text-center">{userInput.colorMode}</p>
+                      <div className="md:relative md:right-28">
+                        <ColorModeSelector step={step} userColor={userInput.colorMode} />
                       </div>
-                      <div>
-                        <IlluTypeSelector step={step} />
-                      </div>
-                      <div>
-                        <button className="bg-gray-200 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
-                          <div className="relative right-3 bottom-4">
-                            <p className="font-semibold text-4xl">
-                              {userInput.n}
-                            </p>
-                          </div>
-                        </button>
-                        <p style={{ fontSize: "12px" }}>
-                          {variantTexts[userInput.n]}
-                        </p>
-                      </div>
-                      <div>
-                        <button className="bg-gray-200 rounded-xl p-7 m-2 md:p-12 w-12 h-12">
-                          <p className="relative right-5 bottom-3">
-                            {userInput.visibility}
-                          </p>
-                        </button>
-                        <p style={{ fontSize: "12px" }}>
-                          {userInput.visibility}
-                        </p>
+                      <div className="md:relative md:right-32">
+                        <IlluTypeSelector step={step} userMode={userInput.objectMode} userVariant={userInput.n} userVisibility={userInput.visibility} />
                       </div>
                     </div>
                   </div>
@@ -402,7 +370,7 @@ const Page = () => {
                   </button>
                   <button
                     onClick={createImage}
-                    className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-0 md:-mt-3"
+                    className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-1/2 md:-mt-3"
                   >
                     Yes, Create
                   </button>
