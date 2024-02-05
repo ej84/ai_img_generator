@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import moment from "moment/moment";
 
 export const SortByDropdown = ({ filteredIllust, setFilteredIllust }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -34,14 +33,30 @@ export const SortByDropdown = ({ filteredIllust, setFilteredIllust }) => {
   };
 
   return (
-    <div className="hidden relative md:block md:top-10 md:inset-x-2/3">
-      <button onClick={toggleDropdown}>Sort by:</button>
-      {isDropdownOpen && (
-        <div className="">
-          <button onClick={sortByDownloadCounts}>Sort by downloads</button>
-          <button onClick={sortByCreationDate}>Newest arrivals</button>
+    <div className="hidden relative md:block md:top-7 md:inset-x-2/3">
+      <div className="flex">
+        <p className="text-gray-400">Sort by:</p>
+        <div className="grid grid-cols-1 ml-3 rounded-full">
+          <div className="col-span-1">
+            <button onClick={toggleDropdown}>
+              <p>
+                sort by:
+                <span className="ml-10">{isDropdownOpen ? "▲" : "▼"}</span>
+              </p>
+            </button>
+          </div>
+          {isDropdownOpen && (
+            <div className="relative right-9 px-5 py-3 outline outline-1 outline-gray-300 rounded-lg">
+              <div className="col-span-1">
+                <button onClick={sortByDownloadCounts}>Most Downloads</button>
+              </div>
+              <div className="col-span-1">
+                <button onClick={sortByCreationDate}>Newest arrivals</button>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -19,6 +19,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { watchUserSubscription } from "./firebase/initFirebase";
 import fetchPublicImages from "./firebase/fetchPublicImages";
 import IllustFilter from "./components/IllustFilter";
+import { SortByDropdown } from "./components/SortByDropdown";
 import fetchUserData from "./firebase/fetchUserData";
 import IllustCard from "./userIllustrations/components/IllustCard";
 import { loadStripe } from "@stripe/stripe-js";
@@ -66,14 +67,14 @@ export default function Home() {
       setFilteredIllust(tempData);
     }
   };
-
+  /*
   const sortByDownloadCounts = () => {
     // 이미지 배열을 다운로드 횟수에 따라 내림차순으로 정렬합니다.
     const sortedImages = [...images].sort(
       (a, b) => b.downloadCount - a.downloadCount
     );
     setFilteredIllust(sortedImages); // 상태를 업데이트합니다.
-  };
+  };*/
 
   const reset = () => {
     setFilteredIllust(images);
@@ -177,14 +178,10 @@ export default function Home() {
       <main className="md:pt-16 min-h-screen">
         <div className="md:absolute md:left-64 lg:left-1/4">
           <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
-          <div>
-            <button
-              onClick={sortByDownloadCounts}
-              className="hidden relative md:block md:top-10 md:inset-x-2/3"
-            >
-              Sort by downloads
-            </button>
-          </div>
+          <SortByDropdown
+            filteredIllust={filteredIllust}
+            setFilteredIllust={setFilteredIllust}
+          />
           <div className="mt-20 grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
             {filteredIllust.map((illust, index) => (
               <div key={index}>

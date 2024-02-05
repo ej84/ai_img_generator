@@ -41,16 +41,6 @@ const Page = () => {
     // Removes event listner when component gets unmounted
     return () => unsubscribe();
   }, [router]);
-  /*
-  const applyFilter = (filters) => {
-    if (filters !== "" && filters !== null) {
-      const tempData = illustData.filter(
-        (illust) => illust.style[0] === filters
-      );
-      setFilteredIllust(tempData);
-    }
-  };
-*/
 
   const applyFilter = (filters) => {
     const tempData = illustData.filter((illust) => {
@@ -61,9 +51,7 @@ const Page = () => {
         (filters.colorsAmount === "" || illust.count == filters.colorsAmount)
       );
     });
-    console.log(tempData);
     setFilteredIllust(tempData);
-    console.log(filteredIllust);
   };
 
   const reset = () => {
