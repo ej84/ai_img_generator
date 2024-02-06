@@ -70,12 +70,14 @@ const Page = () => {
                 <h1 className="md:relative md:-left-20 mb-10 font-bold text-xl md:mt-0 md:text-3xl">
                   {userName}
                 </h1>
-                <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
-                <SortByDropdown
-                  filteredIllust={filteredIllust}
-                  setFilteredIllust={setFilteredIllust}
-                />
-                <div className="grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 md:top-10 lg:-left-24">
+                <div className="max-[639px]:inline-flex">
+                  <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
+                  <SortByDropdown
+                    filteredIllust={filteredIllust}
+                    setFilteredIllust={setFilteredIllust}
+                  />
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 md:top-10 lg:-left-24">
                   {filteredIllust.map((illust, index) => (
                     <div key={index}>
                       <IllustCard
@@ -85,7 +87,7 @@ const Page = () => {
                       />
                       <Link
                         href="/userIllustrations"
-                        className="hover:text-blue-500 font-sans"
+                        className="max-[639px]:text-xs hover:text-blue-500 font-sans"
                       >
                         {illust.imagePrompt}
                       </Link>

@@ -33,20 +33,21 @@ export const SortByDropdown = ({ filteredIllust, setFilteredIllust }) => {
   };
 
   return (
-    <div className="hidden relative md:block md:top-7 md:inset-x-2/3">
-      <div className="flex">
-        <p className="text-gray-400">Sort by:</p>
+    <div className="relative md:block md:top-7 md:inset-x-2/3">
+      <div className="max-[639px]:relative max-[639px]:left-20 md:flex">
         <div className="grid grid-cols-1 ml-3 rounded-full">
           <div className="col-span-1">
             <button onClick={toggleDropdown}>
-              <p>
+              <p className="text-gray-400">
                 sort by:
-                <span className="ml-10">{isDropdownOpen ? "▲" : "▼"}</span>
+                <span className="ml-10 text-black">
+                  {isDropdownOpen ? "▲" : "▼"}
+                </span>
               </p>
             </button>
           </div>
           {isDropdownOpen && (
-            <div className="relative right-9 px-5 py-3 outline outline-1 outline-gray-300 rounded-lg">
+            <div className="fixed mt-7 px-5 py-3 outline outline-1 outline-gray-300 bg-white rounded-lg z-10">
               <div className="col-span-1">
                 <button onClick={sortByDownloadCounts}>Most Downloads</button>
               </div>

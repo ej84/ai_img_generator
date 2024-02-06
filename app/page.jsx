@@ -23,6 +23,7 @@ import { SortByDropdown } from "./components/SortByDropdown";
 import fetchUserData from "./firebase/fetchUserData";
 import IllustCard from "./userIllustrations/components/IllustCard";
 import { loadStripe } from "@stripe/stripe-js";
+import UpgradePlanWindow from "./components/UpgradePlanWindow";
 
 export default function Home() {
   //const [session] = useSession();
@@ -182,7 +183,7 @@ export default function Home() {
             filteredIllust={filteredIllust}
             setFilteredIllust={setFilteredIllust}
           />
-          <div className="mt-20 grid grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24">
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24 text-center">
             {filteredIllust.map((illust, index) => (
               <div key={index}>
                 <IllustCard illustration={illust} docRef="explore" />

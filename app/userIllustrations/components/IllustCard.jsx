@@ -90,7 +90,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
     <div
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={handleHovering}
-      className="relative outline outline-gray-200"
+      className="relative outline outline-gray-200 max-[639px]:w-40 max-[639px]:left-4"
     >
       <img
         src={illustration.img_url}
