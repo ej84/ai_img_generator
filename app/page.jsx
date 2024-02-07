@@ -183,7 +183,7 @@ export default function Home() {
             filteredIllust={filteredIllust}
             setFilteredIllust={setFilteredIllust}
           />
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24 text-center">
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 relative md:-left-14 lg:-left-24 text-start">
             {filteredIllust.map((illust, index) => (
               <div key={index}>
                 <IllustCard illustration={illust} docRef="explore" />

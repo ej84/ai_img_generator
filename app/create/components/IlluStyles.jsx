@@ -117,7 +117,7 @@ const IlluStyles = ({
                 onClick={() => handleCategoryChange(category)}
                 className={`flex max-[640px]:items-center border border-solid text-xs px-3 py-1 md:p-5 md:py-2 md:text-base rounded-full ${
                   selectedCategory.includes(category)
-                    ? "outline outline-blue-500 outline-3"
+                    ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
                     : ""
                 }`}
               >
@@ -137,7 +137,7 @@ const IlluStyles = ({
                   onClick={() => handleStyleChange(style)}
                   className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-12 ${
                     selectedStyle.includes(style)
-                      ? "selected outline outline-blue-500 outline-4"
+                      ? "selected outline outline-violet-500 outline-4"
                       : ""
                   }`}
                 >
@@ -151,13 +151,13 @@ const IlluStyles = ({
                       <FontAwesomeIcon
                         icon={faCircleCheck}
                         size="2x"
-                        color="blue"
+                        className="text-violet-500"
                       />
                     </span>
                   )}
                   {showExampleBtn && (
                     <div
-                      className="absolute left-1 bottom-2 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 bg-blue-500 rounded-full"
+                      className="absolute left-1 bottom-2 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 bg-violet-500 rounded-full"
                       onClick={showExamples}
                     >
                       <p className="text-white text-xs text-center font-semibold">

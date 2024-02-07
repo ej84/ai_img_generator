@@ -34,7 +34,7 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
                 key="color"
                 className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
                   colorMode === "color"
-                    ? "outline outline-blue-500 outline-4"
+                    ? "outline outline-violet-500 outline-4"
                     : ""
                 }`}
                 onClick={() => handleSelectedButton("color")}
@@ -44,7 +44,7 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
                     <FontAwesomeIcon
                       icon={faCircleCheck}
                       size="2x"
-                      color="blue"
+                      className="text-violet-600"
                     />
                   </span>
                 )}
@@ -56,7 +56,9 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
               <button
                 key="bw"
                 className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl ${
-                  colorMode === "bw" ? "outline outline-blue-500 outline-4" : ""
+                  colorMode === "bw"
+                    ? "outline outline-violet-600 outline-4"
+                    : ""
                 }`}
                 onClick={() => handleSelectedButton("bw")}
               >
@@ -65,7 +67,7 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
                     <FontAwesomeIcon
                       icon={faCircleCheck}
                       size="2x"
-                      color="blue"
+                      className="text-violet-500"
                     />
                   </span>
                 )}
@@ -78,11 +80,11 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
             {/* Advanced Settings Button */}
             <button
               onClick={toggleDropdown}
-              className="text-blue-500 underline focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              className="text-violet-500 underline focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-opacity-50"
             >
               Advanced settings
             </button>
-            <span className="ml-2 text-blue-500">
+            <span className="ml-2 text-violet-500">
               {isDropdownOpen ? "▲" : "▼"}
             </span>
           </div>
@@ -94,13 +96,13 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
               </h1>
               <div className="flex flex-col space-y-3 mt-10">
                 <div className="flex space-x-2">
-                  <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-blue-500" />
+                  <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-violet-500" />
                   <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
                     <p>No settings applied</p>
                   </div>
                 </div>
                 <div className="flex space-x-2">
-                  <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-blue-500" />
+                  <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-violet-500" />
                   <div className="flex md:flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-full md:w-auto text-left rounded-full">
                     <div>Color limit</div>
                     <span className="flex absolute right-2 space-x-2">
@@ -112,7 +114,7 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
                             onClick={() => handleColorLimitChange(limit)}
                             className={`py-1 px-3 -mt-1 rounded-full ${
                               colorLimit === limit
-                                ? "bg-blue-500 text-white"
+                                ? "bg-violet-500 text-white"
                                 : "bg-gray-200"
                             }`}
                           >
@@ -124,7 +126,7 @@ const ColorModeSelector = ({ colorMode, setColorMode, step, userColor }) => {
                   </div>
                 </div>
                 <div className="flex space-x-2">
-                  <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-blue-500" />
+                  <button className="border border-gray-300 rounded-full w-7 h-7 m-3 focus:bg-violet-500" />
                   <div className="flex flex-1 border border-gray-300 px-5 py-4 text-sm text-gray-700 hover:bg-gray-100 w-auto text-left rounded-full">
                     <div className="block">Color palette</div>
                     <span className="flex">
