@@ -55,12 +55,22 @@ export const SortByDropdown = ({ filteredIllust, setFilteredIllust }) => {
             </button>
           </div>
           {isDropdownOpen && (
-            <div className="fixed mt-7 px-5 py-3 outline outline-1 outline-gray-300 bg-white rounded-lg z-10">
-              <div className="col-span-1 py-1">
-                <span>{isSortByDownload && <FontAwesomeIcon icon={faCheck} size="1x" />}</span><button onClick={sortByDownloadCounts}><p className="ml-1">Most Downloads</p></button>
+            <div className="absolute mt-8 px-5 py-3 outline outline-1 outline-gray-300 bg-white rounded-lg z-10">
+              <div className="col-span-1 py-1 flex items-center">
+                <span className="inline-block flex-shrink-0 relative right-3 w-3 h-5">
+                  {isSortByDownload && (
+                    <FontAwesomeIcon icon={faCheck} size="1x" />
+                  )}
+                </span>
+                <button onClick={sortByDownloadCounts}>Most Downloads</button>
               </div>
-              <div className="col-span-1 py-1">
-                <button onClick={sortByCreationDate}><span className="relative right-2">{isSortByNewest && <FontAwesomeIcon icon={faCheck} size="1x" />}</span>Newest arrivals</button>
+              <div className="col-span-1 py-1 flex items-center">
+                <span className="inline-block flex-shrink-0 relative right-3 w-3 h-5">
+                  {isSortByNewest && (
+                    <FontAwesomeIcon icon={faCheck} size="1x" />
+                  )}
+                </span>
+                <button onClick={sortByCreationDate}>Newest arrivals</button>
               </div>
             </div>
           )}
