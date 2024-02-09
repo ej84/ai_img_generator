@@ -8,21 +8,21 @@ export const StepIndicator = ({ currStep, onStepChange }) => {
           <div key={step} className="flex items-center">
             <div
               className={`cursor-pointer w-5 h-5 rounded-full flex items-center justify-center ${
-                step <= currStep ? "bg-blue-500" : "bg-gray-300"
+                step <= currStep ? "bg-violet-500" : "bg-gray-300"
               }`}
               onClick={() => step <= currStep && onStepChange(step)}
             ></div>
             {step < 5 && (
               <div
                 className={`${
-                  step < currStep ? "bg-blue-500" : "bg-gray-300"
+                  step < currStep ? "bg-violet-500" : "bg-gray-300"
                 } h-1 flex-1`}
               ></div>
             )}
           </div>
           <div
             className={`w-12 h-1 ${step < 5 ? "" : "hidden"} ${
-              step < currStep ? "bg-blue-500" : "bg-gray-300"
+              step < currStep ? "bg-violet-500" : "bg-gray-300"
             }`}
           ></div>
         </>

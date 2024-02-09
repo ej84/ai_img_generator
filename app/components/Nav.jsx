@@ -35,7 +35,7 @@ const Nav = () => {
             type="search"
             placeholder="Search for an illustration..."
           />
-          <button className="hidden lg:block relative right-28 px-4 my-1 border border-blue-500 bg-white text-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
+          <button className="hidden lg:block relative right-28 px-4 my-1 border border-violet-500 bg-white text-violet-500 rounded-full hover:bg-violet-500 hover:text-white">
             Search
           </button>
         </div>

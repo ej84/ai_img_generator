@@ -122,7 +122,11 @@ const Page = () => {
           <div className="mt-7 border border-y-1"></div>
           <div className="space-y-1">
             <h2 className="mt-2 font-bold">
-              <FontAwesomeIcon icon={faHeart} size="1x" className="mr-1" />
+              <FontAwesomeIcon
+                icon={faHeart}
+                size="1x"
+                className="inline-block mr-1"
+              />
               Illustration Name
             </h2>
             <p>{illustName}</p>
