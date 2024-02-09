@@ -1,7 +1,9 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Nav from "@/app/components/Nav";
 import Sidebar from "@/app/components/Sidebar";
+import fetchIllustData from "@/app/firebase/fetchIllustData";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 const Page = () => {
@@ -14,35 +16,26 @@ const Page = () => {
   const [colorAmount, setColorAmount] = useState(0);
   const [donwloadCount, setDownloadCount] = useState(0);
 
+
   useEffect(() => {
-    const fetchData = async () => {
-      if (router.isReady) {
-        const { id } = router.query;
+    //const fetchData = async () => {
+    if (router.isReady) {
+      const { imagePrompt } = router.query;
+      try {
+        const data = fetchIllustData(imagePrompt);
 
-        const illustDocRef = doc(db, "publicImages", id);
-
-        try {
-          const docSnap = await getDoc(illustDocRef);
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-
-            setIllustName(data.imagePrompt);
-            setIllustStyle(data.style[0]);
-            setIllustUrl(data.img_url);
-            setColorMode(data.color);
-            setColorAmount(data.count);
-            setDownloadCount(data.donwloadCount);
-          } else {
-            console.log("No such document!");
-          }
-        } catch (error) {
-          console.error("Error getting document:", error);
-        }
+        setIllustName(imagePrompt);
+        setIllustUrl(data.img_url);
+        setColorMode(data.color);
+        setColorAmount(data.count);
+        setDownloadCount(data.donwloadCount);
+      } catch (error) {
+        console.error("Error getting document:", error);
       }
     };
-
-    fetchData();
   }, [router.isReady, router.query]);
+
+
 
   return (
     <div>

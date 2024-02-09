@@ -121,7 +121,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
           <div className="flex flex-col bg-white rounded-md outline outline-gray-300">
             <div className="my-2 hover:bg-gray-300">
               <Link
-                href={`/${encodeURIComponent(illustration.id)}/page`}
+                href={`/${encodeURIComponent(illustration.imagePrompt)}/page`}
                 className="px-3 my-2 text-sm font-semibold"
               >
                 <FontAwesomeIcon icon={faSearchPlus} />
