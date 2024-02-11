@@ -348,23 +348,23 @@ const Page = () => {
                 <div className="max-[639px]:justify-center md:flex md:relative">
                   <div className="flex flex-col space-y-10 w-3/4">
                     <p className="text-xl font-bold">
-                      Confirm your input below:
+                      Is everything ok?
                     </p>
                     <p>Prompt: {userInput.promptText}</p>
                     <div className="grid grid-cols-5 text-center">
-                      <div className="md:relative lg:right-10">
+                      <div className="md:relative md:right-28 xl:right-10">
                         <IlluStyles
                           step={step}
                           finalStyle={userInput.illuStyle[0]}
                         />
                       </div>
-                      <div className="md:relative lg:right-14">
+                      <div className="md:relative md:right-32 lg:right-20 xl:right-10">
                         <ColorModeSelector
                           step={step}
                           userColor={userInput.colorMode}
                         />
                       </div>
-                      <div className="md:relative md:right-40">
+                      <div className="md:relative md:right-5 lg:right-20 xl:right-28">
                         <IlluTypeSelector
                           step={step}
                           userMode={userInput.objectMode}
