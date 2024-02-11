@@ -100,12 +100,12 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           ))}
         </select>
         <div className="inline md:relative md:-right-56 space-x-5">
-          <button onClick={handleReset} className="text-blue-600 underline">
+          <button onClick={handleReset} className="text-violet-600 underline">
             Reset
           </button>
           <button
             onClick={handleApplyFilter}
-            className="border border-solid px-2 py-3 text-white bg-blue-500 rounded-full"
+            className="border border-solid px-2 py-3 text-white bg-violet-500 rounded-full"
           >
             Apply filter
           </button>

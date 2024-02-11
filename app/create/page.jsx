@@ -165,8 +165,8 @@ const Page = () => {
       const imageRef = ref(
         storage,
         "gs://meechelangelo-a76e3.appspot.com/" +
-          userInput.promptText.replace(" ", "_") +
-          ".svg"
+        userInput.promptText.replace(" ", "_") +
+        ".svg"
       );
 
       await uploadBytes(imageRef, blob);
@@ -300,12 +300,12 @@ const Page = () => {
                   />
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
-                  <button onClick={handleBack} className="text-blue-500">
+                  <button onClick={handleBack} className="text-violet-500">
                     Back
                   </button>
                   <button
                     onClick={handleNext}
-                    className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                    className="bg-violet-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
                   >
                     Continue
                   </button>
@@ -330,12 +330,12 @@ const Page = () => {
                   />
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
-                  <button onClick={handleBack} className="text-blue-500">
+                  <button onClick={handleBack} className="text-violet-500">
                     Back
                   </button>
                   <button
                     onClick={handleNext}
-                    className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                    className="bg-violet-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
                   >
                     Continue
                   </button>
@@ -376,12 +376,12 @@ const Page = () => {
                   </div>
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
-                  <button onClick={handleBack} className="text-blue-500">
+                  <button onClick={handleBack} className="text-violet-500">
                     Back
                   </button>
                   <button
                     onClick={createImage}
-                    className="bg-blue-500 px-5 py-3 rounded-full text-white md:absolute md:left-1/2 md:-mt-3"
+                    className="bg-violet-500 px-5 py-3 rounded-full text-white md:absolute md:left-1/2 md:-mt-3"
                   >
                     Yes, Create
                   </button>
