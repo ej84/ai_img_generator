@@ -39,7 +39,7 @@ const AuthButton = ({ title, style }) => {
 
   return (
     <button
-      className={style + " px-6 py-2 rounded-full bg-sky-100 text-blue-500"}
+      className={style + " px-6 py-2 rounded-full bg-violet-200 text-violet-500"}
       onClick={handleLogin}
     >
       <p className="inline">{title}</p>
