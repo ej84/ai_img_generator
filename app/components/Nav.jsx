@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import AuthButton from "./AuthButton";
-import SignOutButton from "./SignOutButton";
+import UserProfile from "./UserProfile";
 import Link from "next/link";
 
 const Nav = () => {
@@ -18,7 +18,7 @@ const Nav = () => {
             <h1 className="text-2xl mt-1 font-bold">LOGO</h1>
           </Link>
           {user ? (
-            <SignOutButton style={loginStyle} />
+            <UserProfile style={loginStyle} />
           ) : (
             <AuthButton
               title="Log in for more"
@@ -42,7 +42,7 @@ const Nav = () => {
 
         {/* Login Button - hidden on small screens, shown on medium screens and above */}
         {user ? (
-          <SignOutButton style={loginStyle2} />
+          <UserProfile style={loginStyle2} />
         ) : (
           <AuthButton title="Log in for more" style={loginStyle2} />
         )}

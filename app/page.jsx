@@ -89,24 +89,6 @@ export default function Home() {
     }
   };
 
-  const handleSubUser = async () => {
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
-    const response = await fetch("/api/create_checkout_session/route", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ priceId: "price_1Oj3hMGosf4jzahcBMCYuxhP" }),
-    });
-    const { sessionId } = await response.json();
-
-    if (sessionId) {
-      stripe.redirectToCheckout({ sessionId });
-    } else {
-      console.error();
-    }
-  };
-
   const downloadImage = async () => {
     try {
       const response = await fetch("/api/svg2png", { method: "POST" });
@@ -197,10 +179,6 @@ export default function Home() {
             ))}
           </div>
 
-
-          <button className="bg-orange-500 p-14" onClick={handleSubUser}>
-            Buy
-          </button>
           {/*
           <button className="bg-red-300 p-14" onClick={downloadImage}>
             Convert SVG to PNG

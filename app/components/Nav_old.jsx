@@ -1,6 +1,6 @@
 import useAuth from "../hooks/useAuth";
 import AuthButton from "./AuthButton";
-import SignOutButton from "./SignoutButton";
+import SignOutButton from "./UserProfile";
 
 const Nav = () => {
   const { user } = useAuth();
