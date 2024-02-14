@@ -16,7 +16,7 @@ export default async (req, res) => {
           },
         ],
         //metadata: { userId: user.uid },
-        mode: "payment",
+        mode: "subscription",
         success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/cancel`,
       });

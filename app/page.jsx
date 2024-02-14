@@ -96,7 +96,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ priceId: "price_1OcW66Gosf4jzahcpRczT59b" }),
+      body: JSON.stringify({ priceId: "price_1Oj3hMGosf4jzahcBMCYuxhP" }),
     });
     const { sessionId } = await response.json();
 
@@ -197,10 +197,11 @@ export default function Home() {
             ))}
           </div>
 
-          {/*
+
           <button className="bg-orange-500 p-14" onClick={handleSubUser}>
             Buy
           </button>
+          {/*
           <button className="bg-red-300 p-14" onClick={downloadImage}>
             Convert SVG to PNG
           </button>
