@@ -101,11 +101,7 @@ const Page = () => {
             <div className="mt-7 border border-y-1"></div>
             <div>
               <h2 className="mt-2 font-bold">
-                <FontAwesomeIcon
-                  icon={faPalette}
-                  size="1x"
-                  className="mr-1"
-                />
+                <FontAwesomeIcon icon={faPalette} size="1x" className="mr-1" />
                 Colors amount
               </h2>
               <p>{colorAmount}</p>
@@ -113,11 +109,7 @@ const Page = () => {
             <div className="mt-7 border border-y-1"></div>
             <div>
               <h2 className="mt-2 font-bold">
-                <FontAwesomeIcon
-                  icon={faFillDrip}
-                  size="1x"
-                  className="mr-1"
-                />
+                <FontAwesomeIcon icon={faFillDrip} size="1x" className="mr-1" />
                 Color mode
               </h2>
               <p>{colorMode}</p>
@@ -128,12 +120,17 @@ const Page = () => {
           </div>
         </div>
         <div className="clear-both text-center flex justify-center bg-gray-200 w-full rounded-xl py-5 mb-14">
-          <p className="float-left w-1/2 text-xl font-bold text-start">Want to download it or create your own illustrations?</p>
-          <button className="float-right px-5 py-2 bg-violet-600 text-white rounded-full">Yes, I want!</button>
+          <p className="float-left w-1/2 text-xl font-bold text-start">
+            Want to download it or create your own illustrations?
+          </p>
+          <div className="float-right px-4 py-1 bg-violet-600 text-white text-center rounded-full">
+            <a href="/">
+              <p className="mt-3">Yes, I want!</p>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-
   );
 };
 
