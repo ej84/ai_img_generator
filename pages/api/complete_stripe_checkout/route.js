@@ -19,6 +19,10 @@ export default async (req, res) => {
         .doc("8Tj8NsVZrxPWyczB44xijlBN2iF2")
         .update({
           subscriptionStatus: subscriptionType,
+          credits: 150,
+          explores: 200,
+          private: true,
+          svg: true,
         });
 
       res.status(200).json({ success: true });
