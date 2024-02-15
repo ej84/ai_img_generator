@@ -20,6 +20,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
   const [showDownloadWindow, setShowDownloadWindow] = useState(false);
 
   const imageUrl = illustration.img_url;
+  const id = illustration.id;
 
   const handleDownloadWindow = (e) => {
     if (!showDownloadWindow) {
@@ -57,7 +58,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, imageUrl }),
+          body: JSON.stringify({ email, imageUrl, id }),
         });
 
         // 성공 시 로그

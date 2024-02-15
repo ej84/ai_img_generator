@@ -2,7 +2,7 @@
 import nodemailer from "nodemailer";
 
 export default async (req, res) => {
-  const { email, imageUrl } = req.body;
+  const { email, imageUrl, id } = req.body;
 
   if (req.method === "POST") {
     // Setting Nodemailer
@@ -18,7 +18,7 @@ export default async (req, res) => {
       from: "jmw9871@gmail.com",
       to: email,
       subject: "Check out this cool image!",
-      html: `<p>Here is the image you wanted to share:</p><img src="${imageUrl}" alt="Shared Image" />`,
+      html: `<p>Here is the image you wanted to share:</p> <a href="http://localhost:3000/share/${id}/page">Share Link</a> <img src="${imageUrl}" alt="Shared Image" />`,
     };
 
     try {
