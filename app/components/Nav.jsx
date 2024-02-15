@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import AuthButton from "./AuthButton";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
+import UpgradePlan from "./UpgradePlan";
 
 const Nav = () => {
   const { user } = useAuth();
@@ -38,6 +39,9 @@ const Nav = () => {
           <button className="hidden lg:block relative right-28 px-4 my-1 border border-violet-500 bg-white text-violet-500 rounded-full hover:bg-violet-500 hover:text-white">
             Search
           </button>
+
+          {/* Upgrade Button */}
+          <UpgradePlan title="Upgrade" />
         </div>
 
         {/* Login Button - hidden on small screens, shown on medium screens and above */}

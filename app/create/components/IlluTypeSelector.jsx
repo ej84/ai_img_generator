@@ -6,6 +6,7 @@ import {
   fa,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UpgradePlanWindow from "@/app/components/UpgradePlanWindow";
 
 export const variantTexts = { 1: "One", 2: "Two", 3: "Three", 4: "Four" };
 export const visibleModes = { public: faEarth, private: faLock };
@@ -21,9 +22,13 @@ const IlluTypeSelector = ({
   userMode,
   userVariant,
   userVisibility,
+  isPrivate,
 }) => {
+  const [showUpgradeWindow, setShowUpgradeWindow] = useState(false);
   const fullModeBtn = useRef(null);
   const isolModeBtn = useRef(null);
+
+  const [privateStyle, setPrivateStyle] = useState("outline-violet-500");
 
   const handleSelectedMode = (mode) => {
     setObjectMode(mode);
@@ -34,6 +39,16 @@ const IlluTypeSelector = ({
   };
 
   const handleVisible = (visibleTo) => {
+    if (visibleTo === "private") {
+      console.log(isPrivate);
+      if (!isPrivate) {
+        setPrivateStyle("outline-red-600");
+
+        setShowUpgradeWindow(true);
+      } else {
+        setShowUpgradeWindow(false);
+      }
+    }
     setVisible(visibleTo);
   };
 
@@ -47,10 +62,11 @@ const IlluTypeSelector = ({
                 <button
                   key="full"
                   ref={fullModeBtn}
-                  className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-red-600 ${objectMode === "full"
-                    ? "outline outline-violet-500 outline-4"
-                    : ""
-                    }`}
+                  className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-red-600 ${
+                    objectMode === "full"
+                      ? "outline outline-violet-500 outline-4"
+                      : ""
+                  }`}
                   onClick={() => handleSelectedMode("full")}
                 >
                   {objectMode === "full" && (
@@ -69,10 +85,11 @@ const IlluTypeSelector = ({
                 <button
                   key="isolated"
                   ref={isolModeBtn}
-                  className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-white shadow-2xl ${objectMode === "isolated"
-                    ? "outline outline-violet-500 outline-4"
-                    : ""
-                    }`}
+                  className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-white shadow-2xl ${
+                    objectMode === "isolated"
+                      ? "outline outline-violet-500 outline-4"
+                      : ""
+                  }`}
                   onClick={() => handleSelectedMode("isolated")}
                 >
                   {objectMode === "isolated" && (
@@ -100,10 +117,11 @@ const IlluTypeSelector = ({
                     <button
                       key={variant}
                       onClick={() => handleVariantChange(v)}
-                      className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-gray-200 ${variant === v
-                        ? "outline outline-violet-500 outline-4"
-                        : ""
-                        }`}
+                      className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-gray-200 ${
+                        variant === v
+                          ? "outline outline-violet-500 outline-4"
+                          : ""
+                      }`}
                     >
                       {variant === v && (
                         <span className="check-icon absolute top-1 right-1 text-white text-sm">
@@ -131,10 +149,11 @@ const IlluTypeSelector = ({
                     <button
                       key="public"
                       onClick={() => handleVisible("public")}
-                      className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${visible === "public"
-                        ? "outline outline-violet-500 outline-4"
-                        : ""
-                        }`}
+                      className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
+                        visible === "public"
+                          ? "outline outline-violet-500 outline-4"
+                          : ""
+                      }`}
                     >
                       {visible === "public" && (
                         <span className="check-icon absolute top-2 right-2 text-white text-sm">
@@ -157,10 +176,11 @@ const IlluTypeSelector = ({
                     <button
                       key="private"
                       onClick={() => handleVisible("private")}
-                      className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${visible === "private"
-                        ? "outline outline-violet-500 outline-4"
-                        : ""
-                        }`}
+                      className={`relative h-20 w-20 md:h-28 md:w-28 mx-2 rounded-2xl bg-gray-200 ${
+                        visible === "private"
+                          ? `outline ${privateStyle} outline-4`
+                          : ""
+                      }`}
                     >
                       {visible === "private" && (
                         <span className="check-icon absolute top-2 right-2 text-white text-sm">
@@ -183,6 +203,11 @@ const IlluTypeSelector = ({
               </div>
             </div>
           </div>
+          {showUpgradeWindow && (
+            <div>
+              <UpgradePlanWindow />
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex max-[639px]:gap-0 md:gap-2 lg:relative lg:-right-1/3 lg:space-x-5">

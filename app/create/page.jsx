@@ -12,6 +12,7 @@ import { generateImage } from "../utils/illustroke";
 import { db, auth, storage } from "../firebase/initFirebase";
 import { collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import fetchUserInfo from "../firebase/fetchUserInfo";
 import fetchUserData from "../firebase/fetchUserData";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -31,6 +32,7 @@ const Page = () => {
     visibility: "public",
   });
   const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
   const router = useRouter();
 
@@ -40,6 +42,8 @@ const Page = () => {
       if (user) {
         fetchUserData(user.uid).then((data) => setUser(data));
         setUserId(user.uid);
+
+        fetchUserInfo(user.uid).then((data) => setUserInfo(data));
       }
 
       // If not logged in, redirect the user to main page
@@ -165,8 +169,8 @@ const Page = () => {
       const imageRef = ref(
         storage,
         "gs://meechelangelo-a76e3.appspot.com/" +
-        userInput.promptText.replace(" ", "_") +
-        ".svg"
+          userInput.promptText.replace(" ", "_") +
+          ".svg"
       );
 
       await uploadBytes(imageRef, blob);
@@ -327,6 +331,7 @@ const Page = () => {
                     visible={userInput.visibility}
                     setVisible={handleVisibilityChange}
                     step={step}
+                    isPrivate={userInfo.private}
                   />
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
@@ -347,9 +352,7 @@ const Page = () => {
               <div className="max-[639px]:text-center md:absolute md:top-56 md:left-1/3 space-y-10">
                 <div className="max-[639px]:justify-center md:flex md:relative">
                   <div className="flex flex-col space-y-10 w-3/4">
-                    <p className="text-xl font-bold">
-                      Is everything ok?
-                    </p>
+                    <p className="text-xl font-bold">Is everything ok?</p>
                     <p>Prompt: {userInput.promptText}</p>
                     <div className="grid grid-cols-5 text-center">
                       <div className="md:relative md:right-28 xl:right-10">

@@ -1,4 +1,5 @@
 import React from "react";
+import UpgradePlan from "./UpgradePlan";
 
 const UpgradePlanWindow = () => {
   const handleModalClick = (e) => {
@@ -16,18 +17,8 @@ const UpgradePlanWindow = () => {
         <p className="text-sm font-semibold text-start">
           You need to upgrade your plan to perform this action.
         </p>
-        {/*<div className="w-36 h-12 mt-5 relative left-56 rounded-full bg-blue-400 text-white">
-          <a href="/" className="flex justify-center relative top-3">
-            Upgrade now
-          </a>
-        </div>*/}
-        <div>
-          <a
-            href="/"
-            className="flex justify-center w-36 h-12 mt-5 relative left-56 rounded-full top-1 bg-blue-400 text-white"
-          >
-            <p className="pt-3">Upgrade now</p>
-          </a>
+        <div className="flex mt-5 justify-end">
+          <UpgradePlan title="Upgrade now" />
         </div>
       </div>
     </div>
