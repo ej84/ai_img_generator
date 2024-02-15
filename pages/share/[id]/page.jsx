@@ -5,15 +5,11 @@ import { db } from "@/app/firebase/initFirebase";
 import { doc, getDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faDownload,
   faFileLines,
   faFillDrip,
   faHeart,
   faImage,
   faPalette,
-  faPaperPlane,
-  faPaperclip,
-  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Page = () => {
@@ -67,77 +63,77 @@ const Page = () => {
   }, [router.isReady, router.query]);
 
   return (
-    <div>
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="flex justify-center outline outline-2 outline-gray-300 rounded-2xl">
-          <div>
-            <div className="float-left w-1/2 p-5 m-12">
-              <div>
-                <h2 className="mt-2 font-bold">
-                  <FontAwesomeIcon
-                    icon={faFileLines}
-                    size="1x"
-                    className="mr-1"
-                  />
-                  Illustration Prompt
-                </h2>
-                <p>{illustName}</p>
-              </div>
-              <div className="mt-7 border border-y-1"></div>
-              <div>
-                <h2 className="mt-2 font-bold">
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    size="1x"
-                    className="inline-block mr-1"
-                  />
-                  Illustration Name
-                </h2>
-                <p>{illustName}</p>
-              </div>
-              <div className="mt-7 border border-y-1"></div>
-              <div>
-                <h2 className="mt-2 font-bold">
-                  <FontAwesomeIcon icon={faImage} size="1x" className="mr-1" />
-                  Illustration Style
-                </h2>
-                <p>{illustStyle}</p>
-              </div>
-              <div className="mt-7 border border-y-1"></div>
-              <div>
-                <h2 className="mt-2 font-bold">
-                  <FontAwesomeIcon
-                    icon={faPalette}
-                    size="1x"
-                    className="mr-1"
-                  />
-                  Colors amount
-                </h2>
-                <p>{colorAmount}</p>
-              </div>
-              <div className="mt-7 border border-y-1"></div>
-              <div>
-                <h2 className="mt-2 font-bold">
-                  <FontAwesomeIcon
-                    icon={faFillDrip}
-                    size="1x"
-                    className="mr-1"
-                  />
-                  Color mode
-                </h2>
-                <p>{colorMode}</p>
-              </div>
-            </div>
-            <div className="float-right p-5 mt-14">
-              <img src={illustUrl} width="300" height="300" alt="illust" />
-            </div>
+    <div className="flex flex-col justify-center items-center min-h-screen">
+      <div className="outline outline-2 outline-gray-300 rounded-2xl">
+        <div className="flex">
+          <div className="float-left w-1/2 p-5 m-12">
             <div>
-              <p>want to</p>
+              <h2 className="mt-2 font-bold">
+                <FontAwesomeIcon
+                  icon={faFileLines}
+                  size="1x"
+                  className="mr-1"
+                />
+                Illustration Prompt
+              </h2>
+              <p>{illustName}</p>
+            </div>
+            <div className="mt-7 border border-y-1"></div>
+            <div>
+              <h2 className="mt-2 font-bold">
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  size="1x"
+                  className="inline-block mr-1"
+                />
+                Illustration Name
+              </h2>
+              <p>{illustName}</p>
+            </div>
+            <div className="mt-7 border border-y-1"></div>
+            <div>
+              <h2 className="mt-2 font-bold">
+                <FontAwesomeIcon icon={faImage} size="1x" className="mr-1" />
+                Illustration Style
+              </h2>
+              <p>{illustStyle}</p>
+            </div>
+            <div className="mt-7 border border-y-1"></div>
+            <div>
+              <h2 className="mt-2 font-bold">
+                <FontAwesomeIcon
+                  icon={faPalette}
+                  size="1x"
+                  className="mr-1"
+                />
+                Colors amount
+              </h2>
+              <p>{colorAmount}</p>
+            </div>
+            <div className="mt-7 border border-y-1"></div>
+            <div>
+              <h2 className="mt-2 font-bold">
+                <FontAwesomeIcon
+                  icon={faFillDrip}
+                  size="1x"
+                  className="mr-1"
+                />
+                Color mode
+              </h2>
+              <p>{colorMode}</p>
             </div>
           </div>
+          <div className="float-right p-5 mt-14">
+            <img src={illustUrl} width="300" height="300" alt="illust" />
+          </div>
+        </div>
+        <div className="clear-both text-center flex justify-center bg-gray-200 w-full rounded-xl py-5 mb-14">
+          <p className="float-left w-1/2 text-xl font-bold text-start">Want to download it or create your own illustrations?</p>
+          <button className="float-right px-5 py-2 bg-violet-600 text-white rounded-full">Yes, I want!</button>
         </div>
       </div>
     </div>
+
   );
 };
 
