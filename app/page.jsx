@@ -68,14 +68,6 @@ export default function Home() {
       setFilteredIllust(tempData);
     }
   };
-  /*
-  const sortByDownloadCounts = () => {
-    // 이미지 배열을 다운로드 횟수에 따라 내림차순으로 정렬합니다.
-    const sortedImages = [...images].sort(
-      (a, b) => b.downloadCount - a.downloadCount
-    );
-    setFilteredIllust(sortedImages); // 상태를 업데이트합니다.
-  };*/
 
   const reset = () => {
     setFilteredIllust(images);
@@ -170,8 +162,8 @@ export default function Home() {
               <div key={index}>
                 <IllustCard illustration={illust} docRef="explore" />
                 <Link
-                  href="/userIllustrations"
-                  className="hover:text-blue-500 font-sans"
+                  href="/"
+                  className="hover:text-violet-500 font-sans"
                 >
                   {illust.imagePrompt}
                 </Link>

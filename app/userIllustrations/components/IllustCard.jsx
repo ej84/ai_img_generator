@@ -95,8 +95,8 @@ const IllustCard = ({ illustration, docRef, userId }) => {
     >
       <img
         src={illustration.img_url}
-        width="300"
-        height="300"
+        width="250"
+        height="250"
         alt={illustration.imagePrompt}
       />
       <div className="absolute bg-white bottom-2 left-2 px-2 rounded-lg space-x-1">
