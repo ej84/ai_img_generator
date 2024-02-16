@@ -11,19 +11,23 @@ export default async (req, res) => {
 
       const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-      const subscriptionType = "premium";
+      const customerId = session.customer;
+      const userId = session.client_reference_id;
+      const subscriptionId = session.subscription;
 
-      await admin
-        .firestore()
-        .collection("users")
-        .doc("8Tj8NsVZrxPWyczB44xijlBN2iF2")
-        .update({
-          subscriptionStatus: subscriptionType,
-          credits: 150,
-          explores: 200,
-          private: true,
-          svg: true,
-        });
+      const usersRef = admin.firestore().collection("users");
+      const userSnapshot = await usersRef
+        .where("stripeCustomerId", "==", customerId)
+        .get();
+
+      await admin.firestore().collection("users").doc(userId).update({
+        subscriptionStatus: "Enterprise",
+        subscriptionId,
+        credits: 200,
+        explores: 999,
+        private: true,
+        svg: true,
+      });
 
       res.status(200).json({ success: true });
     } catch (error) {

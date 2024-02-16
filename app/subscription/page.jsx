@@ -1,8 +1,11 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { loadStripe } from "@stripe/stripe-js";
-import React from "react";
+import { auth } from "../firebase/initFirebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const priceInfo = {
@@ -12,6 +15,29 @@ const page = () => {
     Enterprise: ["$179.99", 500, "Unlimited", "price_1Oj5PgGosf4jzahcHUuRfJEK"],
   };
 
+  const [userId, setUserId] = useState(null);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    // Checks if user is logged in with auth state change detection
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(user.uid);
+
+        //fetchUserInfo(user.uid).then((data) => setUserInfo(data));
+      }
+
+      // If not logged in, redirect the user to main page
+      else {
+        router.push("/");
+      }
+    });
+
+    // Removes event listner when component gets unmounted
+    return () => unsubscribe();
+  }, [router]);
+
   const handleSubUser = async (priceId) => {
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
     const response = await fetch("/api/create_checkout_session/route", {
@@ -19,8 +45,9 @@ const page = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ priceId: priceId }),
+      body: JSON.stringify({ priceId: priceId, userId: userId }),
     });
+
     const { sessionId } = await response.json();
 
     if (sessionId) {
