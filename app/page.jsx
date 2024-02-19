@@ -22,6 +22,7 @@ import IllustFilter from "./components/IllustFilter";
 import { SortByDropdown } from "./components/SortByDropdown";
 import fetchUserData from "./firebase/fetchUserData";
 import IllustCard from "./userIllustrations/components/IllustCard";
+import IlluStyleFilter from "./components/IlluStyleFilter";
 import { loadStripe } from "@stripe/stripe-js";
 import UpgradePlanWindow from "./components/UpgradePlanWindow";
 
@@ -181,11 +182,9 @@ export default function Home() {
             </div>*/}
         </div>
 
-        {userStorageData && (
-          <div>
-            <img src={userStorageData} className="absolute right-1/2 top-1/2" />
-          </div>
-        )}
+        <div className="flex">
+          <IlluStyleFilter />
+        </div>
       </main>
     </>
   );
