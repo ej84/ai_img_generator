@@ -162,10 +162,7 @@ export default function Home() {
             {filteredIllust.map((illust, index) => (
               <div key={index}>
                 <IllustCard illustration={illust} docRef="explore" />
-                <Link
-                  href="/"
-                  className="hover:text-violet-500 font-sans"
-                >
+                <Link href="/" className="hover:text-violet-500 font-sans">
                   {illust.imagePrompt}
                 </Link>
               </div>
@@ -182,8 +179,10 @@ export default function Home() {
             </div>*/}
         </div>
 
-        <div className="flex">
-          <IlluStyleFilter />
+        <div className="">
+          <div className="absolute top-2/3 left-1/4">
+            <IlluStyleFilter />
+          </div>
         </div>
       </main>
     </>
