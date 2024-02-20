@@ -171,11 +171,8 @@ export default function Home() {
             ))}
           </div>
           <div className="p-10 mb-10">
-            <div className="flex md:float-left w-1/2">
+            <div className="flex">
               <IlluStyleFilter />
-            </div>
-            <div className="flex md:float-right w-1/2">
-              something
             </div>
           </div>
           {/*

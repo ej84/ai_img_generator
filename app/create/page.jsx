@@ -75,6 +75,7 @@ const Page = () => {
   };
 
   const handleStepChange = (newCurrStep) => {
+    console.log(userInfo.credits);
     setCurrentStep(newCurrStep);
     setStep(newCurrStep);
   };
@@ -149,38 +150,54 @@ const Page = () => {
   };
 
   const createImage = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const result = await generateImage(
-        userInput.illuStyle[0],
-        userInput.promptText,
-        userInput.objectMode,
-        userInput.colorMode,
-        userInput.n
-      );
+    if (userInfo.credits < 1) {
+      alert("Insufficient credit!");
+    } else {
+      e.preventDefault();
+      setLoading(true);
+      try {
+        const result = await generateImage(
+          userInput.illuStyle[0],
+          userInput.promptText,
+          userInput.objectMode,
+          userInput.colorMode,
+          userInput.n
+        );
 
-      const svgString = await result.text();
-      const svgMatchArray = svgString.match(/<svg.*<\/svg>/);
-      const cleanedSvgStr = svgMatchArray[0].replace(/\\/g, "");
+        const svgString = await result.text();
+        const svgMatchArray = svgString.match(/<svg.*<\/svg>/);
+        const cleanedSvgStr = svgMatchArray[0].replace(/\\/g, "");
 
-      const blob = new Blob([cleanedSvgStr], { type: "image/svg+xml" });
+        const blob = new Blob([cleanedSvgStr], { type: "image/svg+xml" });
 
-      const imageRef = ref(
-        storage,
-        "gs://meechelangelo-a76e3.appspot.com/" +
-          userInput.promptText.replace(" ", "_") +
-          ".svg"
-      );
+        const imageRef = ref(
+          storage,
+          "gs://meechelangelo-a76e3.appspot.com/" +
+            userInput.promptText.replace(" ", "_") +
+            ".svg"
+        );
 
-      await uploadBytes(imageRef, blob);
+        await uploadBytes(imageRef, blob);
 
-      const imageURL = await getDownloadURL(imageRef);
+        const imageURL = await getDownloadURL(imageRef);
 
-      setImageUrl(imageURL);
+        setImageUrl(imageURL);
 
-      if (userInput.visibility === "public") {
-        await setDoc(doc(collection(db, "publicImages")), {
+        if (userInput.visibility === "public") {
+          await setDoc(doc(collection(db, "publicImages")), {
+            imagePrompt: userInput.promptText,
+            style: userInput.illuStyle,
+            color: userInput.colorMode,
+            mode: userInput.objectMode,
+            count: userInput.n,
+            visible: userInput.visibility,
+            img_url: imageURL,
+            downloadCount: 0,
+            created_at: Timestamp.now(),
+          });
+        }
+
+        await setDoc(doc(collection(db, "users", userId, "illustrations")), {
           imagePrompt: userInput.promptText,
           style: userInput.illuStyle,
           color: userInput.colorMode,
@@ -188,24 +205,26 @@ const Page = () => {
           count: userInput.n,
           visible: userInput.visibility,
           img_url: imageURL,
+          downloadCount: 0,
           created_at: Timestamp.now(),
         });
-      }
 
-      await setDoc(doc(collection(db, "users", userId, "illustrations")), {
-        imagePrompt: userInput.promptText,
-        style: userInput.illuStyle,
-        color: userInput.colorMode,
-        mode: userInput.objectMode,
-        count: userInput.n,
-        visible: userInput.visibility,
-        img_url: imageURL,
-        created_at: Timestamp.now(),
-      });
-    } catch (error) {
-      console.error("Error generating image:", error);
-    } finally {
-      setLoading(false);
+        try {
+          await fetch("/api/updateUserInfo/route", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId }),
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      } catch (error) {
+        console.error("Error generating image:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
