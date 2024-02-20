@@ -151,14 +151,16 @@ export default function Home() {
     <>
       <Nav />
       <Sidebar setShowLoginWindow={checkUser} />
-      <main className="md:pt-16 min-h-screen">
+      <main className="flex md:pt-10 min-h-screen">
         <div className="md:absolute md:left-64 lg:left-1/4">
           <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
-          <SortByDropdown
-            filteredIllust={filteredIllust}
-            setFilteredIllust={setFilteredIllust}
-          />
-          <div className="relative mt-20 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 md:-left-14 lg:-left-24 text-start">
+          <div className="md:relative bottom-10">
+            <SortByDropdown
+              filteredIllust={filteredIllust}
+              setFilteredIllust={setFilteredIllust}
+            />
+          </div>
+          <div className="relative p-5 mt-5 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 md:-left-14 lg:-left-24 text-start">
             {filteredIllust.map((illust, index) => (
               <div key={index}>
                 <IllustCard illustration={illust} docRef="explore" />
@@ -168,7 +170,14 @@ export default function Home() {
               </div>
             ))}
           </div>
-
+          <div className="p-10 mb-10">
+            <div className="flex md:float-left w-1/2">
+              <IlluStyleFilter />
+            </div>
+            <div className="flex md:float-right w-1/2">
+              something
+            </div>
+          </div>
           {/*
           <button className="bg-red-300 p-14" onClick={downloadImage}>
             Convert SVG to PNG
@@ -177,12 +186,6 @@ export default function Home() {
             <p>PNG to SVG</p>
             <input type="file" className="inline" onChange={downloadSvg} />
             </div>*/}
-        </div>
-
-        <div className="">
-          <div className="absolute top-2/3 left-1/4">
-            <IlluStyleFilter />
-          </div>
         </div>
       </main>
     </>
