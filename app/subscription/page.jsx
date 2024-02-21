@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 
 const page = () => {
   const priceInfo = {
-    Starter: ["$7.99", 25, 20, "price_1Oj3hMGosf4jzahcBMCYuxhP"],
-    Plus: ["$22.99", 30, 25, "price_1Oj464Gosf4jzahcBhmmgjY7"],
-    Premium: ["$24.99", 80, 150, "price_1Oj4h6Gosf4jzahcrscMRWC4"],
-    Enterprise: ["$179.99", 500, "Unlimited", "price_1Oj5PgGosf4jzahcHUuRfJEK"],
+    Starter: ["$7.99", 25, 20, false, "price_1Oj3hMGosf4jzahcBMCYuxhP"],
+    Plus: ["$22.99", 30, 25, false, "price_1Oj464Gosf4jzahcBhmmgjY7"],
+    Premium: ["$24.99", 80, 150, true, "price_1Oj4h6Gosf4jzahcrscMRWC4"],
+    Enterprise: ["$179.99", 500, 99999, true, "price_1Oj5PgGosf4jzahcHUuRfJEK"],
   };
 
   const [userId, setUserId] = useState(null);
@@ -38,14 +38,27 @@ const page = () => {
     return () => unsubscribe();
   }, [router]);
 
-  const handleSubUser = async (priceId) => {
+  const handleSubUser = async (planName, priceId) => {
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
+
+    const planData = {
+      status: planName,
+      price: priceInfo[planName][0],
+      credits: priceInfo[planName][1],
+      explores: priceInfo[planName][2],
+      private: priceInfo[planName][3],
+    };
+
     const response = await fetch("/api/create_checkout_session/route", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ priceId: priceId, userId: userId }),
+      body: JSON.stringify({
+        priceId: priceId,
+        userId: userId,
+        planData,
+      }),
     });
 
     const { sessionId } = await response.json();
@@ -67,7 +80,7 @@ const page = () => {
               <p className="mt-8 text-3xl">{info[0]}</p>
               <div className="mt-4 mr-6 bg-violet-600 text-center rounded-md py-2">
                 <button
-                  onClick={() => handleSubUser(info[3])}
+                  onClick={() => handleSubUser(title, info[4])}
                   className="w-full"
                 >
                   Subscribe

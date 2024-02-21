@@ -35,6 +35,7 @@ export default function Home() {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [images, setImages] = useState([]);
+  const [showUpgradeWindow, setShowUpgradeWindow] = useState(false);
 
   const router = useRouter();
   /*const { user } = */
@@ -170,11 +171,11 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="p-10 mb-10">
-            <div className="flex">
-              <IlluStyleFilter />
+          {showUpgradeWindow && (
+            <div onClick={() => setShowUpgradeWindow(false)}>
+              <UpgradePlanWindow />
             </div>
-          </div>
+          )}
           {/*
           <button className="bg-red-300 p-14" onClick={downloadImage}>
             Convert SVG to PNG

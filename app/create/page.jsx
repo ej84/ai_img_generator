@@ -16,6 +16,7 @@ import fetchUserInfo from "../firebase/fetchUserInfo";
 import fetchUserData from "../firebase/fetchUserData";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import UpgradePlanWindow from "../components/UpgradePlanWindow";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -34,6 +35,7 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
+  const [showUpgradeWindow, setShowUpgradeWindow] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -55,6 +57,17 @@ const Page = () => {
     // Removes event listner when component gets unmounted
     return () => unsubscribe();
   }, [router]);
+
+  /*
+  const handleUpgradePlanWindow = (e) => {
+    if (userInfo.credits < 1) {
+
+      e.preventDefault();
+      setShowUpgradeWindow(true);
+    } else {
+      setShowUpgradeWindow(false);
+    }
+  };*/
 
   const editMode = false;
 
@@ -152,6 +165,7 @@ const Page = () => {
   const createImage = async (e) => {
     if (userInfo.credits < 1) {
       alert("Insufficient credit!");
+      setShowUpgradeWindow(true);
     } else {
       e.preventDefault();
       setLoading(true);
@@ -408,6 +422,11 @@ const Page = () => {
                     Yes, Create
                   </button>
                 </div>
+                {showUpgradeWindow && (
+                  <div onClick={() => setShowUpgradeWindow(false)}>
+                    <UpgradePlanWindow />
+                  </div>
+                )}
                 {loading && (
                   <div className="flex justify-end items-end">
                     <p className="text-base">Creating now....</p>

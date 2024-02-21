@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_SECRET_KEY);
 export default async (req, res) => {
   if (req.method === "POST") {
     try {
-      const { priceId, userId } = req.body; // priceId & userId from client side
+      const { priceId, userId, planData } = req.body; // priceId & userId from client side
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -16,7 +16,12 @@ export default async (req, res) => {
           },
         ],
         client_reference_id: userId,
-        //metadata: {  },
+        metadata: {
+          status: planData.status,
+          credits: planData.credits,
+          explores: planData.explores,
+          private: planData.private,
+        },
         mode: "subscription",
         success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/cancel`,

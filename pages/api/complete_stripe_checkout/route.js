@@ -14,20 +14,24 @@ export default async (req, res) => {
       const customerId = session.customer;
       const userId = session.client_reference_id;
       const subscriptionId = session.subscription;
+      const subInfo = session.metadata;
 
       const usersRef = admin.firestore().collection("users");
       const userSnapshot = await usersRef
         .where("stripeCustomerId", "==", customerId)
         .get();
 
-      await admin.firestore().collection("users").doc(userId).update({
-        subscriptionStatus: "Enterprise",
-        subscriptionId,
-        credits: 200,
-        explores: 999,
-        private: true,
-        svg: true,
-      });
+      await admin
+        .firestore()
+        .collection("users")
+        .doc(userId)
+        .update({
+          subscriptionStatus: subInfo.status,
+          subscriptionId,
+          credits: parseInt(subInfo.credits),
+          explores: parseInt(subInfo.explores),
+          private: subInfo.private,
+        });
 
       res.status(200).json({ success: true });
     } catch (error) {
