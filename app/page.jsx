@@ -22,7 +22,6 @@ import IllustFilter from "./components/IllustFilter";
 import { SortByDropdown } from "./components/SortByDropdown";
 import fetchUserData from "./firebase/fetchUserData";
 import IllustCard from "./userIllustrations/components/IllustCard";
-import IlluStyleFilter from "./components/IlluStyleFilter";
 import { loadStripe } from "@stripe/stripe-js";
 import UpgradePlanWindow from "./components/UpgradePlanWindow";
 

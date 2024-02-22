@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { faClose, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { categories } from "../create/components/IlluStyles";
+import IllustFilterBox from "./IllustFilterBox";
 
 const IllustFilter = ({ onApplyFilter, onReset }) => {
   const [filterOptions, setFilterOptions] = useState({
@@ -12,6 +13,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
   });
 
   const [selectedFilters, setSelectedFilters] = useState({});
+  const [showFilterBox, setShowFilterBox] = useState(false);
+  const [filterName, setFilterName] = useState("");
 
   const addFilter = (category, value) => {
     setSelectedFilters((prev) => ({ ...prev, [category]: value }));
@@ -33,6 +36,11 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
     });
   };
 
+  const handleFilterBox = (name) => {
+    setShowFilterBox(true);
+    setFilterName(name);
+  };
+
   const handleApplyFilter = () => {
     onApplyFilter(filterOptions);
   };
@@ -50,49 +58,37 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
   return (
     <>
       <div className="hidden md:block md:relative md:-left-20 md:mb-10 w-full space-x-4">
-        <select
+        <button
           name="style"
           value={filterOptions}
-          onChange={handleChange}
-          className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
+          onClick={() => handleFilterBox("style")}
+          className="border border-solid p-2 rounded-full hover:cursor-pointer"
         >
-          <option value="">Illustration style</option>
-          {categories &&
-            Object.values(categories).map((categoryArray) =>
-              categoryArray.map((style) => (
-                <option key={style} value={style}>
-                  {style}
-                </option>
-              ))
-            )}
-        </select>
-        <select
+          Illustration Style
+        </button>
+        <button
           name="colorMode"
           value={filterOptions}
-          onChange={handleChange}
-          className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
+          onClick={() => handleFilterBox("colorType")}
+          className="border border-solid p-2 rounded-full hover:cursor-pointer"
         >
-          <option value="">Color mode</option>
-          <option value="color">Full Color</option>
-          <option value="bw">Black & White</option>
-        </select>
-        <select
+          Color Mode
+        </button>
+        <button
           name="illustType"
           value={filterOptions}
-          onChange={handleChange}
-          className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
+          onClick={() => handleFilterBox("illustType")}
+          className="border border-solid p-2 rounded-full hover:cursor-pointer"
         >
-          <option value="">Illustration type</option>
-          <option value="full">Full</option>
-          <option value="isolated">Isolated</option>
-        </select>
+          Illustration type
+        </button>
         <select
           name="colorsAmount"
           value={filterOptions}
           onChange={handleChange}
-          className="border border-solid px-2 py-3 rounded-full hover:cursor-pointer"
+          className="border border-solid p-2 rounded-full hover:cursor-pointer"
         >
-          <option value="">Colors amount</option>
+          <option>Colors amount</option>
           {Array.from({ length: 9 }, (_, i) => i + 1).map((count) => (
             <option key={count} value={count}>
               {count}
@@ -105,7 +101,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           </button>
           <button
             onClick={handleApplyFilter}
-            className="border border-solid px-2 py-3 text-white bg-violet-500 rounded-full"
+            className="border border-solid p-2 text-white bg-violet-500 rounded-full"
           >
             Apply filter
           </button>
@@ -131,6 +127,11 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
             ))}
           </div>
         </div>
+        {showFilterBox && (
+          <div className="absolute top-14 z-10">
+            <IllustFilterBox filterName={filterName} />
+          </div>
+        )}
       </div>
       <div className="md:hidden">
         <FontAwesomeIcon

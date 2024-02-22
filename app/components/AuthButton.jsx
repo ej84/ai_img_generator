@@ -24,6 +24,10 @@ const AuthButton = ({ title, style }) => {
           {
             uid: user.uid,
             name: user.displayName,
+            subscriptionStatus: "free",
+            credits: 2,
+            explores: 3,
+            private: false,
           },
           { merge: true }
         );
@@ -39,7 +43,9 @@ const AuthButton = ({ title, style }) => {
 
   return (
     <button
-      className={style + " px-6 py-2 rounded-full bg-violet-200 text-violet-500"}
+      className={
+        style + " px-6 py-2 rounded-full bg-violet-200 text-violet-500"
+      }
       onClick={handleLogin}
     >
       <p className="inline">{title}</p>
