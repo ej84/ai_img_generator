@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { faClose, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { categories } from "../create/components/IlluStyles";
 import IllustFilterBox from "./IllustFilterBox";
 
 const IllustFilter = ({ onApplyFilter, onReset }) => {
@@ -37,8 +36,13 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
   };
 
   const handleFilterBox = (name) => {
-    setShowFilterBox(true);
-    setFilterName(name);
+    if (showFilterBox) {
+      setShowFilterBox(false);
+      setFilterName("");
+    } else {
+      setShowFilterBox(true);
+      setFilterName(name);
+    }
   };
 
   const handleApplyFilter = () => {
@@ -64,7 +68,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           onClick={() => handleFilterBox("style")}
           className="border border-solid p-2 rounded-full hover:cursor-pointer"
         >
-          Illustration Style
+          Illustration Style{" "}
+          {showFilterBox && filterName === "style" ? "▲" : "▼"}
         </button>
         <button
           name="colorMode"
@@ -72,7 +77,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           onClick={() => handleFilterBox("colorType")}
           className="border border-solid p-2 rounded-full hover:cursor-pointer"
         >
-          Color Mode
+          Color Mode {showFilterBox && filterName === "colorType" ? "▲" : "▼"}
         </button>
         <button
           name="illustType"
@@ -80,7 +85,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           onClick={() => handleFilterBox("illustType")}
           className="border border-solid p-2 rounded-full hover:cursor-pointer"
         >
-          Illustration type
+          Illustration type{" "}
+          {showFilterBox && filterName === "illustType" ? "▲" : "▼"}
         </button>
         <select
           name="colorsAmount"
