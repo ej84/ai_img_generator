@@ -42,7 +42,7 @@ export const SortByDropdown = ({ filteredIllust, setFilteredIllust }) => {
 
   return (
     <div className="relative md:top-7 md:inset-x-2/3">
-      <div className="max-[639px]:relative max-[639px]:left-20 md:flex">
+      <div className="max-[640px]:relative max-[640px]:left-28 max-[640px]:top-5 md:flex">
         <div className="grid grid-cols-1 ml-3 rounded-full">
           <div className="col-span-1">
             <button onClick={toggleDropdown}>

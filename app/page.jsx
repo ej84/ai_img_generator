@@ -153,14 +153,17 @@ export default function Home() {
       <Sidebar setShowLoginWindow={checkUser} />
       <main className="flex md:pt-10 min-h-screen">
         <div className="md:absolute md:left-64 lg:left-1/4">
-          <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
-          <div className="md:relative bottom-10">
-            <SortByDropdown
-              filteredIllust={filteredIllust}
-              setFilteredIllust={setFilteredIllust}
-            />
+          <div className="max-[640px]:grid max-[640px]:grid-cols-2 md:relative">
+            <div className="max-[640px]:relative max-[640px]:left-12 md:relative md:top-14">
+              <SortByDropdown
+                filteredIllust={filteredIllust}
+                setFilteredIllust={setFilteredIllust}
+              /></div>
+            <div className="max-[640px]:relative max-[640px]:left-28 max-[640px]:top-3">
+              <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
+            </div>
           </div>
-          <div className="relative p-5 mt-5 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 md:-left-14 lg:-left-24 text-start">
+          <div className="relative p-5 mt-5 w-fit grid grid-cols-2 md:grid-cols-2 gap-1 md:gap-3 lg:gap-5 md:-left-14 lg:-left-24 text-start">
             {filteredIllust.map((illust, index) => (
               <div key={index}>
                 <IllustCard illustration={illust} docRef="explore" />

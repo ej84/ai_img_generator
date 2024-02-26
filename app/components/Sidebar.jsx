@@ -20,7 +20,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed md:flex md:absolute md:h-full max-[639px]:inset-x-0 max-[639px]:bottom-0 max-[639px]:border max-[639px]:border-t-gray-300 md:top-16 md:left-0 md:border-r bg-white z-10">
+    <div className="fixed w-fit md:flex md:absolute md:h-full max-[639px]:inset-x-0 max-[639px]:bottom-0 max-[639px]:border max-[639px]:border-t-gray-300 md:top-16 md:left-0 md:border-r bg-white z-10">
       <div className="max-[639px]:flex">
         <div
           className="p-3 mt-4 text-center text-sm w-full text-gray-500 hover:text-violet-500"

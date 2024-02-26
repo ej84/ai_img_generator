@@ -64,7 +64,7 @@ const categoryDisplayNames = {
   tattoo: "Tattoo",
 };
 
-const IllustFilterBox = ({ filterName }) => {
+const IllustFilterBox = ({ filterName, handleChange }) => {
   const [selectedCategory, setSelectedCategory] = useState("common");
   const [selectedStyle, setSelectedStyle] = useState("");
 
@@ -84,6 +84,10 @@ const IllustFilterBox = ({ filterName }) => {
     }
   };
 
+  const changeFilterValue = () => {
+    handleChange();
+  }
+
   return (
     <div>
       {filterName === "style" && (
@@ -93,16 +97,15 @@ const IllustFilterBox = ({ filterName }) => {
           </div>
           <div className="border border-gray-300 mt-2"></div>
           <div className="mt-5">
-            <div className="flex gap-2">
+            <div onChange={changeFilterValue} className="flex gap-2">
               {Object.keys(categories).map((category) => (
                 <button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`flex max-[640px]:items-center border border-solid text-xs md:p-1 md:text-base rounded-full ${
-                    selectedCategory.includes(category)
-                      ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
-                      : ""
-                  }`}
+                  className={`flex max-[640px]:items-center border border-solid text-xs md:p-1 md:text-base rounded-full ${selectedCategory.includes(category)
+                    ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
+                    : ""
+                    }`}
                 >
                   {categoryDisplayNames[category] || category}
                 </button>
@@ -115,11 +118,10 @@ const IllustFilterBox = ({ filterName }) => {
                   <button
                     key={style}
                     onClick={() => handleStyleChange(style)}
-                    className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${
-                      selectedStyle.includes(style)
-                        ? "outline outline-violet-500 outline-2"
-                        : ""
-                    }`}
+                    className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${selectedStyle.includes(style)
+                      ? "outline outline-violet-500 outline-2"
+                      : ""
+                      }`}
                   >
                     {/*<img
                 src="https://cdn-icons-png.freepik.com/256/2939/2939047.png"
@@ -180,6 +182,29 @@ const IllustFilterBox = ({ filterName }) => {
                 <label className="ml-2">Isolated Image</label>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+      {filterName === "colorsAmount" && (
+        <div className="relative bottom-14 left-64 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
+          <div className="text-start pb-4 border-b-2 border-gray-300">
+            <p className="font-bold text-base">Colors amount</p>
+          </div>
+          <div className="p-7 space-x-3">
+            {Array.from({ length: 9 }, (_, i) => i + 1).map((count) => (
+              <button key={count} value={count}>
+                {count}
+              </button>))}
+            {/* <div className="mr-5">
+              <div className="float-left relative right-5">
+                <input type="checkbox" value="color" />
+                <label className="ml-2">Full Image</label>
+              </div>
+              <div className="float-right relative">
+                <input type="checkbox" value="bw" />
+                <label className="ml-2">Isolated Image</label>
+              </div>
+          </div>*/}
           </div>
         </div>
       )}
