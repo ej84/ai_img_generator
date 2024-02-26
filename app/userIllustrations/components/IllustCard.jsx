@@ -245,7 +245,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
               )}
             </div>
           ) : (
-            <div className="absolute top-14 right-5 w-3/5 ">
+            <div className="absolute top-14 right-5 w-3/5 z-10">
               <div className="flex flex-col bg-white rounded-md outline outline-gray-300">
                 <div className="my-2 hover:bg-gray-300">
                   <Link
@@ -297,6 +297,36 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                     </p>
                   </button>
                 </div>
+                <div className="mx-2 border border-gray-300"></div>
+                {docRef === "user" && (
+                  <>
+                    <div className="hover:bg-gray-300 w-full h-full">
+                      <p className="text-sm font-bold text-gray-400">
+                        Illustration Visibility
+                      </p>
+                      <div className="rounded-full px-1.5 bg-violet-600 ml-2">
+                        <FontAwesomeIcon
+                          icon={faCrown}
+                          className="text-white"
+                        />
+                      </div>
+                    </div>
+                    <button className="px-3 my-1 text-left">
+                      <FontAwesomeIcon icon={faEarth} />
+                      <p className="inline text-sm font-sans font-semibold pl-2">
+                        Public
+                      </p>
+                    </button>
+                    <button className="flex p-3 w-full h-full">
+                      <div className="ml-3">
+                        <FontAwesomeIcon icon={faLock} />
+                        <p className="inline text-sm font-sans font-semibold pl-2">
+                          Private
+                        </p>
+                      </div>
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           )}
