@@ -84,8 +84,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
         />
       </button>
         {isDropdownOpen && (<div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center z-40 md:hidden">
-          <div className="absolute bottom-0 bg-white w-full h-1/2 rounded-t-xl">
-            <div className="grid grid-rows-4 justify-items-center">
+          <div className="absolute bottom-0 w-full bg-white h-1/2 rounded-t-xl">
+            <div className="grid grid-rows-4">
               <div className="mt-3">
                 <button
                   name="style"
@@ -128,7 +128,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
               </div>
             </div>
             <div className="border border-t-gray-300 border-b-0 mt-5">
-              <div className="flex justify-center space-x-5 mt-2 ml-32">
+              <div className="flex space-x-5 mt-2 ml-32">
                 <button onClick={handleReset} className="text-violet-600 underline">
                   Reset
                 </button>
@@ -140,6 +140,11 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                 </button>
               </div>
             </div>
+            {showFilterBox && (
+              <div className="relative bottom-60">
+                <IllustFilterBox filterName={filterName} handleChange={handleChange} />
+              </div>
+            )}
           </div>
         </div>)}
       </div>

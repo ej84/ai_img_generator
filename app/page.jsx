@@ -159,11 +159,11 @@ export default function Home() {
                 filteredIllust={filteredIllust}
                 setFilteredIllust={setFilteredIllust}
               /></div>
-            <div className="max-[640px]:relative max-[640px]:left-28 max-[640px]:top-3">
+            <div className="max-[640px]:relative max-[640px]:left-28 max-[640px]:top-3 w-fit">
               <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
             </div>
           </div>
-          <div className="relative p-5 mt-5 w-fit grid grid-cols-2 md:grid-cols-2 gap-1 md:gap-3 lg:gap-5 md:-left-14 lg:-left-24 text-start">
+          <div className="relative p-5 mt-5 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-3 lg:gap-5 md:-left-14 lg:-left-24 text-start">
             {filteredIllust.map((illust, index) => (
               <div key={index}>
                 <IllustCard illustration={illust} docRef="explore" />

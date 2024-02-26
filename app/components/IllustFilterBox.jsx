@@ -89,15 +89,15 @@ const IllustFilterBox = ({ filterName, handleChange }) => {
   }
 
   return (
-    <div>
+    <div className="flex justify-center">
       {filterName === "style" && (
         <div className="outline outline-1 p-5 -m-2 bg-white outline-gray-300 rounded-xl">
           <div className="flex text-start">
-            <p className="font-bold text-xl">Illustration Styles</p>
+            <p className="font-bold text-xl ">Illustration Styles</p>
           </div>
           <div className="border border-gray-300 mt-2"></div>
           <div className="mt-5">
-            <div onChange={changeFilterValue} className="flex gap-2">
+            <div onChange={changeFilterValue} className="flex gap-1">
               {Object.keys(categories).map((category) => (
                 <button
                   key={category}
@@ -112,7 +112,7 @@ const IllustFilterBox = ({ filterName, handleChange }) => {
               ))}
             </div>
 
-            <div className="grid grid-cols-5 relative left-2 md:left-4">
+            <div className="grid grid-cols-4 relative left-2 md:left-4">
               {categories[selectedCategory].map((style) => (
                 <div className="group flex flex-col items-center justify-center max-[640px]:mb-2 h-10 w-10 md:h-14 md:w-14 mt-6">
                   <button
