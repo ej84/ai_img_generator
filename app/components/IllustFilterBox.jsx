@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 export const categories = {
   common: [
@@ -64,9 +65,39 @@ const categoryDisplayNames = {
   tattoo: "Tattoo",
 };
 
-const IllustFilterBox = ({ filterName, handleChange }) => {
+const IllustFilterBox = ({ filterName, onApplyFilter, onReset }) => {
   const [selectedCategory, setSelectedCategory] = useState("common");
   const [selectedStyle, setSelectedStyle] = useState("");
+  const [filterOptions, setFilterOptions] = useState({
+    style: "",
+    colorMode: "",
+    illustType: "",
+    colorsAmount: "",
+  });
+
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  const addFilter = (category, value) => {
+    setSelectedFilters((prev) => ({ ...prev, [category]: value }));
+  };
+
+  const removeFilter = (category) => {
+    setSelectedFilters((prev) => {
+      const newFilters = { ...prev };
+      delete newFilters[category];
+      return newFilters;
+    });
+  };
+
+  const handleChange = (filterOption) => {
+    if (filterOption !== "") {
+      addFilter(filterName, filterOption);
+      setFilterOptions({
+        ...filterOptions,
+        [filterName]: filterOption,
+      });
+    }
+  };
 
   // update category selected by user
   const handleCategoryChange = (category) => {
@@ -84,9 +115,19 @@ const IllustFilterBox = ({ filterName, handleChange }) => {
     }
   };
 
-  const changeFilterValue = () => {
-    handleChange();
-  }
+  const handleApplyFilter = () => {
+    onApplyFilter(filterOptions);
+  };
+
+  const handleReset = () => {
+    setFilterOptions({
+      style: "",
+      colorMode: "",
+      illustType: "",
+      colorsAmount: "",
+    });
+    onReset();
+  };
 
   return (
     <div className="flex justify-center">
@@ -97,15 +138,16 @@ const IllustFilterBox = ({ filterName, handleChange }) => {
           </div>
           <div className="border border-gray-300 mt-2"></div>
           <div className="mt-5">
-            <div onChange={changeFilterValue} className="flex gap-1">
+            <div onChange={handleChange} className="flex gap-1">
               {Object.keys(categories).map((category) => (
                 <button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`flex max-[640px]:items-center border border-solid text-xs md:p-1 md:text-base rounded-full ${selectedCategory.includes(category)
-                    ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
-                    : ""
-                    }`}
+                  className={`flex max-[640px]:items-center border border-solid text-xs md:p-1 md:text-base rounded-full ${
+                    selectedCategory.includes(category)
+                      ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
+                      : ""
+                  }`}
                 >
                   {categoryDisplayNames[category] || category}
                 </button>
@@ -117,11 +159,12 @@ const IllustFilterBox = ({ filterName, handleChange }) => {
                 <div className="group flex flex-col items-center justify-center max-[640px]:mb-2 h-10 w-10 md:h-14 md:w-14 mt-6">
                   <button
                     key={style}
-                    onClick={() => handleStyleChange(style)}
-                    className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${selectedStyle.includes(style)
-                      ? "outline outline-violet-500 outline-2"
-                      : ""
-                      }`}
+                    onClick={() => handleChange(style)}
+                    className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${
+                      selectedStyle.includes(style)
+                        ? "outline outline-violet-500 outline-2"
+                        : ""
+                    }`}
                   >
                     {/*<img
                 src="https://cdn-icons-png.freepik.com/256/2939/2939047.png"
@@ -194,7 +237,8 @@ const IllustFilterBox = ({ filterName, handleChange }) => {
             {Array.from({ length: 9 }, (_, i) => i + 1).map((count) => (
               <button key={count} value={count}>
                 {count}
-              </button>))}
+              </button>
+            ))}
             {/* <div className="mr-5">
               <div className="float-left relative right-5">
                 <input type="checkbox" value="color" />
@@ -208,6 +252,27 @@ const IllustFilterBox = ({ filterName, handleChange }) => {
           </div>
         </div>
       )}
+      <div>
+        <div className="relative top-5 space-x-3">
+          {Object.keys(selectedFilters).map((filterKey) => (
+            <div
+              key={filterKey}
+              className="inline-block bg-gray-300 rounded-full px-10 py-3"
+            >
+              {selectedFilters[filterKey]}
+              <button
+                className="relative w-3 left-4 bg-none border-none cursor-pointer"
+                onClick={() => removeFilter(filterKey)}
+              >
+                <FontAwesomeIcon
+                  icon={faClose}
+                  className="text-2xl relative top-1"
+                />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

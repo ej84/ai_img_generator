@@ -17,7 +17,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
   const [filterName, setFilterName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const isSm = useMediaQuery('(max-width:768px)');
+  const isSm = useMediaQuery("(max-width:768px)");
 
   const addFilter = (category, value) => {
     setSelectedFilters((prev) => ({ ...prev, [category]: value }));
@@ -65,89 +65,103 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
 
   const openDropdown = () => {
     if (isSm && !isDropdownOpen) {
-      setIsDropdownOpen(true)
-    }
-    else {
+      setIsDropdownOpen(true);
+    } else {
       setIsDropdownOpen(false);
     }
-  }
+  };
 
   return (
-
     <>
-      {isSm ? (<div><button>
-        <FontAwesomeIcon
-          onClick={() => openDropdown()}
-          icon={faFilter}
-          size="1x"
-          className="flex inset-x-1/2 inset-y-1/2 p-3 md:hidden"
-        />
-      </button>
-        {isDropdownOpen && (<div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center z-40 md:hidden">
-          <div className="absolute bottom-0 w-full bg-white h-1/2 rounded-t-xl">
-            <div className="grid grid-rows-4">
-              <div className="mt-3">
-                <button
-                  name="style"
-                  value={filterOptions}
-                  onClick={() => handleFilterBox("style")}
-                  className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
-                >
-                  Illustration Style
-                  {showFilterBox && filterName === "style" ? "▲" : "▼"}
-                </button></div>
-              <div className="mt-3">
-                <button
-                  name="colorMode"
-                  value={filterOptions}
-                  onClick={() => handleFilterBox("colorType")}
-                  className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
-                >
-                  Color Mode {showFilterBox && filterName === "colorType" ? "▲" : "▼"}
-                </button></div>
-              <div className="mt-3">
-                <button
-                  name="illustType"
-                  value={filterOptions}
-                  onClick={() => handleFilterBox("illustType")}
-                  className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
-                >
-                  Illustration type
-                  {showFilterBox && filterName === "illustType" ? "▲" : "▼"}
-                </button>
-              </div>
-              <div className="mt-3">
-                <button
-                  name="colorsAmount"
-                  value={filterOptions}
-                  onClick={() => handleFilterBox("colorsAmount")}
-                  className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
-                >
-                  Colors amount {showFilterBox && filterName === "colorsAmount" ? "▲" : "▼"}
-                </button>
+      {isSm ? (
+        <div>
+          <button>
+            <FontAwesomeIcon
+              onClick={() => openDropdown()}
+              icon={faFilter}
+              size="1x"
+              className="flex inset-x-1/2 inset-y-1/2 p-3 md:hidden"
+            />
+          </button>
+          {isDropdownOpen && (
+            <div
+              className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center z-40 md:hidden"
+              style={{ maxWidth: "430px" }}
+            >
+              <div className="absolute bottom-0 w-full bg-white h-1/2 rounded-t-xl">
+                <div className="grid grid-rows-4 justify-items-center">
+                  <div className="mt-3">
+                    <button
+                      name="style"
+                      value={filterOptions}
+                      onClick={() => handleFilterBox("style")}
+                      className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
+                    >
+                      Illustration Style
+                      {showFilterBox && filterName === "style" ? "▲" : "▼"}
+                    </button>
+                  </div>
+                  <div className="mt-3">
+                    <button
+                      name="colorMode"
+                      value={filterOptions}
+                      onClick={() => handleFilterBox("colorType")}
+                      className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
+                    >
+                      Color Mode{" "}
+                      {showFilterBox && filterName === "colorType" ? "▲" : "▼"}
+                    </button>
+                  </div>
+                  <div className="mt-3">
+                    <button
+                      name="illustType"
+                      value={filterOptions}
+                      onClick={() => handleFilterBox("illustType")}
+                      className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
+                    >
+                      Illustration type
+                      {showFilterBox && filterName === "illustType" ? "▲" : "▼"}
+                    </button>
+                  </div>
+                  <div className="mt-3">
+                    <button
+                      name="colorsAmount"
+                      value={filterOptions}
+                      onClick={() => handleFilterBox("colorsAmount")}
+                      className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
+                    >
+                      Colors amount{" "}
+                      {showFilterBox && filterName === "colorsAmount"
+                        ? "▲"
+                        : "▼"}
+                    </button>
+                  </div>
+                </div>
+                <div className="border border-t-gray-300 border-b-0 mt-5">
+                  <div className="flex space-x-5 mt-2 ml-32">
+                    <button
+                      onClick={handleReset}
+                      className="text-violet-600 underline"
+                    >
+                      Reset
+                    </button>
+                    <button
+                      onClick={handleApplyFilter}
+                      className="border border-solid p-2 text-white bg-violet-500 rounded-full"
+                    >
+                      Apply filter
+                    </button>
+                  </div>
+                </div>
+                {showFilterBox && (
+                  <div className="relative bottom-60">
+                    <IllustFilterBox filterName={filterName} />
+                  </div>
+                )}
               </div>
             </div>
-            <div className="border border-t-gray-300 border-b-0 mt-5">
-              <div className="flex space-x-5 mt-2 ml-32">
-                <button onClick={handleReset} className="text-violet-600 underline">
-                  Reset
-                </button>
-                <button
-                  onClick={handleApplyFilter}
-                  className="border border-solid p-2 text-white bg-violet-500 rounded-full"
-                >
-                  Apply filter
-                </button>
-              </div>
-            </div>
-            {showFilterBox && (
-              <div className="relative bottom-60">
-                <IllustFilterBox filterName={filterName} handleChange={handleChange} />
-              </div>
-            )}
-          </div>
-        </div>)}
-      </div>
+          )}
+        </div>
       ) : (
         <>
           <div className="hidden md:block md:relative md:-left-20 md:mb-10 w-full space-x-4">
@@ -166,7 +180,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
               onClick={() => handleFilterBox("colorType")}
               className="border border-solid p-2 rounded-full hover:cursor-pointer"
             >
-              Color Mode {showFilterBox && filterName === "colorType" ? "▲" : "▼"}
+              Color Mode{" "}
+              {showFilterBox && filterName === "colorType" ? "▲" : "▼"}
             </button>
             <button
               name="illustType"
@@ -183,10 +198,14 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
               onClick={() => handleFilterBox("colorsAmount")}
               className="border border-solid p-2 rounded-full hover:cursor-pointer"
             >
-              Colors amount {showFilterBox && filterName === "colorsAmount" ? "▲" : "▼"}
+              Colors amount{" "}
+              {showFilterBox && filterName === "colorsAmount" ? "▲" : "▼"}
             </button>
             <div className="inline md:relative md:-right-56 space-x-5">
-              <button onClick={handleReset} className="text-violet-600 underline">
+              <button
+                onClick={handleReset}
+                className="text-violet-600 underline"
+              >
                 Reset
               </button>
               <button
@@ -219,11 +238,16 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
             </div>
             {showFilterBox && (
               <div className="absolute top-14 z-10">
-                <IllustFilterBox filterName={filterName} handleChange={handleChange} />
+                <IllustFilterBox
+                  filterName={filterName}
+                  onApplyFilter={onApplyFilter}
+                  onReset={onReset}
+                />
               </div>
             )}
           </div>
-        </>)}
+        </>
+      )}
     </>
   );
 };

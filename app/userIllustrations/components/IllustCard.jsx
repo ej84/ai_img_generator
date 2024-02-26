@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDownload,
@@ -10,14 +10,28 @@ import {
   faPaperclip,
   faEllipsis,
   faPalette,
+  faEarth,
+  faLock,
+  faCrown,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import DownloadWindow from "./DownloadWindow";
+import { useMediaQuery } from "@mui/material";
 
 const IllustCard = ({ illustration, docRef, userId }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [showDownloadWindow, setShowDownloadWindow] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isSm = useMediaQuery("(max-width:768px)");
+
+  useEffect(() => {
+    if (isSm) {
+      setIsHovering(true);
+    } else {
+      setIsHovering(false);
+    }
+  }, [isSm]);
 
   const imageUrl = illustration.img_url;
   const id = illustration.id;
@@ -80,6 +94,13 @@ const IllustCard = ({ illustration, docRef, userId }) => {
   };
 
   const handleClicked = () => {
+    if (isSm) {
+      if (isClicked) {
+        setIsDropdownOpen(false);
+      } else {
+        setIsDropdownOpen(true);
+      }
+    }
     if (isClicked) {
       setIsClicked(false);
     } else {
@@ -106,9 +127,12 @@ const IllustCard = ({ illustration, docRef, userId }) => {
         <p className="inline text-sm">{illustration.count}</p>
       </div>
       {isHovering && (
-        <div className="absolute top-2 right-3 bg-gray-200 px-4 py-2 rounded-full">
-          <div className="space-x-2">
-            <button className="pr-2" onClick={copyToClipboard}>
+        <div className="absolute top-2 right-3 bg-gray-200 px-2 md:px-4 py-2 rounded-full">
+          <div className="max-[640px]:mr-2 space-x-1 md:space-x-2">
+            <button
+              className="max-[640px]:hidden pr-2"
+              onClick={copyToClipboard}
+            >
               <FontAwesomeIcon icon={faPaperclip} />
             </button>
             <button className="pl-2" onClick={handleClicked}>
@@ -118,71 +142,165 @@ const IllustCard = ({ illustration, docRef, userId }) => {
         </div>
       )}
       {isClicked && (
-        <div className="absolute top-14 right-5 w-3/5 ">
-          <div className="flex flex-col bg-white rounded-md outline outline-gray-300">
-            <div className="my-2 hover:bg-gray-300">
-              <Link
-                href={`/${encodeURIComponent(illustration.id)}/page`}
-                className="px-3 my-2 text-sm font-semibold"
-              >
-                <FontAwesomeIcon icon={faSearchPlus} />
-                <p className="inline text-sm font-semibold pl-2">
-                  Open illustration
-                </p>
-              </Link>
+        <>
+          {isSm ? (
+            <div>
+              {isDropdownOpen && (
+                <div
+                  className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center z-40 md:hidden"
+                  style={{ maxWidth: "430px" }}
+                >
+                  <div
+                    className={`absolute bottom-0 w-full bg-white ${
+                      docRef === "explore" ? "h-72" : "h-1/2"
+                    } rounded-t-xl`}
+                  >
+                    <div className="">
+                      <Link
+                        href={`/${encodeURIComponent(illustration.id)}/page`}
+                        className="flex p-5 border border-b-2 border-b-gray-300 border-t-0 px-3 my-3 font-semibold w-full h-full"
+                      >
+                        <div className="ml-3">
+                          <FontAwesomeIcon icon={faSearchPlus} size="1x" />
+                          <p className="inline text-sm ml-2 font-semibold">
+                            Open illustration
+                          </p>
+                        </div>
+                      </Link>
+                      <button
+                        onClick={() => setShowDownloadWindow(true)}
+                        className="flex p-3 text-left w-full h-full"
+                      >
+                        <div className="ml-3">
+                          <FontAwesomeIcon icon={faDownload} />
+                          <p className="inline text-xs font-sans font-semibold pl-2">
+                            Download
+                          </p>
+                        </div>
+                      </button>
+                      <button className="flex p-3 text-left w-full h-full">
+                        <div className="ml-3">
+                          <FontAwesomeIcon icon={faPencil} />
+                          <p className="inline text-sm font-sans font-semibold pl-2">
+                            Edit
+                          </p>
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => handleShareClick()}
+                        className="flex p-3 text-left w-full h-full"
+                      >
+                        <div className="ml-3">
+                          <FontAwesomeIcon icon={faShare} />
+                          <p className="inline text-sm font-sans font-semibold pl-2">
+                            Share
+                          </p>
+                        </div>
+                      </button>
+                      <button className="flex p-3 text-left w-full h-full">
+                        <div className="ml-3">
+                          <FontAwesomeIcon icon={faCopy} />
+                          <p className="inline text-sm font-sans font-semibold pl-2">
+                            Copycat
+                          </p>
+                        </div>
+                      </button>
+                      <div className="flex p-2 row-span-1 border border-t-2 border-y-0 border-t-gray-300"></div>
+                      {docRef === "user" ? (
+                        <div>
+                          <div className="flex ml-5">
+                            <p className="text-sm font-bold text-gray-400">
+                              Illustration Visibility
+                            </p>
+                            <div className="rounded-full px-1.5 bg-violet-600 ml-2">
+                              <FontAwesomeIcon
+                                icon={faCrown}
+                                className="text-white"
+                              />
+                            </div>
+                          </div>
+                          <button className="flex p-3 w-full h-full">
+                            <div className="ml-3">
+                              <FontAwesomeIcon icon={faEarth} />
+                              <p className="inline text-sm font-sans font-semibold pl-2">
+                                Public
+                              </p>
+                            </div>
+                          </button>
+                          <button className="flex p-3 w-full h-full">
+                            <div className="ml-3">
+                              <FontAwesomeIcon icon={faLock} />
+                              <p className="inline text-sm font-sans font-semibold pl-2">
+                                Private
+                              </p>
+                            </div>
+                          </button>
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="mx-2 border border-gray-300"></div>
-            {/*<div className="my-1 hover:bg-gray-300">
-              <button
-                onClick={() => setShowDownloadWindow(true)}
-                className="px-3 my-1 text-left"
-              >
-                <FontAwesomeIcon icon={faDownload} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Download
-                </p>
-              </button>
-      </div>*/}
-            <div className="my-1 hover:bg-gray-300">
-              <button
-                onClick={() => setShowDownloadWindow(true)}
-                className="px-3 my-1 text-left"
-              >
-                <FontAwesomeIcon icon={faDownload} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Download
-                </p>
-              </button>
+          ) : (
+            <div className="absolute top-14 right-5 w-3/5 ">
+              <div className="flex flex-col bg-white rounded-md outline outline-gray-300">
+                <div className="my-2 hover:bg-gray-300">
+                  <Link
+                    href={`/${encodeURIComponent(illustration.id)}/page`}
+                    className="px-3 my-2 text-sm font-semibold"
+                  >
+                    <FontAwesomeIcon icon={faSearchPlus} />
+                    <p className="inline text-xs ml-2 font-semibold">
+                      Open illustration
+                    </p>
+                  </Link>
+                </div>
+                <div className="mx-2 border border-gray-300"></div>
+                <div className="my-1 hover:bg-gray-300">
+                  <button
+                    onClick={() => setShowDownloadWindow(true)}
+                    className="px-3 my-1 text-left"
+                  >
+                    <FontAwesomeIcon icon={faDownload} />
+                    <p className="inline text-sm font-sans font-semibold pl-2">
+                      Download
+                    </p>
+                  </button>
+                </div>
+                <div className="my-1 hover:bg-gray-300">
+                  <button className="px-3 my-1 text-left">
+                    <FontAwesomeIcon icon={faPencil} />
+                    <p className="inline text-sm font-sans font-semibold pl-2">
+                      Edit
+                    </p>
+                  </button>
+                </div>
+                <div className="my-1 hover:bg-gray-300">
+                  <button
+                    className="px-3 my-1 text-left"
+                    onClick={() => handleShareClick()}
+                  >
+                    <FontAwesomeIcon icon={faShare} />
+                    <p className="inline text-sm font-sans font-semibold pl-2">
+                      Share
+                    </p>
+                  </button>
+                </div>
+                <div className="my-1 hover:bg-gray-300">
+                  <button className="px-3 my-1 text-left">
+                    <FontAwesomeIcon icon={faCopy} />
+                    <p className="inline text-sm font-sans font-semibold pl-2">
+                      Copycat
+                    </p>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="my-1 hover:bg-gray-300">
-              <button className="px-3 my-1 text-left">
-                <FontAwesomeIcon icon={faPencil} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Edit
-                </p>
-              </button>
-            </div>
-            <div className="my-1 hover:bg-gray-300">
-              <button
-                className="px-3 my-1 text-left"
-                onClick={() => handleShareClick()}
-              >
-                <FontAwesomeIcon icon={faShare} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Share
-                </p>
-              </button>
-            </div>
-            <div className="my-1 hover:bg-gray-300">
-              <button className="px-3 my-1 text-left">
-                <FontAwesomeIcon icon={faCopy} />
-                <p className="inline text-sm font-sans font-semibold pl-2">
-                  Copycat
-                </p>
-              </button>
-            </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
       {showDownloadWindow && (
         <div onClick={() => setShowDownloadWindow(false)}>
