@@ -19,7 +19,6 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: white;
-  max-width: fit-content;
 }
 
 .mainColor {

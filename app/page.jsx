@@ -151,7 +151,7 @@ export default function Home() {
     <>
       <Nav />
       <Sidebar setShowLoginWindow={checkUser} />
-      <main className="flex md:pt-10 min-h-screen">
+      <main className="flex w-fit md:pt-10 min-h-screen">
         <div className="md:absolute md:left-64 lg:left-1/4">
           <div className="max-[640px]:grid max-[640px]:grid-cols-2 md:relative">
             <div className="max-[640px]:relative max-[640px]:left-12 md:relative md:top-14">
