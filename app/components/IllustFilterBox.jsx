@@ -239,16 +239,6 @@ const IllustFilterBox = ({ filterName, onApplyFilter, onReset }) => {
                 {count}
               </button>
             ))}
-            {/* <div className="mr-5">
-              <div className="float-left relative right-5">
-                <input type="checkbox" value="color" />
-                <label className="ml-2">Full Image</label>
-              </div>
-              <div className="float-right relative">
-                <input type="checkbox" value="bw" />
-                <label className="ml-2">Isolated Image</label>
-              </div>
-          </div>*/}
           </div>
         </div>
       )}

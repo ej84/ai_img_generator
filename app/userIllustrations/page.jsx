@@ -44,12 +44,39 @@ const Page = () => {
 
   const applyFilter = (filters) => {
     const tempData = illustData.filter((illust) => {
+      return Object.entries(filters).every(([key, value]) => {
+        console.log(key);
+        // 필터링 조건이 비어있는 경우, 모든 illust를 포함
+        if (value === "") return true;
+
+        // 특정 필드에 대한 비교 로직 구현
+        switch (key) {
+          case "style":
+            // style이 배열인 경우, includes를 사용하여 값 포함 여부 확인
+            return Array.isArray(illust.style)
+              ? illust.style.includes(value)
+              : illust.style === value;
+          case "colorType":
+            console.log(illust.color === value);
+            return illust.color === value;
+          case "illustType":
+            return illust.mode === value;
+          case "colorsAmount":
+            // colorsAmount가 숫자인 경우, 타입 변환 후 비교
+            return Number(illust.count) === Number(value);
+          default:
+            // 정의되지 않은 필터 키에 대해서는 true 반환
+            return true;
+        }
+        /*
       return (
         (filters.style === "" || illust.style.includes(filters.style)) &&
-        (filters.colorMode === "" || illust.color === filters.colorMode) &&
+        (filters.colorType === "" || illust.color === filters.colorType) &&
         (filters.illustType === "" || illust.mode === filters.illustType) &&
         (filters.colorsAmount === "" || illust.count == filters.colorsAmount)
       );
+      */
+      });
     });
     setFilteredIllust(tempData);
   };

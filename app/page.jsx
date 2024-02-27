@@ -158,7 +158,8 @@ export default function Home() {
               <SortByDropdown
                 filteredIllust={filteredIllust}
                 setFilteredIllust={setFilteredIllust}
-              /></div>
+              />
+            </div>
             <div className="max-[640px]:relative max-[640px]:left-28 max-[640px]:top-3 w-fit">
               <IllustFilter onApplyFilter={applyFilter} onReset={reset} />
             </div>

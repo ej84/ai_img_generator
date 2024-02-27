@@ -4,11 +4,23 @@ import AuthButton from "./AuthButton";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
 import UpgradePlan from "./UpgradePlan";
+import LoginWindow from "./LoginWindow";
 
 const Nav = () => {
   const { user } = useAuth();
+  const [showLoginWindow, setShowLoginWindow] = useState(false);
+
   const loginStyle = "md:hidden";
   const loginStyle2 = "hidden md:block";
+
+  const handleLoginWindow = (e) => {
+    if (!user) {
+      e.preventDefault();
+      setShowLoginWindow(true);
+    } else {
+      setShowLoginWindow(false);
+    }
+  };
 
   return (
     <nav className="bg-white px-2 py-2 border border-x-transparent border-b-gray-200">
@@ -41,7 +53,14 @@ const Nav = () => {
           </button>
 
           {/* Upgrade Button */}
-          <UpgradePlan title="Upgrade" />
+          <div onClick={handleLoginWindow}>
+            <UpgradePlan title="Upgrade" />
+          </div>
+          {showLoginWindow && (
+            <div onClick={() => setShowLoginWindow(false)}>
+              <LoginWindow />
+            </div>
+          )}
         </div>
 
         {/* Login Button - hidden on small screens, shown on medium screens and above */}
