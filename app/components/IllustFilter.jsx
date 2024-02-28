@@ -7,8 +7,8 @@ import { useMediaQuery } from "@mui/material";
 const IllustFilter = ({ onApplyFilter, onReset }) => {
   const [filterOptions, setFilterOptions] = useState({
     style: [],
-    colorType: "",
-    illustType: "",
+    color: "",
+    mode: "",
     colorsAmount: "",
   });
   const [selectedCategory, setSelectedCategory] = useState("common");
@@ -90,7 +90,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
 
   const handleReset = () => {
     setFilterOptions({
-      style: "",
+      style: [],
       colorMode: "",
       illustType: "",
       colorsAmount: "",
@@ -138,37 +138,35 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                   </div>
                   <div className="mt-3">
                     <button
-                      name="colorMode"
+                      name="colorType"
                       value={filterOptions}
-                      onClick={() => handleFilterBox("colorType")}
+                      onClick={() => handleFilterBox("color")}
                       className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
                     >
                       Color Mode{" "}
-                      {showFilterBox && filterName === "colorType" ? "▲" : "▼"}
+                      {showFilterBox && filterName === "color" ? "▲" : "▼"}
                     </button>
                   </div>
                   <div className="mt-3">
                     <button
                       name="illustType"
                       value={filterOptions}
-                      onClick={() => handleFilterBox("illustType")}
+                      onClick={() => handleFilterBox("mode")}
                       className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
                     >
                       Illustration type
-                      {showFilterBox && filterName === "illustType" ? "▲" : "▼"}
+                      {showFilterBox && filterName === "mode" ? "▲" : "▼"}
                     </button>
                   </div>
                   <div className="mt-3">
                     <button
-                      name="colorsAmount"
+                      name="count"
                       value={filterOptions}
-                      onClick={() => handleFilterBox("colorsAmount")}
+                      onClick={() => handleFilterBox("count")}
                       className="border border-solid w-96 h-12 rounded-full hover:cursor-pointer"
                     >
                       Colors amount{" "}
-                      {showFilterBox && filterName === "colorsAmount"
-                        ? "▲"
-                        : "▼"}
+                      {showFilterBox && filterName === "count" ? "▲" : "▼"}
                     </button>
                   </div>
                 </div>
@@ -206,31 +204,30 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
               {showFilterBox && filterName === "style" ? "▲" : "▼"}
             </button>
             <button
-              name="colorMode"
+              name="color"
               value={filterOptions}
-              onClick={() => handleFilterBox("colorType")}
+              onClick={() => handleFilterBox("color")}
               className="border border-solid p-2 rounded-full hover:cursor-pointer"
             >
-              Color Mode{" "}
-              {showFilterBox && filterName === "colorType" ? "▲" : "▼"}
+              Color Mode {showFilterBox && filterName === "color" ? "▲" : "▼"}
             </button>
             <button
-              name="illustType"
+              name="mode"
               value={filterOptions}
-              onClick={() => handleFilterBox("illustType")}
+              onClick={() => handleFilterBox("mode")}
               className="border border-solid p-2 rounded-full hover:cursor-pointer"
             >
               Illustration type{" "}
-              {showFilterBox && filterName === "illustType" ? "▲" : "▼"}
+              {showFilterBox && filterName === "mode" ? "▲" : "▼"}
             </button>
             <button
-              name="colorsAmount"
+              name="count"
               value={filterOptions}
-              onClick={() => handleFilterBox("colorsAmount")}
+              onClick={() => handleFilterBox("count")}
               className="border border-solid p-2 rounded-full hover:cursor-pointer"
             >
               Colors amount{" "}
-              {showFilterBox && filterName === "colorsAmount" ? "▲" : "▼"}
+              {showFilterBox && filterName === "count" ? "▲" : "▼"}
             </button>
             <div className="inline md:relative md:-right-56 space-x-5">
               <button
@@ -334,7 +331,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                       </div>
                     </div>
                   )}
-                  {filterName === "colorType" && (
+                  {filterName === "color" && (
                     <div className="relative bottom-14 left-32 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
                       <div className="text-start pb-4 border-b-2 border-gray-300">
                         <p className="font-bold text-base">Color mode</p>
@@ -361,7 +358,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                       </div>
                     </div>
                   )}
-                  {filterName === "illustType" && (
+                  {filterName === "mode" && (
                     <div className="relative bottom-14 left-64 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
                       <div className="text-start pb-4 border-b-2 border-gray-300">
                         <p className="font-bold text-base">Illustration mode</p>
@@ -388,7 +385,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                       </div>
                     </div>
                   )}
-                  {filterName === "colorsAmount" && (
+                  {filterName === "count" && (
                     <div className="relative bottom-14 left-64 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
                       <div className="text-start pb-4 border-b-2 border-gray-300">
                         <p className="font-bold text-base">Colors amount</p>
