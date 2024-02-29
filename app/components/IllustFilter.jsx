@@ -85,7 +85,9 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
   };
 
   const handleApplyFilter = () => {
-    onApplyFilter(filterOptions);
+    if (filterOptions !== "" && filterOptions !== null) {
+      onApplyFilter(filterOptions);
+    }
   };
 
   const handleReset = () => {
