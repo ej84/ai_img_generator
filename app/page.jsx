@@ -62,12 +62,50 @@ export default function Home() {
     });
     return () => unsubscribeAuth();
   }, []);
-
+  /*
   const applyFilter = (filters) => {
     if (filters !== "" && filters !== null) {
       const tempData = images.filter((illust) => illust.style[0] === filters);
       setFilteredIllust(tempData);
     }
+  };
+*/
+  const applyFilter = (filters) => {
+    const tempData = images.filter((image) => {
+      return Object.keys(filters).every((key) => {
+        const filterValue = filters[key];
+
+        // 필터 값이 비어있는 경우는 무시하고 모든 값 허용
+        if (filterValue === "") return true;
+
+        const imageValue = image[key];
+
+        // imageValue가 배열인 경우 (예: style)
+        if (Array.isArray(imageValue)) {
+          console.log(imageValue);
+          // filterValue도 배열일 수 있으니, 배열인지 확인 후 적절히 처리
+          if (Array.isArray(filterValue)) {
+            // 모든 filterValue가 illustValue 배열에 포함되어야 함
+            return filterValue.every((val) => imageValue.includes(val));
+          } else {
+            // 단일 filterValue가 illustValue 배열에 포함되어 있는지 확인
+            return imageValue.includes(filterValue);
+          }
+        } else {
+          // illustValue와 filterValue가 모두 문자열이거나 숫자인 경우
+          // 문자열 비교 혹은 숫자 비교를 수행
+          if (key === "colorsAmount") {
+            // colorsAmount와 같은 숫자 비교
+            return Number(imageValue) === Number(filterValue);
+          } else {
+            // 일반 문자열 비교
+            console.log(typeof imageValue + " " + filterValue);
+            return imageValue === filterValue;
+          }
+        }
+      });
+    });
+    setFilteredIllust(tempData);
   };
 
   const reset = () => {

@@ -56,14 +56,6 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
       });
     }
   };
-  /*
-  const handleChange = (e) => {
-    addFilter(e.target.name, e.target.value);
-    setFilterOptions({
-      ...filterOptions,
-      [e.target.name]: e.target.value,
-    });
-  };*/
 
   const handleFilterBox = (name) => {
     if (showFilterBox) {
@@ -108,6 +100,10 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
     }
   };
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <>
       {isSm ? (
@@ -122,10 +118,14 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
           </button>
           {isDropdownOpen && (
             <div
+              onClick={() => setIsDropdownOpen(false)}
               className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center z-40 md:hidden"
               style={{ maxWidth: "430px" }}
             >
-              <div className="absolute bottom-0 w-full bg-white h-1/2 rounded-t-xl">
+              <div
+                onClick={handleClick}
+                className="absolute bottom-0 w-full bg-white h-1/2 rounded-t-xl"
+              >
                 <div className="grid grid-rows-4 justify-items-center">
                   <div className="mt-3">
                     <button
