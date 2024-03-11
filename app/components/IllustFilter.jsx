@@ -388,42 +388,48 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                     </div>
                   )}
                   {filterName === "count" && (
-                    <div className="relative bottom-14 left-64 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
+                    <div className="relative bottom-14 md:left-full outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
                       <div className="text-start pb-4 border-b-2 border-gray-300">
                         <p className="font-bold text-base">Colors amount</p>
                       </div>
-                      <div className="p-7 space-x-3">
-                        {Array.from({ length: 9 }, (_, i) => i + 1).map(
-                          (count) => (
-                            <button key={count} value={count}>
-                              {count}
-                            </button>
-                          )
-                        )}
+                      <div className="p-7 space-y-1 h-[90px] overflow-y-scroll">
+                        {Array.from({ length: 5 }, (_, i) => (
+                          <div key={i} className="flex space-x-7">
+                            <div className="flex items-center">
+                              <input
+                                type="checkbox"
+                                onClick={() => handleChange(2 * i + 1)}
+                                id={`color-${2 * i + 1}`}
+                                value={2 * i + 1}
+                              />
+                              <label
+                                htmlFor={`color-${2 * i + 1}`}
+                                className="pl-1"
+                              >
+                                {2 * i + 1} Colors
+                              </label>
+                            </div>
+                            {2 * i + 2 <= 9 && (
+                              <div className="flex items-center">
+                                <input
+                                  type="checkbox"
+                                  onClick={() => handleChange(2 * i + 2)}
+                                  id={`color-${2 * i + 2}`}
+                                  value={2 * i + 2}
+                                />
+                                <label
+                                  htmlFor={`color-${2 * i + 2}`}
+                                  className="pl-1"
+                                >
+                                  {2 * i + 2} Colors
+                                </label>
+                              </div>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
-                  {/*<div>
-                    <div className="relative top-5 space-x-3">
-                      {Object.keys(selectedFilters).map((filterKey) => (
-                        <div
-                          key={filterKey}
-                          className="inline-block bg-gray-300 rounded-full px-10 py-3"
-                        >
-                          {selectedFilters[filterKey]}
-                          <button
-                            className="relative w-3 left-4 bg-none border-none cursor-pointer"
-                            onClick={() => removeFilter(filterKey)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faClose}
-                              className="text-2xl relative top-1"
-                            />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                      </div>*/}
                 </div>
               </div>
             )}
