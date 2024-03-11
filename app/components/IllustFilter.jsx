@@ -107,7 +107,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
   return (
     <>
       {isSm ? (
-        <div className="max-[640px]:absolute">
+        <div className="max-[640px]:relative">
           <button>
             <FontAwesomeIcon
               onClick={() => openDropdown()}
@@ -188,6 +188,175 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                     </button>
                   </div>
                 </div>
+                {showFilterBox && (
+                  <div className="absolute md:relative bottom-30 md:top-14 md:z-10 md:bottom-0">
+                    <div className="flex justify-center">
+                      {filterName === "style" && (
+                        <div className="outline outline-1 p-5 -m-2 bg-white outline-gray-300 rounded-xl">
+                          <div className="flex text-start">
+                            <p className="font-bold text-xl ">
+                              Illustration Styles
+                            </p>
+                          </div>
+                          <div className="border border-gray-300 mt-2"></div>
+                          <div className="mt-5">
+                            <div className="flex gap-1">
+                              {Object.keys(categories).map((category) => (
+                                <button
+                                  key={category}
+                                  onClick={() => handleCategoryChange(category)}
+                                  className={`flex max-[640px]:items-center border border-solid text-xs md:p-1 md:text-base rounded-full ${
+                                    selectedCategory.includes(category)
+                                      ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
+                                      : ""
+                                  }`}
+                                >
+                                  {categoryDisplayNames[category] || category}
+                                </button>
+                              ))}
+                            </div>
+
+                            <div className="grid grid-cols-4 relative left-2 md:left-4">
+                              {categories[selectedCategory].map((style) => (
+                                <div className="group flex flex-col items-center justify-center max-[640px]:mb-2 h-10 w-10 md:h-14 md:w-14 mt-6">
+                                  <button
+                                    key={style}
+                                    onClick={() => handleChange(style)}
+                                    className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${
+                                      selectedStyle.includes(style)
+                                        ? "outline outline-violet-500 outline-2"
+                                        : ""
+                                    }`}
+                                  >
+                                    {/*<img
+                src="https://cdn-icons-png.freepik.com/256/2939/2939047.png"
+                className="rounded-2xl"
+                alt="illustIcon"
+            />*/}
+                                    {selectedStyle.includes(style) && (
+                                      <span className="check-icon absolute top-1 right-1 text-white text-sm">
+                                        <FontAwesomeIcon
+                                          icon={faCircleCheck}
+                                          size="1x"
+                                          className="text-violet-500"
+                                        />
+                                      </span>
+                                    )}
+                                  </button>
+                                  <p
+                                    style={{ fontSize: "10px" }}
+                                    className="text-center"
+                                  >
+                                    {style}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {filterName === "color" && (
+                        <div className="relative bottom-14 left-32 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
+                          <div className="text-start pb-4 border-b-2 border-gray-300">
+                            <p className="font-bold text-base">Color mode</p>
+                          </div>
+                          <div className="p-7 space-x-3">
+                            <div>
+                              <div className="float-left relative right-5">
+                                <input
+                                  type="checkbox"
+                                  onClick={() => handleChange("color")}
+                                  value="color"
+                                />
+                                <label className="ml-2">Full Colored</label>
+                              </div>
+                              <div className="float-right">
+                                <input
+                                  type="checkbox"
+                                  onClick={() => handleChange("bw")}
+                                  value="bw"
+                                />
+                                <label className="ml-2">Black & White</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {filterName === "mode" && (
+                        <div className="relative bottom-14 left-64 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
+                          <div className="text-start pb-4 border-b-2 border-gray-300">
+                            <p className="font-bold text-base">
+                              Illustration mode
+                            </p>
+                          </div>
+                          <div className="p-7 space-x-3">
+                            <div className="mr-5">
+                              <div className="float-left relative right-5">
+                                <input
+                                  type="checkbox"
+                                  onClick={() => handleChange("full")}
+                                  value="full"
+                                />
+                                <label className="ml-2">Full Image</label>
+                              </div>
+                              <div className="float-right relative">
+                                <input
+                                  type="checkbox"
+                                  onClick={() => handleChange("isolated")}
+                                  value="isolated"
+                                />
+                                <label className="ml-2">Isolated Image</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {filterName === "count" && (
+                        <div className="relative bottom-14 md:left-full outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
+                          <div className="text-start pb-4 border-b-2 border-gray-300">
+                            <p className="font-bold text-base">Colors amount</p>
+                          </div>
+                          <div className="p-7 space-y-1 h-[90px] overflow-y-scroll">
+                            {Array.from({ length: 5 }, (_, i) => (
+                              <div key={i} className="flex space-x-7">
+                                <div className="flex items-center">
+                                  <input
+                                    type="checkbox"
+                                    onClick={() => handleChange(2 * i + 1)}
+                                    id={`color-${2 * i + 1}`}
+                                    value={2 * i + 1}
+                                  />
+                                  <label
+                                    htmlFor={`color-${2 * i + 1}`}
+                                    className="pl-1"
+                                  >
+                                    {2 * i + 1} Colors
+                                  </label>
+                                </div>
+                                {2 * i + 2 <= 9 && (
+                                  <div className="flex items-center">
+                                    <input
+                                      type="checkbox"
+                                      onClick={() => handleChange(2 * i + 2)}
+                                      id={`color-${2 * i + 2}`}
+                                      value={2 * i + 2}
+                                    />
+                                    <label
+                                      htmlFor={`color-${2 * i + 2}`}
+                                      className="pl-1"
+                                    >
+                                      {2 * i + 2} Colors
+                                    </label>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -265,7 +434,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                 ))}
               </div>
             </div>
-            {/*{showFilterBox && (
+            {showFilterBox && (
               <div className="absolute top-14 z-10">
                 <div className="flex justify-center">
                   {filterName === "style" && (
@@ -308,8 +477,8 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                                 {/*<img
                 src="https://cdn-icons-png.freepik.com/256/2939/2939047.png"
                 className="rounded-2xl"
-                alt="illustIcon"
-            />
+                              alt="illustIcon"
+                              />*/}
                                 {selectedStyle.includes(style) && (
                                   <span className="check-icon absolute top-1 right-1 text-white text-sm">
                                     <FontAwesomeIcon
@@ -431,168 +600,9 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                   )}
                 </div>
               </div>
-            )}*/}
+            )}
           </div>
         </>
-      )}
-      {showFilterBox && (
-        <div className="absolute md:relative bottom-60 md:top-14 md:z-10 md:bottom-0">
-          <div className="flex justify-center">
-            {filterName === "style" && (
-              <div className="outline outline-1 p-5 -m-2 bg-white outline-gray-300 rounded-xl">
-                <div className="flex text-start">
-                  <p className="font-bold text-xl ">Illustration Styles</p>
-                </div>
-                <div className="border border-gray-300 mt-2"></div>
-                <div className="mt-5">
-                  <div className="flex gap-1">
-                    {Object.keys(categories).map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => handleCategoryChange(category)}
-                        className={`flex max-[640px]:items-center border border-solid text-xs md:p-1 md:text-base rounded-full ${
-                          selectedCategory.includes(category)
-                            ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
-                            : ""
-                        }`}
-                      >
-                        {categoryDisplayNames[category] || category}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-4 relative left-2 md:left-4">
-                    {categories[selectedCategory].map((style) => (
-                      <div className="group flex flex-col items-center justify-center max-[640px]:mb-2 h-10 w-10 md:h-14 md:w-14 mt-6">
-                        <button
-                          key={style}
-                          onClick={() => handleChange(style)}
-                          className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${
-                            selectedStyle.includes(style)
-                              ? "outline outline-violet-500 outline-2"
-                              : ""
-                          }`}
-                        >
-                          {/*<img
-                src="https://cdn-icons-png.freepik.com/256/2939/2939047.png"
-                className="rounded-2xl"
-                alt="illustIcon"
-            />*/}
-                          {selectedStyle.includes(style) && (
-                            <span className="check-icon absolute top-1 right-1 text-white text-sm">
-                              <FontAwesomeIcon
-                                icon={faCircleCheck}
-                                size="1x"
-                                className="text-violet-500"
-                              />
-                            </span>
-                          )}
-                        </button>
-                        <p style={{ fontSize: "10px" }} className="text-center">
-                          {style}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {filterName === "color" && (
-              <div className="relative bottom-14 left-32 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
-                <div className="text-start pb-4 border-b-2 border-gray-300">
-                  <p className="font-bold text-base">Color mode</p>
-                </div>
-                <div className="p-7 space-x-3">
-                  <div>
-                    <div className="float-left relative right-5">
-                      <input
-                        type="checkbox"
-                        onClick={() => handleChange("color")}
-                        value="color"
-                      />
-                      <label className="ml-2">Full Colored</label>
-                    </div>
-                    <div className="float-right">
-                      <input
-                        type="checkbox"
-                        onClick={() => handleChange("bw")}
-                        value="bw"
-                      />
-                      <label className="ml-2">Black & White</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {filterName === "mode" && (
-              <div className="relative bottom-14 left-64 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
-                <div className="text-start pb-4 border-b-2 border-gray-300">
-                  <p className="font-bold text-base">Illustration mode</p>
-                </div>
-                <div className="p-7 space-x-3">
-                  <div className="mr-5">
-                    <div className="float-left relative right-5">
-                      <input
-                        type="checkbox"
-                        onClick={() => handleChange("full")}
-                        value="full"
-                      />
-                      <label className="ml-2">Full Image</label>
-                    </div>
-                    <div className="float-right relative">
-                      <input
-                        type="checkbox"
-                        onClick={() => handleChange("isolated")}
-                        value="isolated"
-                      />
-                      <label className="ml-2">Isolated Image</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {filterName === "count" && (
-              <div className="relative bottom-14 md:left-full outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
-                <div className="text-start pb-4 border-b-2 border-gray-300">
-                  <p className="font-bold text-base">Colors amount</p>
-                </div>
-                <div className="p-7 space-y-1 h-[90px] overflow-y-scroll">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <div key={i} className="flex space-x-7">
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          onClick={() => handleChange(2 * i + 1)}
-                          id={`color-${2 * i + 1}`}
-                          value={2 * i + 1}
-                        />
-                        <label htmlFor={`color-${2 * i + 1}`} className="pl-1">
-                          {2 * i + 1} Colors
-                        </label>
-                      </div>
-                      {2 * i + 2 <= 9 && (
-                        <div className="flex items-center">
-                          <input
-                            type="checkbox"
-                            onClick={() => handleChange(2 * i + 2)}
-                            id={`color-${2 * i + 2}`}
-                            value={2 * i + 2}
-                          />
-                          <label
-                            htmlFor={`color-${2 * i + 2}`}
-                            className="pl-1"
-                          >
-                            {2 * i + 2} Colors
-                          </label>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
       )}
     </>
   );
