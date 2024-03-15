@@ -17,6 +17,9 @@ import {
 import Link from "next/link";
 import DownloadWindow from "./DownloadWindow";
 import { useMediaQuery } from "@mui/material";
+import { db } from "@/app/firebase/initFirebase";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 const IllustCard = ({ illustration, docRef, userId }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -106,6 +109,20 @@ const IllustCard = ({ illustration, docRef, userId }) => {
     } else {
       setIsClicked(true);
     }
+  };
+
+  const handleCopyCat = async (id) => {
+    const docRef = doc(db, "publicImages", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("ok");
+      return docSnap.data();
+    } else {
+      // 문서가 없을 때 처리
+      console.log("No such document!");
+    }
+
+    History.pushState(`/create?id=${id}`);
   };
 
   return (
@@ -290,7 +307,10 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                   </button>
                 </div>
                 <div className="my-1 hover:bg-gray-300">
-                  <button className="px-3 my-1 text-left">
+                  <button
+                    className="px-3 my-1 text-left"
+                    onClick={() => handleCopyCat(id)}
+                  >
                     <FontAwesomeIcon icon={faCopy} />
                     <p className="inline text-sm font-sans font-semibold pl-2">
                       Copycat
