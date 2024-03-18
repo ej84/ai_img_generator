@@ -39,7 +39,7 @@ const Page = () => {
   const [showUpgradeWindow, setShowUpgradeWindow] = useState(false);
   const router = useRouter();
   const [searchParams] = useSearchParams();
-  const [imageData, setImageData] = useState(null);
+  const [imageData, setImageData] = useState({});
 
   useEffect(() => {
     // Checks if user is logged in with auth state change detection
