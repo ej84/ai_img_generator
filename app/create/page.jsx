@@ -10,13 +10,14 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateImage } from "../utils/illustroke";
 import { db, auth, storage } from "../firebase/initFirebase";
-import { collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import fetchUserInfo from "../firebase/fetchUserInfo";
 import fetchUserData from "../firebase/fetchUserData";
 import { onAuthStateChanged } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import UpgradePlanWindow from "../components/UpgradePlanWindow";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [step, setStep] = useState(1);
@@ -37,6 +38,8 @@ const Page = () => {
   const [userId, setUserId] = useState("");
   const [showUpgradeWindow, setShowUpgradeWindow] = useState(false);
   const router = useRouter();
+  const [searchParams] = useSearchParams();
+  const [imageData, setImageData] = useState(null);
 
   useEffect(() => {
     // Checks if user is logged in with auth state change detection
@@ -57,6 +60,23 @@ const Page = () => {
     // Removes event listner when component gets unmounted
     return () => unsubscribe();
   }, [router]);
+
+  useEffect(() => {
+    const fetchImageDetails = async () => {
+      const imageId = searchParams.get("id");
+      if (!imageId) return;
+      const docRef = doc(db, "publicImages", imageId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setImageData(docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+    };
+
+    fetchImageDetails();
+  }, [searchParams]);
 
   /*
   const handleUpgradePlanWindow = (e) => {
@@ -291,6 +311,7 @@ const Page = () => {
                 >
                   Create illustration
                 </button>
+                {imageData && <p>{imageData.imagePrompt}</p>}
               </div>
             )}
 

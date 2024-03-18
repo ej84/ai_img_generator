@@ -19,7 +19,6 @@ import DownloadWindow from "./DownloadWindow";
 import { useMediaQuery } from "@mui/material";
 import { db } from "@/app/firebase/initFirebase";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 
 const IllustCard = ({ illustration, docRef, userId }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -110,20 +109,10 @@ const IllustCard = ({ illustration, docRef, userId }) => {
       setIsClicked(true);
     }
   };
-
-  const handleCopyCat = async (id) => {
-    const docRef = doc(db, "publicImages", id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("ok");
-      return docSnap.data();
-    } else {
-      // 문서가 없을 때 처리
-      console.log("No such document!");
-    }
-
-    History.pushState(`/create?id=${id}`);
-  };
+  /*
+  const handleCopyCat = (id) => {
+    Navigate(`/create?id=${id}`);
+  };*/
 
   return (
     <div
@@ -214,14 +203,17 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                           </p>
                         </div>
                       </button>
-                      <button className="flex p-3 text-left w-full h-full">
+                      <Link
+                        href={`/create?id=${id}`}
+                        className="flex p-3 text-left w-full h-full"
+                      >
                         <div className="ml-3">
                           <FontAwesomeIcon icon={faCopy} />
-                          <p className="inline text-sm font-sans font-semibold pl-2">
+                          <a className="inline text-sm font-sans font-semibold pl-2">
                             Copycat
-                          </p>
+                          </a>
                         </div>
-                      </button>
+                      </Link>
                       <div className="flex p-2 row-span-1 border border-t-2 border-y-0 border-t-gray-300"></div>
                       {docRef === "user" ? (
                         <div>
@@ -307,15 +299,15 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                   </button>
                 </div>
                 <div className="my-1 hover:bg-gray-300">
-                  <button
+                  <Link
+                    href={`/create?id=${id}`}
                     className="px-3 my-1 text-left"
-                    onClick={() => handleCopyCat(id)}
                   >
                     <FontAwesomeIcon icon={faCopy} />
-                    <p className="inline text-sm font-sans font-semibold pl-2">
+                    <a className="inline text-sm font-sans font-semibold pl-2">
                       Copycat
-                    </p>
-                  </button>
+                    </a>
+                  </Link>
                 </div>
                 <div className="mx-2 border border-gray-300"></div>
                 {docRef === "user" && (
