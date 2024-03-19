@@ -62,14 +62,21 @@ const Page = () => {
   }, [router]);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
     const fetchImageDetails = async () => {
-      const imageId = searchParams.get("id");
-      if (!imageId) return;
-      const docRef = doc(db, "publicImages", imageId);
+      const data = params.get("id");
+      if (data === "") return;
+      const docRef = doc(db, "publicImages", data);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         setImageData(docSnap.data());
+        setUserInput((prevState) => ({
+          ...prevState,
+          promptText: imageData.imagePrompt,
+        }));
+        console.log(imageData);
       } else {
         console.log("No such document!");
       }
@@ -88,6 +95,9 @@ const Page = () => {
       setShowUpgradeWindow(false);
     }
   };*/
+  /*
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get("id");*/
 
   const editMode = false;
 
@@ -304,7 +314,7 @@ const Page = () => {
                   placeholder="Ex: A smiling face of a old woman"
                   className="max-[639px]:mx-auto border border-solid w-full pl-5 max-w-xs md:max-w-2xl p-3 rounded-full"
                   formNoValidate
-                />
+                ></input>
                 <button
                   className="p-3 mainColor text-white rounded-full"
                   onClick={handleNext}

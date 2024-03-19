@@ -37,6 +37,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
 
   const imageUrl = illustration.img_url;
   const id = illustration.id;
+  const targetUrl = `/create?id=${encodeURIComponent(id)}`;
 
   const handleDownloadWindow = (e) => {
     if (!showDownloadWindow) {
@@ -204,7 +205,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                         </div>
                       </button>
                       <Link
-                        href={`/create?id=${id}`}
+                        href={targetUrl}
                         className="flex p-3 text-left w-full h-full"
                       >
                         <div className="ml-3">
@@ -299,10 +300,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                   </button>
                 </div>
                 <div className="my-1 hover:bg-gray-300">
-                  <Link
-                    href={`/create?id=${id}`}
-                    className="px-3 my-1 text-left"
-                  >
+                  <Link href={targetUrl} className="px-3 my-1 text-left">
                     <FontAwesomeIcon icon={faCopy} />
                     <a className="inline text-sm font-sans font-semibold pl-2">
                       Copycat
