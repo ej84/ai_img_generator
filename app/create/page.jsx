@@ -75,8 +75,12 @@ const Page = () => {
         setUserInput((prevState) => ({
           ...prevState,
           promptText: imageData.imagePrompt,
+          illuStyle: imageData.style,
+          colorMode: imageData.color,
+          objectMode: imageData.mode,
+          n: imageData.count,
+          visibility: imageData.visible,
         }));
-        console.log(imageData);
       } else {
         console.log("No such document!");
       }
