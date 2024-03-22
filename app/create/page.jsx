@@ -71,15 +71,16 @@ const Page = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setImageData(docSnap.data());
+        const imageData = docSnap.data();
+        setImageData(imageData);
         setUserInput((prevState) => ({
           ...prevState,
-          promptText: imageData.imagePrompt,
-          illuStyle: imageData.style,
-          colorMode: imageData.color,
-          objectMode: imageData.mode,
-          n: imageData.count,
-          visibility: imageData.visible,
+          promptText: imageData.imagePrompt || "",
+          illuStyle: imageData.style || [],
+          colorMode: imageData.color || "color",
+          objectMode: imageData.mode || "full",
+          n: imageData.count || 1,
+          visibility: imageData.visible || "public",
         }));
       } else {
         console.log("No such document!");
@@ -87,21 +88,7 @@ const Page = () => {
     };
 
     fetchImageDetails();
-  }, [searchParams]);
-
-  /*
-  const handleUpgradePlanWindow = (e) => {
-    if (userInfo.credits < 1) {
-
-      e.preventDefault();
-      setShowUpgradeWindow(true);
-    } else {
-      setShowUpgradeWindow(false);
-    }
-  };*/
-  /*
-  const params = new URLSearchParams(window.location.search);
-  const data = params.get("id");*/
+  }, []);
 
   const editMode = false;
 
@@ -122,7 +109,6 @@ const Page = () => {
   };
 
   const handleStepChange = (newCurrStep) => {
-    console.log(userInfo.credits);
     setCurrentStep(newCurrStep);
     setStep(newCurrStep);
   };
