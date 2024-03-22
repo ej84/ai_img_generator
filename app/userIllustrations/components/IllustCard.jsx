@@ -37,7 +37,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
 
   const imageUrl = illustration.img_url;
   const id = illustration.id;
-  const targetUrl = `/create?id=${encodeURIComponent(id)}`;
+  const targetUrl = `/create?id=${encodeURIComponent(id)}&docRef=${docRef}`;
 
   const handleDownloadWindow = (e) => {
     if (!showDownloadWindow) {

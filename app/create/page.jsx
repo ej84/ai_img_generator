@@ -47,6 +47,8 @@ const Page = () => {
       if (user) {
         fetchUserData(user.uid).then((data) => setUser(data));
         setUserId(user.uid);
+        console.log(user.uid);
+        console.log(userId);
 
         fetchUserInfo(user.uid).then((data) => setUserInfo(data));
       }
@@ -56,7 +58,6 @@ const Page = () => {
         router.push("/");
       }
     });
-
     // Removes event listner when component gets unmounted
     return () => unsubscribe();
   }, [router]);
@@ -66,8 +67,18 @@ const Page = () => {
 
     const fetchImageDetails = async () => {
       const data = params.get("id");
-      if (data === "") return;
-      const docRef = doc(db, "publicImages", data);
+      const data2 = params.get("docRef");
+
+      let docRef;
+      if (data === "" || data2 === "") return;
+
+      if (data2 === "explore") {
+        docRef = doc(db, "publicImages", data);
+        console.log(docRef);
+      } else {
+        docRef = doc(db, "users", userId, "illustrations", data);
+      }
+
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -311,7 +322,6 @@ const Page = () => {
                 >
                   Create illustration
                 </button>
-                {imageData && <p>{imageData.imagePrompt}</p>}
               </div>
             )}
 
