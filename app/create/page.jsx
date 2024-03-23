@@ -63,43 +63,47 @@ const Page = () => {
   }, [router]);
 
   useEffect(() => {
+    if (!userId || userId === "") return;
+
     const params = new URLSearchParams(window.location.search);
 
     const fetchImageDetails = async () => {
+
       const data = params.get("id");
       const data2 = params.get("docRef");
 
       let docRef;
-      if (data === "" || data2 === "") return;
+      if (data === "" || !data || data2 === "" || !data2) return;
+      else {
+        if (data2 === "explore") {
+          docRef = doc(db, "publicImages", data);
+          console.log(docRef);
+        } else {
+          docRef = doc(db, "users", userId, "illustrations", data);
+        }
 
-      if (data2 === "explore") {
-        docRef = doc(db, "publicImages", data);
-        console.log(docRef);
-      } else {
-        docRef = doc(db, "users", userId, "illustrations", data);
-      }
+        const docSnap = await getDoc(docRef);
 
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const imageData = docSnap.data();
-        setImageData(imageData);
-        setUserInput((prevState) => ({
-          ...prevState,
-          promptText: imageData.imagePrompt || "",
-          illuStyle: imageData.style || [],
-          colorMode: imageData.color || "color",
-          objectMode: imageData.mode || "full",
-          n: imageData.count || 1,
-          visibility: imageData.visible || "public",
-        }));
-      } else {
-        console.log("No such document!");
+        if (docSnap.exists()) {
+          const imageData = docSnap.data();
+          setImageData(imageData);
+          setUserInput((prevState) => ({
+            ...prevState,
+            promptText: imageData.imagePrompt || "",
+            illuStyle: imageData.style || [],
+            colorMode: imageData.color || "color",
+            objectMode: imageData.mode || "full",
+            n: imageData.count || 1,
+            visibility: imageData.visible || "public",
+          }));
+        } else {
+          console.log("No such document!");
+        }
       }
     };
 
     fetchImageDetails();
-  }, []);
+  }, [userId]);
 
   const editMode = false;
 
@@ -218,8 +222,8 @@ const Page = () => {
         const imageRef = ref(
           storage,
           "gs://meechelangelo-a76e3.appspot.com/" +
-            userInput.promptText.replace(" ", "_") +
-            ".svg"
+          userInput.promptText.replace(" ", "_") +
+          ".svg"
         );
 
         await uploadBytes(imageRef, blob);
