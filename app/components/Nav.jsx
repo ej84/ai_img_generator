@@ -14,7 +14,9 @@ const Nav = () => {
   const { user } = useAuth();
   const [showLoginWindow, setShowLoginWindow] = useState(false);
   const [userId, setUserId] = useState("");
+  const [userInfo, setUserInfo] = useState([]);
   const [userCredit, setUserCredit] = useState(0);
+  const [totalCredit, setTotalCredit] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const Nav = () => {
       if (user) {
         setUserId(user.uid);
 
-        fetchUserInfo(user.uid).then((data) => setUserCredit(data.explores));
+        fetchUserInfo(user.uid).then((data) => setUserInfo(data));
       }
 
       // If not logged in, redirect the user to main page
@@ -34,6 +36,24 @@ const Nav = () => {
     // Removes event listner when component gets unmounted
     return () => unsubscribe();
   }, [router]);
+
+  useEffect(() => {
+    if (!userInfo || userInfo.length === 0) return;
+
+    const setTotalAndUserCredits = async () => {
+      if (userInfo.subscriptionStatus === "Starter") {
+        setTotalCredit(20);
+      } else if (userInfo.subscriptionStatus === "Plus") {
+        setTotalCredit(25);
+      } else if (userInfo.subscriptionStatus === "Premium") {
+        setTotalCredit(150);
+      } else if (userInfo.subscriptionStatus === "Enterprise") {
+        setTotalCredit(9999);
+      }
+      setUserCredit(userInfo.explores);
+    };
+    setTotalAndUserCredits();
+  }, [userInfo]);
 
   const loginStyle = "md:hidden";
   const loginStyle2 = "hidden md:block";
@@ -79,14 +99,32 @@ const Nav = () => {
 
           {/* Upgrade Button */}
 
-          {user && <div onClick={handleLoginWindow} className="flex md:relative md:right-14">
-            <UpgradePlan title="Upgrade" />
-            <div className="relative top-3 left-20 inline">
-              <div className="px-5 py-0.5 bg-violet-600 rounded-full">
-
-              </div><p className="text-xs mt-4">{userCredit}/{userCredit} credits</p>
+          {user && (
+            <div
+              onClick={handleLoginWindow}
+              className="flex md:relative md:right-14"
+            >
+              <UpgradePlan title="Upgrade" />
+              <div className="relative top-3 left-20 inline">
+                <div
+                  className="text-start rounded-full bg-gray-300"
+                  style={{ height: "0.5rem", width: "100%" }}
+                >
+                  <div
+                    className="px-0.5 rounded-full bg-violet-600"
+                    style={{
+                      height: "100%",
+                      width: `${(userCredit / totalCredit) * 100}%`,
+                    }}
+                  ></div>
+                </div>
+                <p className="text-xs mt-1">
+                  {userCredit}/{totalCredit}
+                  credits
+                </p>
+              </div>
             </div>
-          </div>}
+          )}
           {showLoginWindow && (
             <div onClick={() => setShowLoginWindow(false)}>
               <LoginWindow />
