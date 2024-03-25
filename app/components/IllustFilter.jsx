@@ -192,7 +192,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                   <div className="absolute md:relative bottom-30 md:top-14 md:z-10 md:bottom-0">
                     <div className="flex justify-center">
                       {filterName === "style" && (
-                        <div className="outline outline-1 p-5 -m-2 bg-white outline-gray-300 rounded-xl">
+                        <div className="max-[640px]:relative max-[640px]:left-14 max-[640px]:bottom-60 outline outline-1 p-5 -m-2 bg-white outline-gray-300 rounded-xl">
                           <div className="flex text-start">
                             <p className="font-bold text-xl ">
                               Illustration Styles
@@ -256,7 +256,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                         </div>
                       )}
                       {filterName === "color" && (
-                        <div className="relative bottom-14 left-32 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
+                        <div className="relative max-[640px]:left-14 max-[640px]:bottom-44 bottom-14 left-32 outline outline-3 p-7 md:mr-32 md:mt-14 outline-gray-300 bg-white rounded-xl">
                           <div className="text-start pb-4 border-b-2 border-gray-300">
                             <p className="font-bold text-base">Color mode</p>
                           </div>
