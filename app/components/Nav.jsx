@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import AuthButton from "./AuthButton";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
 import UpgradePlan from "./UpgradePlan";
 import LoginWindow from "./LoginWindow";
+import { auth } from "../firebase/initFirebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import fetchUserInfo from "../firebase/fetchUserInfo";
 
 const Nav = () => {
   const { user } = useAuth();
   const [showLoginWindow, setShowLoginWindow] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [userCredit, setUserCredit] = useState(0);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Checks if user is logged in with auth state change detection
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(user.uid);
+
+        fetchUserInfo(user.uid).then((data) => setUserCredit(data.explores));
+      }
+
+      // If not logged in, redirect the user to main page
+      else {
+        router.push("/");
+      }
+    });
+    // Removes event listner when component gets unmounted
+    return () => unsubscribe();
+  }, [router]);
 
   const loginStyle = "md:hidden";
   const loginStyle2 = "hidden md:block";
@@ -53,9 +78,15 @@ const Nav = () => {
           </button>
 
           {/* Upgrade Button */}
-          <div onClick={handleLoginWindow}>
+
+          {user && <div onClick={handleLoginWindow} className="flex md:relative md:right-14">
             <UpgradePlan title="Upgrade" />
-          </div>
+            <div className="relative top-3 left-20 inline">
+              <div className="px-5 py-0.5 bg-violet-600 rounded-full">
+
+              </div><p className="text-xs mt-4">{userCredit}/{userCredit} credits</p>
+            </div>
+          </div>}
           {showLoginWindow && (
             <div onClick={() => setShowLoginWindow(false)}>
               <LoginWindow />

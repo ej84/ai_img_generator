@@ -106,6 +106,8 @@ const IlluStyles = ({
     setShowExample(false);
   };
 
+
+
   return (
     <>
       {step == 2 ? (
@@ -115,11 +117,10 @@ const IlluStyles = ({
               <button
                 key={category}
                 onClick={() => handleCategoryChange(category)}
-                className={`flex max-[640px]:items-center border border-solid text-xs px-3 py-1 md:p-5 md:py-2 md:text-base rounded-full ${
-                  selectedCategory.includes(category)
-                    ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
-                    : ""
-                }`}
+                className={`flex max-[640px]:items-center border border-solid text-xs px-3 py-1 md:p-5 md:py-2 md:text-base rounded-full ${selectedCategory.includes(category)
+                  ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
+                  : ""
+                  }`}
               >
                 {categoryDisplayNames[category] || category}
               </button>
@@ -135,11 +136,10 @@ const IlluStyles = ({
                 <button
                   key={style}
                   onClick={() => handleStyleChange(style)}
-                  className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-12 ${
-                    selectedStyle.includes(style)
-                      ? "selected outline outline-violet-500 outline-4"
-                      : ""
-                  }`}
+                  className={`relative bg-gray-300 rounded-xl p-7 m-2 md:p-12 ${selectedStyle.includes(style)
+                    ? "selected outline outline-violet-500 outline-4"
+                    : ""
+                    }`}
                 >
                   {/*<img
                     src="https://cdn-icons-png.freepik.com/256/2939/2939047.png"
