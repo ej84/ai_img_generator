@@ -17,6 +17,8 @@ const Page = () => {
   const [userName, setUserName] = useState("");
   const [illustData, setIllustData] = useState([]);
   const [filteredIllust, setFilteredIllust] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [imgsPerPage] = useState(8);
 
   const router = useRouter();
 
@@ -27,8 +29,9 @@ const Page = () => {
         setUserId(user.uid);
         setUserName(user.displayName);
         fetchUserData(user.uid).then((data) => {
-          setIllustData(data);
-          setFilteredIllust(data);
+          const dataLimit = data.slice(0, 100); // Limits up to 100 imgs
+          setIllustData(dataLimit);
+          setFilteredIllust(dataLimit.slice(0, imgsPerPage));
         });
       }
 
@@ -40,7 +43,23 @@ const Page = () => {
 
     // Removes event listner when component gets unmounted
     return () => unsubscribe();
-  }, [router]);
+  }, [router, imgsPerPage]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    const startIndex = (pageNumber - 1) * imgsPerPage;
+    const endIndex = startIndex + imgsPerPage;
+    setFilteredIllust(illustData.slice(startIndex, endIndex));
+  };
+
+  const renderPageNumbers = () => {
+    const pageCount = Math.ceil(illustData.length / imgsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => (
+      <button key={index} onClick={() => handlePageChange(index + 1)}>
+        |{index + 1}|
+      </button>
+    ));
+  };
 
   const applyFilter = (filters) => {
     const tempData = illustData.filter((illust) => {
@@ -124,6 +143,11 @@ const Page = () => {
                 </div>
               </div>
             )}
+            <>
+              <div className="mr-7 md:pt-10 md:-ml-24">
+                {renderPageNumbers()}
+              </div>
+            </>
           </div>
         </>
       </div>
