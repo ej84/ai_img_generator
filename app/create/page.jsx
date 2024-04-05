@@ -68,7 +68,6 @@ const Page = () => {
     const params = new URLSearchParams(window.location.search);
 
     const fetchImageDetails = async () => {
-
       const data = params.get("id");
       const data2 = params.get("docRef");
 
@@ -221,9 +220,7 @@ const Page = () => {
 
         const imageRef = ref(
           storage,
-          "gs://meechelangelo-a76e3.appspot.com/" +
-          userInput.promptText.replace(" ", "_") +
-          ".svg"
+          "" + userInput.promptText.replace(" ", "_") + ".svg"
         );
 
         await uploadBytes(imageRef, blob);

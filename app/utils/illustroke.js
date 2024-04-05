@@ -25,23 +25,7 @@ export const generateImage = async (
         }),
       }
     );
-    /*
-      "https://us-central1-illustroke-c1d67.cloudfunctions.net/extApp/generate",
-      {
-        method: "POST",
-        mode: "cors",
-        style: "flat",
-        prompt: prompt,
-        objectmode: "full",
-        colormode: "color",
-        n: 1, // number of generated images
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_ILLUSTROKE_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }*/
+
     console.log("Call Success");
     return response;
   } catch (error) {

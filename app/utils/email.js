@@ -15,8 +15,8 @@ export default async function sendEmail() {
   try {
     await mg.messages
       .create(DOMAIN, {
-        from: "jmw9871@gmail.com",
-        to: "ej84@njit.edu",
+        from: "test@test.com",
+        to: "test2@test.com",
         subject: "Hello, this is testing email.",
         text: "Testing some Mailgun awesomeness!",
         html: "<h1>Testing some Mailgun awesomeness!</h1>",

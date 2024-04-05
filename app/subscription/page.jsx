@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 
 const page = () => {
   const priceInfo = {
-    Starter: ["$7.99", 25, 20, false, "price_1Oj3hMGosf4jzahcBMCYuxhP"],
-    Plus: ["$22.99", 30, 25, false, "price_1Oj464Gosf4jzahcBhmmgjY7"],
-    Premium: ["$24.99", 80, 150, true, "price_1Oj4h6Gosf4jzahcrscMRWC4"],
-    Enterprise: ["$179.99", 500, 99999, true, "price_1Oj5PgGosf4jzahcHUuRfJEK"],
+    Starter: ["$7.99", 25, 20, false, "price_1"],
+    Plus: ["$22.99", 30, 25, false, "price_2"],
+    Premium: ["$24.99", 80, 150, true, "price_3"],
+    Enterprise: ["$179.99", 500, 99999, true, "price_4"],
   };
 
   const [userId, setUserId] = useState(null);

@@ -23,27 +23,6 @@ const storage = getStorage(app);
 const provider = new GoogleAuthProvider();
 const functions = getFunctions(app);
 
-//const stripeLoader = loadStripe();
-/*
-async function handleSubscription(user) {
-  const stripe = await stripeLoader;
-  const createCheckoutSession = httpsCallable(
-    functions,
-    "createCheckoutSession"
-  );
-
-  createCheckoutSession({ priceId: "price_id" })
-    .then((result) => {
-      const sessionId = result.data.sessionId;
-      if (sessionId) {
-        stripe.redirectToCheckout({ sessionId });
-      }
-    })
-    .catch((error) => {
-      console.error("Error creating checkout session:", error);
-    });
-}
-*/
 // Firestore to check user's plan
 function watchUserSubscription(user, callback) {
   const userRef = doc(db, "users", user.uid);

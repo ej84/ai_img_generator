@@ -62,14 +62,7 @@ export default function Home() {
     });
     return () => unsubscribeAuth();
   }, []);
-  /*
-  const applyFilter = (filters) => {
-    if (filters !== "" && filters !== null) {
-      const tempData = images.filter((illust) => illust.style[0] === filters);
-      setFilteredIllust(tempData);
-    }
-  };
-*/
+
   const applyFilter = (filters) => {
     const tempData = images.filter((image) => {
       return Object.keys(filters).every((key) => {
@@ -217,14 +210,6 @@ export default function Home() {
               <UpgradePlanWindow />
             </div>
           )}
-          {/*
-          <button className="bg-red-300 p-14" onClick={downloadImage}>
-            Convert SVG to PNG
-          </button>
-          <div className="bg-violet-500">
-            <p>PNG to SVG</p>
-            <input type="file" className="inline" onChange={downloadSvg} />
-            </div>*/}
         </div>
       </main>
     </>
