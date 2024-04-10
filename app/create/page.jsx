@@ -342,7 +342,7 @@ const Page = () => {
                     />
                   </div>
                   <div className="col-span-2 max-[640px]:space-x-14">
-                    <button onClick={handleBack} className="text-violet-500">
+                    <button onClick={handleBack} className="text-amber-500">
                       Back
                     </button>
                     <button
@@ -369,12 +369,12 @@ const Page = () => {
                   />
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
-                  <button onClick={handleBack} className="text-violet-500">
+                  <button onClick={handleBack} className="text-amber-500">
                     Back
                   </button>
                   <button
                     onClick={handleNext}
-                    className="bg-violet-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                    className="bg-amber-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
                   >
                     Continue
                   </button>
@@ -400,12 +400,12 @@ const Page = () => {
                   />
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
-                  <button onClick={handleBack} className="text-violet-500">
+                  <button onClick={handleBack} className="text-amber-500">
                     Back
                   </button>
                   <button
                     onClick={handleNext}
-                    className="bg-violet-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
+                    className="bg-amber-500 px-5 py-3 rounded-full text-white md:absolute md:right-16 md:-mt-3"
                   >
                     Continue
                   </button>
@@ -444,12 +444,12 @@ const Page = () => {
                   </div>
                 </div>
                 <div className="col-span-2 max-[640px]:space-x-14">
-                  <button onClick={handleBack} className="text-violet-500">
+                  <button onClick={handleBack} className="text-amber-500">
                     Back
                   </button>
                   <button
                     onClick={createImage}
-                    className="bg-violet-500 px-5 py-3 rounded-full text-white md:absolute md:left-1/2 md:-mt-3"
+                    className="bg-amber-500 px-5 py-3 rounded-full text-white md:absolute md:left-1/2 md:-mt-3"
                   >
                     Yes, Create
                   </button>

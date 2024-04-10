@@ -28,7 +28,7 @@ const IlluTypeSelector = ({
   const fullModeBtn = useRef(null);
   const isolModeBtn = useRef(null);
 
-  const [privateStyle, setPrivateStyle] = useState("outline-violet-500");
+  const [privateStyle, setPrivateStyle] = useState("outline-amber-500");
 
   const handleSelectedMode = (mode) => {
     setObjectMode(mode);
@@ -64,7 +64,7 @@ const IlluTypeSelector = ({
                   ref={fullModeBtn}
                   className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-red-600 ${
                     objectMode === "full"
-                      ? "outline outline-violet-500 outline-4"
+                      ? "outline outline-amber-500 outline-4"
                       : ""
                   }`}
                   onClick={() => handleSelectedMode("full")}
@@ -74,7 +74,7 @@ const IlluTypeSelector = ({
                       <FontAwesomeIcon
                         icon={faCircleCheck}
                         size="2x"
-                        className="text-violet-500"
+                        className="text-amber-500"
                       />
                     </span>
                   )}
@@ -87,7 +87,7 @@ const IlluTypeSelector = ({
                   ref={isolModeBtn}
                   className={`relative h-20 w-20 md:h-28 md:w-28 rounded-2xl bg-white shadow-2xl ${
                     objectMode === "isolated"
-                      ? "outline outline-violet-500 outline-4"
+                      ? "outline outline-amber-500 outline-4"
                       : ""
                   }`}
                   onClick={() => handleSelectedMode("isolated")}

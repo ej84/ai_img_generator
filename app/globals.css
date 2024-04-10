@@ -22,12 +22,12 @@ body {
 }
 
 .mainColor {
-  background-color: blueviolet;
+  background-color: brown;
 }
 
 .buttonStyle:hover {
   outline-style: solid;
-  outline-color: blueviolet;
-  background-color: rgba(150, 61, 233, 0.836);
+  outline-color: brown;
+  background-color: brown;
   color: white;
 }

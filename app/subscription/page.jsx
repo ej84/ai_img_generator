@@ -71,7 +71,7 @@ const page = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
+    <div className="fixed inset-0 bg-red-950 flex justify-center items-center">
       <div className="grid grid-cols-1 md:grid-cols-4 text-white space-x-5">
         {Object.entries(priceInfo).map(([title, info]) => (
           <div key={title} className="w-64 h-96 hover:bg-gray-500 rounded-xl">

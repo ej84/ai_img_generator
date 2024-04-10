@@ -222,7 +222,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                             <p className="text-sm font-bold text-gray-400">
                               Illustration Visibility
                             </p>
-                            <div className="rounded-full px-1.5 bg-violet-600 ml-2">
+                            <div className="rounded-full px-1.5 bg-amber-500 ml-2">
                               <FontAwesomeIcon
                                 icon={faCrown}
                                 className="text-white"
@@ -315,7 +315,7 @@ const IllustCard = ({ illustration, docRef, userId }) => {
                         Illustration Visibility
                         <FontAwesomeIcon
                           icon={faCrown}
-                          className="text-white rounded-full px-1 ml-1 bg-violet-600"
+                          className="text-white rounded-full px-1 ml-1 bg-amber-500"
                         />
                       </p>
                     </div>

@@ -176,13 +176,13 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                   <div className="flex space-x-5 mt-2 ml-32">
                     <button
                       onClick={handleReset}
-                      className="text-violet-600 underline"
+                      className="text-amber-600 underline"
                     >
                       Reset
                     </button>
                     <button
                       onClick={handleApplyFilter}
-                      className="border border-solid p-2 text-white bg-violet-500 rounded-full"
+                      className="border border-solid p-2 text-white bg-amber-500 rounded-full"
                     >
                       Apply filter
                     </button>
@@ -207,7 +207,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                                   onClick={() => handleCategoryChange(category)}
                                   className={`flex max-[640px]:items-center border border-solid text-xs md:p-1 md:text-base rounded-full ${
                                     selectedCategory.includes(category)
-                                      ? "outline outline-violet-500 outline-3 bg-violet-200 text-violet-500"
+                                      ? "outline outline-amber-500 outline-3 bg-violet-200 text-amber-500"
                                       : ""
                                   }`}
                                 >
@@ -224,7 +224,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                                     onClick={() => handleChange(style)}
                                     className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${
                                       selectedStyle.includes(style)
-                                        ? "outline outline-violet-500 outline-2"
+                                        ? "outline outline-amber-500 outline-2"
                                         : ""
                                     }`}
                                   >
@@ -238,7 +238,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                                         <FontAwesomeIcon
                                           icon={faCircleCheck}
                                           size="1x"
-                                          className="text-violet-500"
+                                          className="text-amber-500"
                                         />
                                       </span>
                                     )}
@@ -470,7 +470,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                                 onClick={() => handleChange(style)}
                                 className={`relative bg-gray-300 rounded-xl p-6 md:p-8 md:mt-2 ${
                                   selectedStyle.includes(style)
-                                    ? "outline outline-violet-500 outline-2"
+                                    ? "outline outline-amber-500 outline-2"
                                     : ""
                                 }`}
                               >
@@ -484,7 +484,7 @@ const IllustFilter = ({ onApplyFilter, onReset }) => {
                                     <FontAwesomeIcon
                                       icon={faCircleCheck}
                                       size="1x"
-                                      className="text-violet-500"
+                                      className="text-amber-500"
                                     />
                                   </span>
                                 )}

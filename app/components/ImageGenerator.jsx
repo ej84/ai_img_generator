@@ -63,7 +63,7 @@ const ImageGenerator = () => {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Enter a prompt"
-          className="border border-indigo-700"
+          className="border border-amber-700"
         />
         <button type="submit">Generate Image</button>
       </form>

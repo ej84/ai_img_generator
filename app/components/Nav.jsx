@@ -93,7 +93,7 @@ const Nav = () => {
             type="search"
             placeholder="Search for an illustration..."
           />
-          <button className="hidden lg:block relative right-28 px-4 my-1 border border-violet-500 bg-white text-violet-500 rounded-full hover:bg-violet-500 hover:text-white">
+          <button className="hidden lg:block relative right-28 px-4 my-1 border border-amber-500 bg-white text-amber-500 rounded-full hover:bg-amber-500 hover:text-white">
             Search
           </button>
 
@@ -111,7 +111,7 @@ const Nav = () => {
                   style={{ height: "0.5rem", width: "100%" }}
                 >
                   <div
-                    className="px-0.5 rounded-full bg-violet-600"
+                    className="px-0.5 rounded-full bg-amber-500"
                     style={{
                       height: "100%",
                       width: `${(userCredit / totalCredit) * 100}%`,
