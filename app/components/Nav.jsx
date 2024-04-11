@@ -70,10 +70,9 @@ const Nav = () => {
   return (
     <nav className="bg-white px-2 py-2 border border-x-transparent border-b-gray-200">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-        {/* Logo */}
         <div className="flex justify-between md:justify-start">
           <Link href="/">
-            <h1 className="text-2xl mt-1 font-bold">LOGO</h1>
+            <h1 className="text-2xl mt-1 font-bold">MyApp</h1>
           </Link>
           {user ? (
             <UserProfile style={loginStyle} />
